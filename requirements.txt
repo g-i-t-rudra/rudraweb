@@ -1,6 +1,6 @@
-flask
+Flask
+gspread
+oauth2client
+Flask-Mail
 gunicorn
 werkzeug==2.0.3
-gspread
-google-auth
-oauth2client
