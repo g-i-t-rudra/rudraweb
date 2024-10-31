@@ -2,7 +2,6 @@ import json
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
