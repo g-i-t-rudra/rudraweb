@@ -4,13 +4,14 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import gspread
 from flask_mail import Mail, Message
 from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 
 app = Flask(__name__)
 app.secret_key = 'rudra'
 
 # Load Google credentials from the environment variable
 credentials_info = json.loads(os.getenv('GOOGLE_CREDENTIALS'))
-creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials_info, scopes=[
+creds = Credentials.from_service_account_file(credentials_info, scopes=[
     "https://spreadsheets.google.com/feeds", 
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file", 
