@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Knowledge Drops - RUDRA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+</head>
+<body style="background-color: #010102;">
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <h2><i class="fas fa-book"></i> All Knowledge Drops</h2>
+        <div class="section-divider mb-4"></div>
+
+        <div class="row">
+            {% for drop in knowledge_drops %}
+            <div class="col-md-4 mb-4">
+                <div class="card knowledge-drop-card">
+                    <img src="{{ drop['thumbnail'] }}" alt="Thumbnail" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ drop['title'] }}</h5>
+                        <a href="{{ drop['pdf'] }}" target="_blank" class="btn btn-primary">Read Knowledge Drop</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

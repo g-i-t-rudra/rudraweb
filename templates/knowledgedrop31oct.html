@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUDRA Weekly Knowledge Drop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+    <style>
+        /* Custom Styling for Article */
+        .knowledge-drop-container {
+            background-color: #010102;
+            color: #e8f1f2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+            margin-top: 20px;
+        }
+        .knowledge-drop-header img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-bottom: 5px solid #68d4f2;
+            border-radius: 10px 10px 0 0;
+        }
+        .knowledge-drop-title {
+            color: #68d4f2;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .knowledge-drop-content p {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .knowledge-drop-content h2 {
+            color: #68d4f2;
+            font-weight: bold;
+            font-size: 1.8em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="background-color: #010102;">
+    {% include 'navbar.html' %}
+
+    <div class="container knowledge-drop-container">
+        <!-- Full-Width Thumbnail Image -->
+        <div class="knowledge-drop-header">
+            <img src="{{ url_for('static', filename='qb1thumbnail.webp') }}" alt="Knowledge Drop Thumbnail">
+        </div>
+
+        <!-- Article Content -->
+        <div class="knowledge-drop-content mt-4">
+            <h1 class="text-center knowledge-drop-title">RUDRA Weekly Knowledge Drop</h1>
+            <h5 class="text-center" style="color: #b9e3e5;">{{ date }}</h5>
+            <h2 class="text-center mt-4" style="color: #e8f1f2; font-style: italic;">Quick Byte 1</h2>
+            
+            <!-- Knowledge Drop Text Content -->
+            <p>🎉 <strong>Weekly Knowledge Drop: Step into the World of Data Science! 🌐</strong></p>
+            <p>Hey RUDRA data enthusiasts! This week’s Knowledge Drop is all about kicking off with the basics—what data science is, the incredible pathways it offers, and some fun tidbits that make this field so exciting. Ready to unravel the magic that data holds?</p>
+
+            <h2>🌍 What Exactly is Data Science?</h2>
+            <p>In a nutshell, data science is like being a detective, engineer, and storyteller all in one. It’s the art of finding meaningful patterns in data by blending mathematics, computer science, and problem-solving with a dash of creativity. Think of it as transforming raw numbers into powerful insights—whether that’s predicting weather, recommending your next favorite song, or even spotting spam!</p>
+
+            <p>Here’s the mind-boggling part: Over 2.5 quintillion bytes of data are created every day (yes, quintillion!). With that much data, there’s a goldmine of discoveries waiting to be made. Enter data scientists—they’re the modern-day wizards who make sense of it all.</p>
+
+            <h2>🚀 The Pathways and Possibilities</h2>
+            <p>Data science isn’t one-size-fits-all. There are tons of paths, each as fascinating as the next! Here are some of the big ones and the types of projects you might encounter in each:</p>
+            
+            <ul>
+                <li><strong>Data Analytics</strong>: The backbone of the data world. Analysts clean and analyze data to discover trends and provide insights. Imagine tracking customer preferences to improve a product—that’s data analytics in action.</li>
+                <li><strong>Machine Learning (ML)</strong>: This is where algorithms meet data to create models that learn over time. Imagine building a system that detects credit card fraud or a voice assistant that improves as it interacts with you—yep, that’s ML!</li>
+                <li><strong>Artificial Intelligence (AI)</strong>: AI is the science of making computers think like humans (or at least try to). It powers everything from facial recognition to self-driving cars.</li>
+                <li><strong>Quantum Computing</strong>: Using principles of quantum mechanics, quantum computers could revolutionize fields from finance to medicine.</li>
+            </ul>
+
+            <h2>🎯 Microsoft’s Learning Path for Data Enthusiasts</h2>
+            <p>Looking to strengthen your skills? Microsoft offers a structured Data Analytics Learning Path that’s great for beginners to intermediate learners, covering core skills in data visualization, reporting, and data-driven decision-making. Check out the Microsoft Data Analytics Path <a href="https://learn.microsoft.com/en-us/training/browse/?roles=ai-engineer%2Cbusiness-analyst%2Cdata-analyst%2Cdata-engineer%2Cdata-scientist&levels=beginner%2Cintermediate%2Cadvanced&resource_type=course%2Clearning%20path">here</a> to start building essential skills for a career in data.</p>
+
+            <h2>🧩 Knowledge Quiz Teaser</h2>
+            <p>Ready for our upcoming quiz? Here’s a sneak peek question to test your curiosity: "If you were to develop a predictive model to help a streaming service recommend new songs based on what users have already listened to, which field of data science would you be working in?"</p>
+
+            <p>Happy learning, RUDRA members! Remember, data science is as much about creativity as it is about numbers, so don’t be afraid to experiment and share your discoveries. See you next week for another Knowledge Drop! 🎉</p>
+
+            <h2>📅 Exciting Times Ahead with RUDRA!</h2>
+            <p>RUDRA is gearing up with more learning opportunities, including Microsoft Study Jams, workshops, and speaker sessions on cutting-edge data science topics. Be sure to join our WhatsApp groups to stay updated:</p>
+            <ul>
+                <li><a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx">RUDRA Members</a></li>
+                <li><a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx">RUDRA Exclusive</a></li>
+            </ul>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

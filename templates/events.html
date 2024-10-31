@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - RUDRA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+    <style>
+        /* General heading style for the events page */
+h2, h3, h4, .card-title {
+    color: #f8f9fa; /* Off-white for better readability */
+}
+
+.section-divider {
+    height: 2px;
+    width: 100%;
+    background-color: #68d4f2; /* Accent color for divider */
+    margin: 10px 0;
+}
+
+/* Knowledge drop card styling */
+.knowledge-drop-card {
+    background-color: #1c1c1e; /* Dark background for card */
+    color: #f8f9fa; /* White text color */
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.knowledge-drop-card:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 6px 12px rgba(104, 212, 242, 0.8); /* Fluorescent glow */
+}
+
+/* Styling for buttons in cards */
+.knowledge-drop-card .btn-primary {
+    background-color: #68d4f2;
+    border: none;
+}
+
+.knowledge-drop-card .btn-primary:hover {
+    background-color: #3aaaff;
+    box-shadow: 0 4px 8px rgba(104, 212, 242, 0.6);
+}
+
+/* Styling for the "See All Knowledge Drops" button */
+.see-all-section .btn-secondary {
+    background-color: #333;
+    color: #f8f9fa;
+    border: 1px solid #68d4f2;
+    border-radius: 5px;
+    padding: 8px 15px;
+}
+
+.see-all-section .btn-secondary:hover {
+    background-color: #68d4f2;
+    color: #1c1c1e;
+    box-shadow: 0 4px 8px rgba(104, 212, 242, 0.8);
+}
+
+/* Microsoft Study Jams and other event descriptions */
+.container p {
+    color: #b9e3e5; /* Light teal for better readability */
+}
+
+/* Icons in the section headings */
+.container i {
+    color: #68d4f2; /* Accent color for icons */
+    margin-right: 8px;
+}
+li{
+    color: #b9e3e5;
+    margin-left: 30px;
+}
+
+    </style>
+</head>
+<body style="background-color: #010102;">
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <h2><i class="fas fa-book"></i> Weekly Knowledge Drops</h2>
+        <div class="section-divider"></div>
+        <div class="knowledge-drop-section d-flex justify-content-between align-items-center">
+            <div>
+                {% if latest_knowledge_drop %}
+                <div class="knowledge-drop-section">
+                    <h3>Latest Knowledge Drop</h3>
+                    {% if latest_knowledge_drop %}
+                        <div class="card knowledge-drop-card" style="width: 18rem;">
+                            <img src="{{ latest_knowledge_drop['thumbnail'] }}" alt="Thumbnail" class="card-img-top" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ latest_knowledge_drop['title'] }}</h5>
+                                <a href="{{ latest_knowledge_drop['pdf'] }}" target="_blank" class="btn btn-primary">Read Knowledge Drop</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>No knowledge drops available.</p>
+                    {% endif %}
+                </div>
+                
+                <div class="see-all-section mt-3">
+                    <a href="{{ url_for('all_knowledge_drops') }}" class="btn btn-secondary">See All Knowledge Drops</a>
+                </div>
+                
+                {% else %}
+                    <p>No knowledge drops available.</p>
+                {% endif %}
+            </div>
+            
+        </div>
+
+        <div class="mt-5">
+            <h2><i class="fas fa-chalkboard-teacher"></i> Microsoft Study Jams – Choose Your Learning Path</h2>
+            <div class="section-divider"></div>
+            <p>Explore Microsoft’s curated learning paths in specialized areas. Dive into selected modules, work on projects, and earn recognition!</p>
+            <ul>
+                <li>Azure AI & Machine Learning</li>
+                <li>Azure Data Fundamentals</li>
+                <li>Power BI Mastery</li>
+                <li>Advanced Data & Quantum Computing</li>
+            </ul>
+            <p>Work on projects as part of the study jams, and if selected, showcase your project to Microsoft experts!</p>
+            <a href="https://forms.gle/Tv4uMC2mN9kQ7Dta7" target="_blank" class="btn btn-primary mt-3">Register for Study Jams</a>
+        </div>
+
+        <div class="mt-5">
+            <h2><i class="fas fa-globe"></i> Online Events</h2>
+            <div class="section-divider"></div>
+            <p>Ask Me Anything Session Coming Soon!</p>
+            <!-- <img src="{{ url_for('static', filename='upcoming_event_thumbnail.jpg') }}" alt="AMA Thumbnail" class="img-fluid"> -->
+        </div>
+
+        <div class="mt-5">
+            <h2><i class="fas fa-building"></i> Offline Events</h2>
+            <div class="section-divider"></div>
+            <p>Planned in January 2025 as per the instructions of RVU Management.</p>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

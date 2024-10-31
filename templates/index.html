@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUDRA - Resourceful Unit for Data Research and Analytics</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+</head>
+<body style="background-color: #010102;">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='rudralogo9.jpeg') }}" alt="RUDRA Logo" class="logo" style="border-radius: 50%; width: 50px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('comingsoon') }}">About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Initiatives
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#" style=" background-color: rgba(29, 0, 135, 0.4); color: #68d4f2;">Events</a>
+                            <a class="dropdown-item" href="{{ url_for('events') }}" style=" background-color: rgba(29, 0, 135, 0.4); color: #68d4f2;">Weekly Knowledge Drops</a>
+                            <a class="dropdown-item" href="{{ url_for('events') }}" style=" background-color: rgba(29, 0, 135, 0.4) ; color: #68d4f2;">Ask Me Anything Sessions</a>
+                            <a class="dropdown-item" href="{{ url_for('events') }}" style=" background-color: rgba(29, 0, 135, 0.4) ; color: #68d4f2;">Study Jams</a>
+                            <a class="dropdown-item" href="{{ url_for('events') }}" style=" background-color: rgba(29, 0, 135, 0.4); color: #68d4f2;">Courses</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('comingsoon') }}">Fun Moments</a>
+                    </li>
+                    {% if not logged_in %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light nav-link text-white" href="{{ url_for('login') }}">Login</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               {{ user_name }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url_for('profile') }}" style=" background-color: rgba(29, 0, 135, 0.4) ; color: #68d4f2;">Profile</a>
+                                <a class="dropdown-item" href="{{ url_for('logout') }}" style=" background-color: rgba(29, 0, 135, 0.4); color: #68d4f2;">Logout</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Interactive Door Animation -->
+    <div class="door-container">
+        <div class="rings-container">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+        </div>
+        <img src="{{ url_for('static', filename='rudralogo9.jpeg') }}" alt="RUDRA Logo" class="logo" style="width: 250px;">
+        <button class="btn-enter" onclick="openDoor()">Enter the world of RUDRA</button>
+        <div class="door"></div>
+    </div>
+
+    <!-- Main Homepage Content (initially hidden) -->
+    <div id="home" style="display: none;">
+        <!-- Hero Section -->
+        <div class="video-container">
+            <video autoplay muted loop id="video-background" style="opacity: 0.5;">
+                <source src="{{ url_for('static', filename='The Data Revolution_ Illuminating Insights Ahead.mp4') }}" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="text-overlay">
+                <h1>RUDRA - Resourceful Unit for Data Research and Analytics</h1>
+                <p>Empowering Students with Data Skills</p>
+                <a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx" class="btn btn-primary">Join Us Today</a>
+            </div>
+        </div>
+
+        <!-- Enhanced "What We Do" Section -->
+        <div class="container-fluid" id="what-we-do" style="padding: 5px; margin-top: 30px;">
+            <div class="title text-center" style="margin-top: 10px; padding: 10px;">
+                <h1 style="color: #ffffff;">What We Do</h1>
+            </div>
+            <div class="what-we-do-content glass-effect" style="margin: 10px 5px; padding: 20px; font-size: large; color: #e8f1f2;">
+                <p>RUDRA - Resourceful Unit for Data Research and Analytics is committed to empowering students with data science skills. Our club provides hands-on experiences, collaborative projects, and industry insights to prepare members for real-world challenges.</p>
+                <a href="{{ url_for('aboutus') }}" class="btn btn-outline-primary mt-3">Learn More About Us</a>
+            </div>
+        </div>
+    </div>
+
+  <!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row d-flex justify-content-around">
+            <!-- Left Section: Contact -->
+              <!-- Center Section: Quick Links -->
+              <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{{ url_for('knowledge_drop') }}">&#x3E; Latest Weekly Knowledge Drop</a></li>
+                    <li><a href="https://forms.gle/Tv4uMC2mN9kQ7Dta7">&#x3E; Register for Microsoft Study Jams</a></li>
+                    <li><a href="{{ url_for('comingsoon') }}">&#x3E; Register and Join RUDRA</a></li>
+                    <li><a href="{{ url_for('comingsoon') }}">&#x3E; Explore Blogs</a></li>
+                    <li><a href="#" class="go-to-top">&#x3E; Go to Top</a></li>
+                </ul>
+            </div>
+
+
+           
+
+            <!-- Right Section: Follow Us Icons -->
+            <div class="col-md-3 text-center">
+                <h5>Follow Us</h5>
+                <ul class="social-icons">
+                    <li><a href="https://www.instagram.com/rudra.rvu?utm_source=qr&igsh=OTNtOGxjenV5cmF1" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="RUDRA RVU Linkedin" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a href="" ><i class="fab fa-github"></i></a></li>
+                    <li><a href="https://www.youtube.com/@rudra_rvu" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                    <li><a href="RUDRA RVU twitter" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            </div>
+            
+            <div class="col-md-3">
+                <h5>Contact</h5>
+                <ul class="list-unstyled">
+                    <li><a href="mailto:contact.rudrarvu@gmail.com"><i class="far fa-envelope"></i> Email</a></li>
+                    <li>
+                        <a href="mailto:contact.rudrarvu@gmail.com?cc=sujayvk.btech23@rvu.edu.in,adityas.btech23@rvu.edu.in,vaishnavs.btech23@rvu.edu.in,ramyashreeg.bsc23@rvu.edu.in,apoorvg.btech23@rvu.edu.in,thaijayani.btech23@rvu.edu.in,glakshmia.btech23@rvu.edu.in">
+                            <i class="far fa-envelope"></i> Contact Executive Board
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+    <!-- JavaScript for the Interactive Door Animation -->
+    <script>
+        function openDoor() {
+            const doorContainer = document.querySelector('.door-container');
+            const homeContent = document.getElementById('home');
+            const audio = new Audio('{{ url_for('static', filename='mixkit-futuristic-door-open-183.mp3') }}');
+            const rings = document.querySelectorAll('.ring');
+
+            // Play audio
+            audio.play();
+
+            // Animate rings
+            rings.forEach((ring, index) => {
+                ring.style.animation = `ringLoader 1.5s ease-in-out ${index * 0.3}s forwards`;
+            });
+
+            // Door opening animation
+            doorContainer.style.animation = 'fadeOut 1s ease-in-out 1.5s forwards';
+            
+            // Transition to homepage content
+            setTimeout(function () {
+                doorContainer.style.display = 'none';
+                homeContent.style.display = 'block';
+            }, 2500); // Adjust time according to animation duration
+        }
+    </script>
+   
+    
+
+   </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+        /* CSS for Door Animation */
+        .door-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #010102;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .rings-container {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .ring {
+            width: 50px;
+            height: 50px;
+            border: 5px solid transparent;
+            border-top: 5px solid #3aaaff;
+            border-radius: 50%;
+            margin: 0 10px;
+            opacity: 0;
+        }
+
+        .btn-enter {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #68d4f2;
+            color: #1d0303;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Keyframe animations */
+        @keyframes ringLoader {
+            0% { opacity: 0; transform: rotate(0deg); }
+            100% { opacity: 1; transform: rotate(360deg); }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Glass Effect for "What We Do" Section */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1), 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        /* Enhanced Glass Effect for "What We Do" Section */
+.what-we-do-content {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+}
+
+    </style>
+</body>
+</html>

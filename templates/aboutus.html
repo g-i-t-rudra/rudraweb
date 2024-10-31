@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUDRA - Resourceful Unit for Data Research and Analytics</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="rudrastyle.css">
+    <style>
+        /* Header Styles */
+
+
+/* Main Content Styles */
+
+.about-content {
+    background-color: #1becff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    clear: both;
+
+
+}
+.about-content:nth-child(even){
+    background-color: #1bbeff;
+}
+.about-content img{
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    margin: auto;
+    
+}
+
+
+.about-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+.about-content p {
+    color: #555;
+    line-height: 1.6;
+}
+.about-content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.about-content ul li {
+    margin-bottom: 10px;
+    
+}
+.card img{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+.card-info{
+    text-align: center;
+}
+#aboutustitle{
+    margin-top: 20px;
+    background-color: #15f9a9;
+    
+    border-radius: 10px;
+    
+}
+#aboutustitle h2{
+    
+    padding: 10px;
+}
+.member-card img{
+    
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+.member-info{
+    text-align: center;
+}
+.social-icons{
+    text-align: center;
+    justify-content: center;
+}
+.know-more-btn{
+    display: flex;
+    justify-content: center;
+}
+@media screen and (max-width: 800px) {
+    .row{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+
+
+
+    </style>
+</head>
+
+<body style="background-color: #010102;">
+
+    <!-- Hidden Jumbotron / Hero Section -->
+    <div class="container-fluid">
+        <div class="title ">
+            <div class="container-fluid d-flex justify-content-between">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="rudralogo9.jpeg" alt="RUDRA Logo" class="logo" style="border-radius: 50%;">
+                    <span class="d-none d-lg-block text-center">
+                        <h1 class="h1" style="color: #fff;">Resourceful Unit for Data Research and Analytics</h1>
+                    </span>
+                </a>
+                <a href="https://rvu.edu.in/" target="_blank">
+                    <div class="powered-by">
+                        Powered by <img src="rvulogowhite.png" alt="RV University Logo">
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Initiatives
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="initiatives.html">Major Events</a>
+                                <hr>
+                                <a class="dropdown-item" href="#">Major Events</a>
+                                <a class="dropdown-item" href="#">Other Events</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blogs and News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Join Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+        <div id="aboutustitle"><h2 class="text-center mb-5 backgrey">About Us</h2></div>
+        <div class="row d-flex justify-content-center"><img src="rudralogo9.jpeg" alt="" style="margin: 20px;" class="img-fluid"></div>
+        <div class="about-content text-center row">
+            <p>Welcome to RUDRA - Resourceful Unit for Data Research and Analytics, a dynamic college club dedicated to empowering students with data skills and fostering a community passionate about data research and analytics.</p>
+            <p>At RUDRA, we align with RV University's mission to prepare students for the VUCA (Volatility, Uncertainty, Complexity, and Ambiguity) world by focusing on problem-solving, critical thinking, innovation, creativity, communication, entrepreneurship, and data science.</p>
+        </div>
+
+        <div class="about-content container">
+            <h2 class="text-center mb-5 backgrey row justify-content-center"><span>Vision and Mission</span></h2>
+            <div class="row">
+            
+            <div class="col-md-6 col-sm-12"><h3>Vision:</h3>
+            <p>To empower RV University students with comprehensive data skills, fostering a community of innovative thinkers prepared to tackle real-world challenges in the evolving landscape of data research and analytics.</p>
+            <h3>Mission:</h3>
+            <p>Our mission is to cultivate a culture of excellence in Data Research and Analytics among RVU students by providing opportunities for hands-on learning, collaboration, and industry engagement. Through our initiatives, we aim to equip students with the necessary skills and knowledge to become proficient Data Scientists and make meaningful contributions to society.</p></div>
+            <div class="col-md-6 col-sm-12"><img src="rudralogo9.jpeg" alt="RUDRA Logo" class="mb-3" /></div>
+            </div>
+        </div>
+
+        <div class="about-content container">
+            <h2 class="text-center mb-5 backgrey row justify-content-center" ><span>Our Values</span></h2>
+            <div class="row">
+                <div class="col-md-6 col-sm-12"><img src="rudralogo9.jpeg" alt="RUDRA Logo" class="mb-3" /></div>
+            <div class="col-md-6 col-sm-12"><ul>
+                <li><strong>Excellence:</strong> We strive for excellence in all our endeavors, continuously seeking to improve and innovate.</li>
+                <li><strong>Collaboration:</strong> We believe in the power of collaboration and teamwork, recognizing that diverse perspectives lead to better outcomes.</li>
+                <li><strong>Integrity:</strong> We uphold the highest standards of integrity, honesty, and ethical conduct in everything we do.</li>
+                <li><strong>Inclusivity:</strong> We embrace diversity and inclusivity, creating a welcoming environment where everyone feels valued and respected.</li>
+                <li><strong>Continuous Learning:</strong> We promote a culture of lifelong learning, encouraging curiosity, exploration, and personal growth.</li>
+            </ul></div></div>
+        </div>
+        <div class="partnerships"><div class="marquee-container">
+                
+            <div class="title backgrey text-center" style="font-size: larger; margin-top: 10px; padding: 10px; background-color: #1becff;">Partnerships and Projects</div>
+            <div class="marquee-content">
+                <div class="card">
+                    <img src="rudralogo9.jpeg" alt="Company Logo">
+                    <div class="card-info">
+                        <h3>Sri Aranea </h3>
+                        <h6>Web Development Company</h6>
+                        <h6>Web Development and Analytics</h6>
+                    </div>
+                    
+                </div>
+                <div class="card">
+                    <img src="rudralogo9.jpeg" alt="Company Logo">
+                    <div class="card-info">
+                        <h3>Harshitha <br>Technologies</h3>
+                        <h6>Electronics Company</h6>
+                        <h6>Data Analysis of Expenses</h6>
+                    </div>
+                    
+                </div>
+                <div class="card">
+                    <img src="rudralogo9.jpeg" alt="Company Logo">
+                    <div class="card-info">
+                        <h3>Precison Forge <br> Technologies</h3>
+                        <h6>3D Printing Company</h6>
+                        <h6>Data Analysis</h6>
+                    </div>
+                    
+                </div>
+                <!-- Add more member cards here -->
+                <div class="card">
+                    <img src="rudralogo9.jpeg" alt="Company Logo">
+                    <div class="card-info">
+                        <h3>Complany/Club name</h3>
+                        <h6>Company Purpose</h6>
+                        <h6>Company Purpose</h6>
+                    </div>
+                    
+                </div>
+                <div class="card">
+                    <img src="rudralogo9.jpeg" alt="Company Logo">
+                    <div class="card-info">
+                        <h3>Company Name</h3>
+                        <h6>Company Purpose</h6>
+                        <h6>Company Purpose</h6>
+                    </div>
+                    
+                </div>
+                
+                <!-- Add more member cards here -->
+            </div>
+       
+        </div></div>
+        <div id="team-carousel" class="carousel slide" data-ride="carousel" style="margin-bottom: 20px;">
+            <div class="title backgrey text-center" style="font-size: larger; margin-top: 10px; padding: 10px; background-color: #1becff;">The Team</div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        
+                        <div class="col-md-4">
+                            <div class="member-card">
+                                <img src="rudralogo9.jpeg" alt="RUDRA Logo">
+                                <div class="member-info">
+                                    <h3>President</h3>
+                                    <h4>Sujay V Kulkarni</h4>
+                                </div>
+                                <div class="social-icons">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="far fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="member-card">
+                                <img src="rudralogo9.jpeg" alt="RUDRA Logo">
+                                <div class="member-info">
+                                    <h3>Vice President</h3>
+                                    <h4>Aditya S Maller</h4>
+                                </div>
+                                <div class="social-icons">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="far fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="member-card">
+                                <img src="rudralogo9.jpeg" alt="RUDRA Logo">
+                                <div class="member-info">
+                                    <h3>Secretary</h3>
+                                    <h4>Vaishnav S</h4>
+                                </div>
+                                <div class="social-icons">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="far fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="member-card">
+                                <img src="rudralogo9.jpeg" alt="RUDRA Logo">
+                                <div class="member-info">
+                                    <h3>Recruitment Head</h3>
+                                    <h4>Anirudh</h4>
+                                </div>
+                                <div class="social-icons">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="far fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="member-card">
+                                <img src="rudralogo9.jpeg" alt="RUDRA Logo">
+                                <div class="member-info">
+                                    <h3>Treasurer</h3>
+                                    <h4>Apoorv Gadiya</h4>
+                                </div>
+                                <div class="social-icons">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="far fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="member-card">
+                                <img src="rudralogo9.jpeg" alt="RUDRA Logo">
+                                <div class="member-info">
+                                    <h3>Public Relations Manager</h3>
+                                    <h4>Misha N Devegowda</h4>
+                                </div>
+                                <div class="social-icons">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="far fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items with three cards each as needed -->
+            </div>
+            <a class="carousel-control-prev" href="#team-carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#team-carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            <div class="know-more-btn">
+                <button class="btn btn-primary" style="text-align: center; justify-content: center;">Know More</button>
+            </div>
+        </div>
+
+        <div class="about-content container">
+            <h2 class="text-center mb-5 backgrey row justify-content-center"><span>Membership Information:</span></h2>
+            <div class="row">
+            <div class="col-md-6 col-sm-12"><p>Membership of RUDRA is open to all RV University students who share a passion for data research and analytics. To become a member, simply reach out to our Recruitment Head or attend one of our meetings to learn more about joining. We welcome students from all backgrounds and levels of experience to join our vibrant community.</p></div>
+            <div class="col-md-6 col-sm-12"><img src="rudralogo9.jpeg" alt="RUDRA Logo" class="mb-3"></div>
+        </div>
+        </div>
+    </div>
+       
+   
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="comingsoon.html">Blogs</a></li>
+                        <li><a href="comingsoon.html">Join Us</a></li>
+                        <li><a href="comingsoon.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Follow Us</h5>
+                    <ul class="social-icons" style="text-align: center; justify-content: center;">
+                        <li style="text-align: center; justify-content: center;"><a href="#" style="text-align: center; justify-content: center;"><i class="fab fa-instagram" style="text-align: center; justify-content: center;"></i></a></li>
+                        <li style="text-align: center; justify-content: center;"><a href="#" style="text-align: center; justify-content: center;"><i class="fab fa-github" style="text-align: center; justify-content: center;"></i></a></li>
+                        <li style="text-align: center; justify-content: center;"><a href="#" style="text-align: center; justify-content: center;"><i class="fab fa-youtube" style="text-align: center; justify-content: center;"></i></a></li>
+                        <!-- Add more social media icons as needed -->
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mailto:info@example.com"><i class="far fa-envelope"></i> Email</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <a href="comingsoon.html" class="go-to-top"><i class="fas fa-chevron-up"></i> Go to Top</a>
+                </div>
+            </div>
+        </div>
+        <hr style="height: 2px; color: #010102; background-color: #010102;">
+        <div class="container">
+            <div class="row footerlastlinkcontainer">
+                <div class="col-sm-12 col-md-6 text-center text-md-left">
+                    <a href="comingsoon.html" class="footer-last-links">Privacy Policy</a> &nbsp; &nbsp;
+                    <a href="comingsoon.html" class="footer-last-links">Copyright Policy</a>
+                </div>
+                <div class="col-sm-12 col-md-6 text-center text-md-right">
+                    <a href="https://sujaykulkarni-2211.github.io/sujayvkresume/sriaranea/index.html" target="_blank" class="footer-last-links">A SriAranea Creation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
+</body>
+
+</html>
