@@ -3,3 +3,4 @@ gspread==6.1.4
 Flask-Mail==0.10.0
 gunicorn==23.0.0
 Werkzeug==2.0.3
+google-auth==2.35.0
