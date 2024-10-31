@@ -1,3 +1,5 @@
+import json
+import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -6,10 +8,15 @@ from flask_mail import Mail, Message
 app = Flask(__name__)
 app.secret_key = 'rudra'
 
-# Google Sheets API Setup
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",
-         "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+# Load Google credentials from the environment variable
+credentials_info = json.loads(os.getenv('GOOGLE_CREDENTIALS'))
+creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials_info, scopes=[
+    "https://spreadsheets.google.com/feeds", 
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file", 
+    "https://www.googleapis.com/auth/drive"
+])
+
 client = gspread.authorize(creds)
 sheet = client.open("Members Web").sheet1
 
