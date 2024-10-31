@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import gspread
 from flask_mail import Mail, Message
+from google.oauth2.service_account import Credentials
 
 app = Flask(__name__)
 app.secret_key = 'rudra'
