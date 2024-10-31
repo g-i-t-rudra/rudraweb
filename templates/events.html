@@ -91,7 +91,8 @@ li{
                     <h3>Latest Knowledge Drop</h3>
                     {% if latest_knowledge_drop %}
                         <div class="card knowledge-drop-card" style="width: 18rem;">
-                            <img src="{{ latest_knowledge_drop['thumbnail'] }}" alt="Thumbnail" class="card-img-top" style="height: 200px; object-fit: cover;">
+<!--                             <img src="{{ latest_knowledge_drop['thumbnail'] }}" alt="Thumbnail" class="card-img-top" style="height: 200px; object-fit: cover;"> -->
+                            <iframe src="{{ latest_knowledge_drop['thumbnail'] }}"  height="200" allow="autoplay" class="card-img-top"></iframe>
                             <div class="card-body">
                                 <h5 class="card-title">{{ latest_knowledge_drop['title'] }}</h5>
                                 <a href="{{ latest_knowledge_drop['pdf'] }}" target="_blank" class="btn btn-primary">Read Knowledge Drop</a>
