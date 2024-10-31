@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = 'rudra'
 
 # Load Google credentials from the environment variable
-credentials_info = os.getenv('GOOGLE_CREDENTIALS')
+credentials_info = "/etc/secrets/Google_Credentials.json"
 creds = Credentials.from_service_account_file(credentials_info, scopes=[
     "https://spreadsheets.google.com/feeds", 
     "https://www.googleapis.com/auth/spreadsheets",
