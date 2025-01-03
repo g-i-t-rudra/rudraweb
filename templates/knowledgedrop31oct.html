@@ -3,123 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RUDRA Weekly Knowledge Drop</title>
+    <title>Iron Man’s Tech Odyssey: Enhanced Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
     <style>
-        .knowledge-drop-container {
-            background-color: #010102;
-            color: #e8f1f2;
+        body {
+            background-color: #1e1e2f;
+            color: #e8e8e8;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            margin-top: 20px;
             padding: 20px;
+            background-color: #2a2a3b;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-            margin-top: 20px;
         }
-        .knowledge-drop-header img {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            border-bottom: 5px solid #68d4f2;
-            border-radius: 10px 10px 0 0;
+        h1, h2, h3 {
+            color: #58c7f2;
         }
-        .knowledge-drop-title {
-            color: #68d4f2;
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        .knowledge-drop-content {
-            margin-left: 4vw;
-            margin-right: 4vw;
-        }
-        .knowledge-drop-content p {
-            line-height: 2;
-            font-size: 1.1em;
+        p, ul {
             margin-bottom: 20px;
         }
-        .knowledge-drop-content li {
-            line-height: 2;
-            font-size: 1.1em;
-            margin-bottom: 20px;
+        a {
+            color: #58c7f2;
+            text-decoration: none;
         }
-        .knowledge-drop-content h2 {
-            color: #68d4f2;
-            font-weight: bold;
-            font-size: 1.8em;
-            margin-top: 20px;
+        a:hover {
+            text-decoration: underline;
+        }
+        .code-snippet {
+            background-color: #161625;
+            color: #e8e8e8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
         }
     </style>
 </head>
-<body style="background-color: #010102;">
-    {% include 'navbar.html' %}
+<body>
+    <div class="container">
+        <h1> RUDRA Weekly Knowledge Drop</h1>
+        <img src="{{ url_for('static', filename='ironman_tech.jpg') }}" alt="Knowledge Drop Thumbnail">
+        <h1>Iron Man’s Tech Odyssey</h1>
+        <h2>From Data Science to Machine Learning in the Marvel Universe</h2>
+        <p>Tony Stark, the genius inventor behind Iron Man, epitomizes the fusion of cutting-edge technology and visionary thinking. His success as a superhero relies heavily on the applications of data science and machine learning. Let’s dive deeper into how these advanced technologies fuel Tony’s legendary creations and how they parallel real-world innovations.</p>
 
-    <div class="container knowledge-drop-container">
-        <div class="knowledge-drop-header">
-            <img src="{{ url_for('static', filename='ironman_tech.jpg') }}" alt="Knowledge Drop Thumbnail">
+        <h2>Step 1: Data Science – Building the Foundation</h2>
+        <p>Tony’s Iron Man suit, Jarvis AI, and predictive algorithms for Avengers missions are powered by robust data science processes.</p>
+
+        <h3>Data Collection</h3>
+        <p>Key sources of data include:</p>
+        <ul>
+            <li><strong>Sensors in the Iron Man suit:</strong> High-resolution data on environmental conditions, enemy positions, and suit performance.</li>
+            <li><strong>Global Data Streams:</strong> Integration of satellite feeds, social media analytics, and intelligence reports.</li>
+            <li><strong>Mission Intel:</strong> Real-time data gathered during Avengers operations to predict outcomes and assist decision-making.</li>
+        </ul>
+
+        <h3>Data Cleaning and Preprocessing</h3>
+        <p>Just like Tony tunes his suit for optimal performance, he preprocesses data to remove noise and anomalies, ensuring clean, actionable insights. Techniques include:</p>
+        <ul>
+            <li>Handling missing values using imputation algorithms.</li>
+            <li>Scaling and normalizing numerical features for machine learning compatibility.</li>
+            <li>One-hot encoding of categorical variables to enhance interpretability.</li>
+        </ul>
+
+        <h3>Data Analysis</h3>
+        <p>By leveraging statistical models and visualization tools, Tony uncovers hidden patterns. For example, he uses multivariate analysis to predict alien ship movements, enabling precise countermeasures.</p>
+
+        <h2>Step 2: Machine Learning – Intelligence That Learns</h2>
+        <p>Machine learning transforms Tony’s tech from reactive systems to adaptive, predictive tools.</p>
+
+        <h3>Supervised Learning</h3>
+        <p>Jarvis utilizes supervised learning to classify threats and allies based on labeled data:</p>
+        <ul>
+            <li><strong>Threat Classification:</strong> Differentiating between Ultron (villain) and Black Panther (ally).</li>
+            <li><strong>Regression Models:</strong> Predicting enemy attack probabilities based on historical combat data.</li>
+        </ul>
+
+        <h3>Unsupervised Learning</h3>
+        <p>In scenarios like the Extremis virus outbreak, Tony applies clustering algorithms to group anomalies and identify patterns without labeled data.</p>
+
+        <h3>Reinforcement Learning</h3>
+        <p>Reinforcement learning enables Jarvis to optimize resource allocation during battles. By simulating thousands of combat scenarios, Jarvis learns strategies to minimize damage and maximize effectiveness. Key algorithm:</p>
+        <div class="code-snippet">
+            Q(s, a) = R(s, a) + \gamma \max_{a'} Q(s', a')
         </div>
 
-        <div class="knowledge-drop-content mt-4">
-            <h1 class="text-center knowledge-drop-title">RUDRA Weekly Knowledge Drop</h1>
-            <h5 class="text-center" style="color: #b9e3e5;">{{ date }}</h5>
-            <h2 class="text-center mt-4" style="color: #e8f1f2; font-style: italic;">Iron Man’s Tech Odyssey: From Data Science to Machine Learning in the Marvel Universe</h2>
-            
-            <h2>Step 1: Data Science – Tony’s First Step to Supercharging His Tech</h2>
-            <p>Tony Stark’s genius lies in harnessing data science to power his technological marvels. From the Iron Man suit’s AI (Jarvis) to algorithms predicting Avengers missions, data science provides the foundation for his innovations.</p>
-            
-            <h3>Data Collection: Gathering the Right Information</h3>
-            <ul>
-                <li><strong>Sensors in his Iron Man suit:</strong> Collecting data on environmental factors, enemy movements, and suit performance.</li>
-                <li><strong>Global Data:</strong> Tapping into satellites, global databases, and real-time updates.</li>
-                <li><strong>Intel from Avengers missions:</strong> Real-time data helps predict mission outcomes.</li>
-            </ul>
+        <h3>Deep Learning</h3>
+        <p>Deep learning powers advanced features like facial recognition, natural language processing, and predictive analytics in Tony’s tech stack. Neural networks enable Jarvis to adapt dynamically during complex missions.</p>
 
-            <h3>Data Cleaning: Removing the Noise</h3>
-            <p>Data preprocessing ensures clean and actionable data, much like Tony refining his suits for peak performance. Erroneous or irrelevant data is filtered out to maintain accuracy.</p>
+        <h2>Step 3: The Evolution of Iron Man’s Tech</h2>
+        <p>By integrating data science and machine learning, Tony continuously evolves his creations. From predictive maintenance of his suits to real-time battlefield adjustments, these technologies keep him ahead of his adversaries.</p>
 
-            <h3>Data Analysis: Understanding the Bigger Picture</h3>
-            <p>Analyzing clean data uncovers patterns and insights. Whether predicting Ultron’s next move or analyzing alien ship structures, data analysis drives transformative decisions.</p>
+        <h2>Conclusion: Lessons from Tony Stark</h2>
+        <p>Tony Stark exemplifies how advanced technologies can solve complex problems and drive innovation. Whether in the Marvel Universe or our world, mastering data science and machine learning is the key to shaping the future.</p>
 
-            <h2>Step 2: Machine Learning – Making Tony’s Tech Smarter</h2>
-            <p>Machine learning transforms Tony’s creations into adaptive systems. Jarvis, for instance, evolves by learning from data and improving over time.</p>
+        <h2>Further Reading</h2>
+        <ul>
+            <li><a href="https://web.stanford.edu/~hastie/ElemStatLearn/">The Elements of Statistical Learning</a></li>
+            <li><a href="https://www.deeplearningbook.org/">Deep Learning</a></li>
+            <li><a href="https://openai.com/blog">OpenAI Blog</a></li>
+            <li><a href="https://commoncrawl.org/">Common Crawl Documentation</a></li>
+            <li><a href="https://research.google/">Google AI Research Papers</a></li>
+        </ul>
 
-            <h3>Supervised Learning – Jarvis Becomes a Tactical Genius</h3>
-            <p>Jarvis learns from labeled data about threats and allies, enabling accurate predictions and split-second decisions during battles.</p>
-
-            <h3>Unsupervised Learning – Discovering Hidden Patterns</h3>
-            <p>In situations like the Extremis virus, Tony uses unsupervised learning to uncover patterns in unlabeled data, enhancing his understanding of novel threats.</p>
-
-            <h3>Reinforcement Learning – Jarvis Gets Smarter with Every Battle</h3>
-            <p>Through rewards and penalties, Jarvis learns from trial and error, optimizing strategies and resource management over time.</p>
-
-            <h3>Deep Learning – Jarvis and the Power of Neural Networks</h3>
-            <p>Deep learning enables Jarvis to process complex data, recognize faces, and predict outcomes with unparalleled accuracy, mimicking the human brain’s capabilities.</p>
-
-            <h2>Step 3: Iron Man’s Tech Gets Smarter and Stronger with Every Challenge</h2>
-            <p>Combining data science and machine learning allows Tony to optimize resources, predict threats, and upgrade his technology in real-time, keeping him ahead of his foes.</p>
-
-            <h2>Conclusion: Learning from Iron Man’s Tech</h2>
-            <p>Tony Stark showcases the transformative power of data science and machine learning. By leveraging these tools, we too can solve complex problems, drive innovation, and shape the future.</p>
-
-            <h2>Further Reading</h2>
-            <ul>
-                <li><a href="https://web.stanford.edu/~hastie/ElemStatLearn/">The Elements of Statistical Learning</a></li>
-                <li><a href="https://www.deeplearningbook.org/">Deep Learning</a></li>
-                <li><a href="https://openai.com/blog">OpenAI Blog</a></li>
-                <li><a href="https://commoncrawl.org/">Common Crawl Documentation</a></li>
-                <li><a href="https://research.google/">Google AI Research Papers</a></li>
-            </ul>
-
-            <h2>📅 What’s Next?</h2>
-            <p>Stay tuned for more insights, workshops, and events. Join our WhatsApp groups to stay updated:</p>
-            <ul>
-                <li><a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx">RUDRA Members</a></li>
-                <li><a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx">RUDRA Exclusive</a></li>
-            </ul>
-        </div>
+        <h2>📅 Stay Updated</h2>
+        <p>Join our WhatsApp groups to stay informed about workshops and events:</p>
+        <ul>
+            <li><a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx">RUDRA Members</a></li>
+            <li><a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx">RUDRA Exclusive</a></li>
+        </ul>
     </div>
-
-    {% include 'footer.html' %}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
