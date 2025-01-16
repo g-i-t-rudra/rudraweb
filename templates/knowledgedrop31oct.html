@@ -64,90 +64,40 @@
 
     <div class="container knowledge-drop-container">
         <div class="knowledge-drop-header">
-            <img src="{{ url_for('static', filename='ironman_tech.jpg') }}" alt="Knowledge Drop Thumbnail">
+            <img src="{{ url_for('static', filename='monte_carlo.jpg') }}" alt="Knowledge Drop Thumbnail">
         </div>
 
         <div class="knowledge-drop-content mt-4">
             <h1 class="text-center knowledge-drop-title">RUDRA Weekly Knowledge Drop</h1>
             <h5 class="text-center" style="color: #b9e3e5;">{{ date }}</h5>
-            <h2 class="text-center mt-4" style="color: #e8f1f2; font-style: italic;">Iron Man’s Tech Odyssey: From Data Science to Machine Learning in the Marvel Universe</h2>
+            <h2 class="text-center mt-4" style="color: #e8f1f2; font-style: italic;">Rolling the Dice with Data Science: A Journey into Monte Carlo and Casinos</h2>
             
-            <h2>Step 1: Data Science – Tony’s First Step to Supercharging His Tech</h2>
-            <p>Tony Stark’s genius lies in harnessing data science to power his technological marvels. From the Iron Man suit’s AI (Jarvis) to algorithms predicting Avengers missions, data science provides the foundation for his innovations.</p>
-            
-            <h3>Data Collection: Gathering the Right Information</h3>
+            <h2>Step 1: What is Monte Carlo Simulation?</h2>
+            <p>Monte Carlo Simulation is a method used to understand the probability of different outcomes by running many random experiments. Think of it as trying to predict the unpredictable by generating tons of possibilities and finding patterns within them.</p>
+            <h3>A Fun Example: Estimating π with Random Darts</h3>
+            <p>Picture a dartboard with a square around it. If you randomly throw darts (virtual ones, of course), the ratio of darts landing inside the circle to the total darts thrown approximates <code>π</code>:</p>
+            <p style="text-align: center; font-size: 1.2rem;">π ≈ 4 × (Darts in Circle / Total Darts)</p>
+
+            <h2>Step 2: The Mathematics of Gambling</h2>
+            <p>Casinos are built on Expected Value (EV), a simple yet powerful concept in probability. EV helps predict the long-term profitability of any game:</p>
+            <p><code>EV = ∑(P(x) × V(x))</code></p>
+            <p>Here:</p>
             <ul>
-                <li><strong>Sensors in his Iron Man suit:</strong> High-resolution data on environmental conditions, enemy positions, and suit performance.</li>
-                <li><strong>Global Data Streams:</strong> Integration of satellite feeds, social media analytics, and intelligence reports.</li>
-                <li><strong>Mission Intel:</strong> Real-time data gathered during Avengers operations to predict outcomes and assist decision-making.</li>
+                <li><strong>P(x):</strong> The probability of an outcome <code>x</code>.</li>
+                <li><strong>V(x):</strong> The value (or payoff) of <code>x</code>.</li>
             </ul>
 
-            <h3>Data Cleaning and Preprocessing</h3>
-            <p>Just like Tony tunes his suit for optimal performance, he preprocesses data to remove noise and anomalies, ensuring clean, actionable insights. Techniques include:</p>
-            <ul>
-                <li>Handling missing values using imputation algorithms.</li>
-                <li>Scaling and normalizing numerical features for machine learning compatibility.</li>
-                <li>One-hot encoding of categorical variables to enhance interpretability.</li>
-            </ul>
+            <h2>Step 3: Where Does Machine Learning Fit?</h2>
+            <p>Casinos don’t just rely on traditional math—they use machine learning (ML) to predict player behavior, optimize games, and even detect fraud.</p>
+            <h3>ML Models in Action</h3>
+            <ol>
+                <li><strong>Regression Models:</strong> Predict how long a player will play based on past data.</li>
+                <li><strong>Clustering Algorithms:</strong> Group players by preferences, e.g., high rollers vs. casual gamblers.</li>
+                <li><strong>Reinforcement Learning:</strong> Simulate thousands of game variations to find the most profitable designs.</li>
+            </ol>
 
-            <h3>Data Analysis</h3>
-            <p>By leveraging statistical models and visualization tools, Tony uncovers hidden patterns. For example, he uses multivariate analysis to predict alien ship movements, enabling precise countermeasures.</p>
-
-            <h3>Visualization with Modern Tools</h3>
-            <p>Data visualization plays a critical role in understanding insights. Tools such as <code>matplotlib</code>, <code>seaborn</code>, and <code>Plotly</code> allow analysts to visualize trends and outliers effectively. For example, Jarvis’s real-time dashboards could look like:</p>
-            <div class="code-snippet">
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-data = [20, 15, 30, 45, 10]
-labels = ['Threat A', 'Threat B', 'Threat C', 'Threat D', 'Threat E']
-plt.pie(data, labels=labels, autopct='%1.1f%%')
-plt.title('Threat Analysis')
-plt.show()
-            </div>
-
-            <h2>Step 2: Machine Learning – Making Tony’s Tech Smarter</h2>
-            <p>Machine learning transforms Tony’s tech from reactive systems to adaptive, predictive tools.</p>
-
-            <h3>Supervised Learning</h3>
-            <p>Jarvis utilizes supervised learning to classify threats and allies based on labeled data:</p>
-            <ul>
-                <li><strong>Threat Classification:</strong> Differentiating between Ultron (villain) and Black Panther (ally).</li>
-                <li><strong>Regression Models:</strong> Predicting enemy attack probabilities based on historical combat data.</li>
-            </ul>
-
-            <h3>Unsupervised Learning</h3>
-            <p>In scenarios like the Extremis virus outbreak, Tony applies clustering algorithms to group anomalies and identify patterns without labeled data. Jarvis uses models like K-Means and DBSCAN for rapid detection of clusters.</p>
-
-            <h3>Deep Learning</h3>
-            <p>Deep learning powers advanced features like facial recognition, natural language processing, and predictive analytics in Tony’s tech stack. Neural networks enable Jarvis to adapt dynamically during complex missions. Here’s a simplified model:</p>
-            <div class="code-snippet">
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
-
-model = Sequential([
-    Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)),
-    MaxPooling2D(pool_size=(2, 2)),
-    Flatten(),
-    Dense(128, activation='relu'),
-    Dense(1, activation='sigmoid')
-])
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-model.summary()
-            </div>
-
-            <h3>Reinforcement Learning</h3>
-            <p>Reinforcement learning enables Jarvis to optimize resource allocation during battles. By simulating thousands of combat scenarios, Jarvis learns strategies to minimize damage and maximize effectiveness. Key algorithm:</p>
-            <div class="code-snippet">
-Q(s, a) = R(s, a) + 𝛾max𝑎′𝑄(𝑠′,𝑎′)
-            </div>
-
-            <h2>📅 Stay Updated</h2>
-            <p>Stay tuned for more insights, workshops, and events. Join our WhatsApp groups to stay updated:</p>
-            <ul>
-                <li><a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx">RUDRA Members</a></li>
-                <li><a href="https://chat.whatsapp.com/FLTPe0ChW7o97lYwvPt2Yx">RUDRA Exclusive</a></li>
-            </ul>
+            <h2>Step 4: Real-World Impact</h2>
+            <p>Online platforms like DraftKings and Bet365 simulate millions of games daily using Monte Carlo techniques, ensuring their odds are both fair and profitable. Slot machine manufacturers use ML to design payout patterns that are exciting but sustainable, balancing player wins with long-term profits.</p>
         </div>
     </div>
 
