@@ -8,6 +8,12 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
     <style>
+        body {
+            background-color: #010102;
+            color: #e8f1f2;
+            overflow: auto;
+            position: relative;
+        }
         .knowledge-drop-container {
             background-color: #010102;
             color: #e8f1f2;
@@ -15,6 +21,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
             margin-top: 20px;
+            position: relative;
+            z-index: 2;
         }
         .knowledge-drop-header img {
             width: 100%;
@@ -49,60 +57,50 @@
             font-size: 1.8em;
             margin-top: 20px;
         }
-        .code-snippet {
-            background-color: #161625;
-            color: #e8e8e8;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-        }
     </style>
 </head>
-<body style="background-color: #010102;">
+<body>
     {% include 'navbar.html' %}
 
     <div class="container knowledge-drop-container">
         <div class="knowledge-drop-header">
-            <img src="{{ url_for('static', filename='monte_carlo.jpg') }}" alt="Knowledge Drop Thumbnail">
+            <img src="{{ url_for('static', filename='dream_analysis.jpeg') }}" alt="Knowledge Drop Thumbnail">
         </div>
 
         <div class="knowledge-drop-content mt-4">
             <h1 class="text-center knowledge-drop-title">RUDRA Weekly Knowledge Drop</h1>
             <h5 class="text-center" style="color: #b9e3e5;">{{ date }}</h5>
-            <h2 class="text-center mt-4" style="color: #e8f1f2; font-style: italic;">Rolling the Dice with Data Science: A Journey into Monte Carlo and Casinos</h2>
+            <h2 class="text-center mt-4" style="color: #e8f1f2; font-style: italic;">Case Study: AI-Driven Dream Analysis – Decoding the Human Subconscious</h2>
             
-            <h2>Step 1: What is Monte Carlo Simulation?</h2>
-            <p>Monte Carlo Simulation is a method used to understand the probability of different outcomes by running many random experiments. Think of it as trying to predict the unpredictable by generating tons of possibilities and finding patterns within them.</p>
-            <h3>A Fun Example: Estimating π with Random Darts</h3>
-            <p>Picture a dartboard with a square around it. If you randomly throw darts (virtual ones, of course), the ratio of darts landing inside the circle to the total darts thrown approximates <code>π</code>:</p>
-            <p style="text-align: center; font-size: 1.2rem;">π ≈ 4 × (Darts in Circle / Total Darts)</p>
-
-            <h2>Step 2: The Mathematics of Gambling</h2>
-            <p>Casinos are built on Expected Value (EV), a simple yet powerful concept in probability. EV helps predict the long-term profitability of any game:</p>
-            <p><code>EV = ∑(P(x) × V(x))</code></p>
-            <p>Here:</p>
+            <h2>Introduction</h2>
+            <p>In 2025, researchers at a Swiss AI lab unveiled "Dreamweaver AI," a groundbreaking system capable of decoding and predicting dream content in real-time using brain data from fMRI combined with deep neural networks.</p>
+            
+            <h2>How It Works</h2>
             <ul>
-                <li><strong>P(x):</strong> The probability of an outcome <code>x</code>.</li>
-                <li><strong>V(x):</strong> The value (or payoff) of <code>x</code>.</li>
+                <li><strong>Neural Data (fMRI):</strong> Monitors brain activity during sleep.</li>
+                <li><strong>Eye Movements & Video Data:</strong> Correlates dream visuals with eye tracking.</li>
+                <li><strong>Emotional Cues:</strong> Captures emotional shifts using heart rate and skin conductance.</li>
             </ul>
-
-            <h2>Step 3: Where Does Machine Learning Fit?</h2>
-            <p>Casinos don’t just rely on traditional math—they use machine learning (ML) to predict player behavior, optimize games, and even detect fraud.</p>
-            <h3>ML Models in Action</h3>
-            <ol>
-                <li><strong>Regression Models:</strong> Predict how long a player will play based on past data.</li>
-                <li><strong>Clustering Algorithms:</strong> Group players by preferences, e.g., high rollers vs. casual gamblers.</li>
-                <li><strong>Reinforcement Learning:</strong> Simulate thousands of game variations to find the most profitable designs.</li>
-            </ol>
-
-            <h2>Step 4: Real-World Impact</h2>
-            <p>Online platforms like DraftKings and Bet365 simulate millions of games daily using Monte Carlo techniques, ensuring their odds are both fair and profitable. Slot machine manufacturers use ML to design payout patterns that are exciting but sustainable, balancing player wins with long-term profits.</p>
-
-            <p>Even beyond gambling, Monte Carlo methods shine in areas like stock market simulations, supply chain optimization, and risk management—proving their versatility in the real world.</p>
-<p><strong>Why This Matters to You</strong></p>
-<p>Monte Carlo and gambling math are more than just tools for casinos—they’re gateways into understanding uncertainty, decision-making, and probability. Whether you’re designing the next big game, predicting customer behavior, or just estimating <code>π</code>, these techniques are your first step into the exciting world of data science.</p>
-
+            <p>By analyzing these datasets, Dreamweaver AI achieved 85% accuracy in predicting dream themes and even reconstructing dream imagery.</p>
+            
+            <h2>Ethical Dilemmas & Privacy Concerns</h2>
+            <p>The ability to decode dreams raises significant ethical concerns, including:</p>
+            <ul>
+                <li><strong>Privacy:</strong> Should AI have access to subconscious thoughts?</li>
+                <li><strong>Manipulation:</strong> Could AI influence dreams or alter subconscious perceptions?</li>
+                <li><strong>Ownership:</strong> Who owns a dream—its creator, the AI, or the company behind it?</li>
+            </ul>
+            
+            <h2>Real-World Applications</h2>
+            <p>Dreamweaver AI has promising applications in various fields:</p>
+            <ul>
+                <li><strong>Psychological Therapy:</strong> Helps therapists uncover hidden traumas.</li>
+                <li><strong>Creativity & Art:</strong> Artists generate surreal dream landscapes for inspiration.</li>
+                <li><strong>Memory Reconstruction:</strong> Aids memory recovery for Alzheimer's and dementia patients.</li>
+            </ul>
+            
+            <h2>The Future of Dreamweaver AI</h2>
+            <p>Looking ahead, Dreamweaver AI could evolve into mind-controlled VR, allowing users to immerse themselves in AI-generated dreamscapes. This technology blurs the line between human consciousness and machine intelligence, posing both thrilling and unsettling possibilities.</p>
         </div>
     </div>
 
