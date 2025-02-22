@@ -6,64 +6,67 @@
     <title>RUDRA Weekly Knowledge Drop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: black;
+            background: radial-gradient(circle, rgba(10, 10, 15, 1) 20%, rgba(1, 1, 2, 1) 80%);
             color: #e8f1f2;
+            font-family: 'Poppins', sans-serif;
             overflow: auto;
-            position: relative;
             margin: 0;
         }
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
         .knowledge-drop-container {
-            background-color: rgba(1, 1, 2, 0.9);
+            background: rgba(20, 20, 30, 0.95);
             color: #e8f1f2;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+            margin-top: 25px;
+        }
+        .knowledge-drop-header img {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-bottom: 5px solid #68d4f2;
+            border-radius: 12px 12px 0 0;
+        }
+        .knowledge-drop-title {
+            color: #68d4f2;
+            font-size: 2.8em;
+            font-weight: 600;
             margin-top: 20px;
-            position: relative;
-            z-index: 2;
+            text-shadow: 2px 2px 8px rgba(104, 212, 242, 0.6);
+        }
+        .knowledge-drop-content {
+            margin-left: 4vw;
+            margin-right: 4vw;
+        }
+        .knowledge-drop-content p, .knowledge-drop-content li {
+            line-height: 1.8;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .knowledge-drop-content h2 {
+            color: #68d4f2;
+            font-weight: bold;
+            font-size: 2em;
+            margin-top: 25px;
+            text-transform: uppercase;
+        }
+        .animated-glow {
+            animation: glowEffect 1.5s infinite alternate;
+        }
+        @keyframes glowEffect {
+            from {
+                text-shadow: 0 0 10px #68d4f2, 0 0 20px #68d4f2;
+            }
+            to {
+                text-shadow: 0 0 15px #68d4f2, 0 0 30px #68d4f2;
+            }
         }
     </style>
 </head>
 <body>
-    <canvas id="blackholeCanvas"></canvas>
-    <script>
-        const canvas = document.getElementById('blackholeCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        function drawBlackhole() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, 400);
-            gradient.addColorStop(0, 'black');
-            gradient.addColorStop(0.3, '#111');
-            gradient.addColorStop(0.6, '#222');
-            gradient.addColorStop(1, 'transparent');
-            ctx.fillStyle = gradient;
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, 400, 0, Math.PI * 2);
-            ctx.fill();
-        }
-        function animateBlackhole() {
-            drawBlackhole();
-            requestAnimationFrame(animateBlackhole);
-        }
-        animateBlackhole();
-    </script>
-
     {% include 'navbar.html' %}
 
     <div class="container knowledge-drop-container">
@@ -72,7 +75,7 @@
         </div>
 
         <div class="knowledge-drop-content mt-4">
-            <h1 class="text-center knowledge-drop-title">RUDRA Weekly Knowledge Drop</h1>
+            <h1 class="text-center knowledge-drop-title animated-glow">RUDRA Weekly Knowledge Drop</h1>
             <h5 class="text-center" style="color: #b9e3e5;">{{ date }}</h5>
             <h2 class="text-center mt-4" style="color: #e8f1f2; font-style: italic;">Case Study: AI-Driven Dream Analysis – Decoding the Human Subconscious</h2>
             
@@ -110,7 +113,7 @@
 
     {% include 'footer.html' %}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
