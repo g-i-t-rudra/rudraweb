@@ -13,6 +13,7 @@
             margin: 0;
             overflow: hidden;
             background-color: black;
+            color: white;
         }
         canvas {
             position: fixed;
@@ -47,24 +48,30 @@
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
             
-            const gradient = ctx.createRadialGradient(centerX, centerY, 50, centerX, centerY, 300);
+            const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, 400);
             gradient.addColorStop(0, 'black');
-            gradient.addColorStop(0.5, '#222');
+            gradient.addColorStop(0.3, '#111');
+            gradient.addColorStop(0.6, '#222');
             gradient.addColorStop(1, 'transparent');
             
             ctx.fillStyle = gradient;
             ctx.beginPath();
-            ctx.arc(centerX, centerY, 300, 0, Math.PI * 2);
+            ctx.arc(centerX, centerY, 400, 0, Math.PI * 2);
             ctx.fill();
         }
-        drawBlackhole();
+        
+        function animateBlackhole() {
+            drawBlackhole();
+            requestAnimationFrame(animateBlackhole);
+        }
+        animateBlackhole();
     </script>
     
     {% include 'navbar.html' %}
 
     <div class="container knowledge-drop-container">
         <div class="knowledge-drop-header">
-            <img src="{{ url_for('static', filename='dream_analysis.jpg') }}" alt="Knowledge Drop Thumbnail">
+            <img src="{{ url_for('static', filename='dream_analysis.jpeg') }}" alt="Knowledge Drop Thumbnail">
         </div>
 
         <div class="knowledge-drop-content mt-4">
