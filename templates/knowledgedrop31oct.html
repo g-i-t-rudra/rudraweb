@@ -4,25 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RUDRA Weekly Knowledge Drop</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: radial-gradient(circle, rgba(10, 10, 15, 1) 20%, rgba(1, 1, 2, 1) 80%);
-            color: #e8f1f2;
-            font-family: 'Poppins', sans-serif;
-            overflow: auto;
+        body, html {
+            height: 100%;
             margin: 0;
-        }
-        .knowledge-drop-container {
-            background: rgba(20, 20, 30, 0.95);
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
             color: #e8f1f2;
-            padding: 25px;
+        }
+        
+        #blackhole {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 24px auto;
+            background: rgba(20, 20, 30, 0.85);
+            padding: 24px;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
-            margin-top: 25px;
         }
+        
         .knowledge-drop-header img {
             width: 100%;
             max-height: 450px;
@@ -30,91 +49,436 @@
             border-bottom: 5px solid #68d4f2;
             border-radius: 12px 12px 0 0;
         }
-        .knowledge-drop-title {
-            color: #68d4f2;
-            font-size: 2.8em;
-            font-weight: 600;
-            margin-top: 20px;
-            text-shadow: 2px 2px 8px rgba(104, 212, 242, 0.6);
-        }
+        
         .knowledge-drop-content {
             margin-left: 4vw;
             margin-right: 4vw;
+            margin-top: 16px;
         }
-        .knowledge-drop-content p, .knowledge-drop-content li {
-            line-height: 1.8;
-            font-size: 1.2em;
-            margin-bottom: 20px;
+        
+        .glowing-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #68d4f2;
+            margin-top: 20px;
+            animation: glowEffect 3s infinite alternate;
         }
-        .knowledge-drop-content h2 {
+        
+        @keyframes glowEffect {
+            0% {
+                text-shadow: 0 0 5px rgba(104, 212, 242, 0.3), 0 0 10px rgba(104, 212, 242, 0.2);
+                opacity: 0.7;
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(104, 212, 242, 0.8), 0 0 30px rgba(104, 212, 242, 0.5);
+                opacity: 1;
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(104, 212, 242, 0.3), 0 0 10px rgba(104, 212, 242, 0.2);
+                opacity: 0.7;
+            }
+        }
+        
+        .date-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 8px;
+            color: #b9e3e5;
+        }
+        
+        .date-display svg {
+            margin-right: 8px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            margin-top: 16px;
+            color: #e8f1f2;
+            font-style: italic;
+            font-size: 1.25rem;
+        }
+        
+        h2 {
             color: #68d4f2;
             font-weight: bold;
-            font-size: 2em;
-            margin-top: 25px;
+            font-size: 1.5rem;
+            margin-top: 24px;
             text-transform: uppercase;
         }
-        .animated-glow {
-            animation: glowEffect 1.5s infinite alternate;
+        
+        p, li {
+            line-height: 1.75;
+            font-size: 1.125rem;
+            margin-bottom: 20px;
         }
-        @keyframes glowEffect {
-            from {
-                text-shadow: 0 0 10px #68d4f2, 0 0 20px #68d4f2;
-            }
-            to {
-                text-shadow: 0 0 15px #68d4f2, 0 0 30px #68d4f2;
-            }
+        
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+        }
+        
+        strong {
+            font-weight: 600;
+        }
+        
+        .math-formula {
+            background: rgba(104, 212, 242, 0.1);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #68d4f2;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .reference-list {
+            border-top: 1px solid rgba(104, 212, 242, 0.3);
+            margin-top: 40px;
+            padding-top: 20px;
+        }
+        
+        .reference-list li {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    {% include 'navbar.html' %}
+    <div id="blackhole"></div>
+    
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="knowledge-drop-header">
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="AI Self-Learning Concept">
+            </div>
 
-    <div class="container knowledge-drop-container">
-        <div class="knowledge-drop-header">
-            <img src="{{ url_for('static', filename='dream_analysis.jpeg') }}" alt="Knowledge Drop Thumbnail">
-        </div>
-
-        <div class="knowledge-drop-content mt-4">
-            <h1 class="text-center knowledge-drop-title animated-glow">RUDRA Weekly Knowledge Drop</h1>
-            <h5 class="text-center" style="color: #b9e3e5;">{{ date }}</h5>
-            <h2 class="text-center mt-4" style="color: #e8f1f2; font-style: italic;">Case Study: AI-Driven Dream Analysis – Decoding the Human Subconscious</h2>
-            
-            <h2>Introduction</h2>
-            <p>In 2025, researchers at a Swiss AI lab unveiled "Dreamweaver AI," a groundbreaking system capable of decoding and predicting dream content in real-time using brain data from fMRI combined with deep neural networks.</p>
-            
-            <h2>How It Works</h2>
-            <ul>
-                <li><strong>Neural Data (fMRI):</strong> Monitors brain activity during sleep.</li>
-                <li><strong>Eye Movements & Video Data:</strong> Correlates dream visuals with eye tracking.</li>
-                <li><strong>Emotional Cues:</strong> Captures emotional shifts using heart rate and skin conductance.</li>
-            </ul>
-            <p>By analyzing these datasets, Dreamweaver AI achieved 85% accuracy in predicting dream themes and even reconstructing dream imagery.</p>
-            
-            <h2>Ethical Dilemmas & Privacy Concerns</h2>
-            <p>The ability to decode dreams raises significant ethical concerns, including:</p>
-            <ul>
-                <li><strong>Privacy:</strong> Should AI have access to subconscious thoughts?</li>
-                <li><strong>Manipulation:</strong> Could AI influence dreams or alter subconscious perceptions?</li>
-                <li><strong>Ownership:</strong> Who owns a dream—its creator, the AI, or the company behind it?</li>
-            </ul>
-            
-            <h2>Real-World Applications</h2>
-            <p>Dreamweaver AI has promising applications in various fields:</p>
-            <ul>
-                <li><strong>Psychological Therapy:</strong> Helps therapists uncover hidden traumas.</li>
-                <li><strong>Creativity & Art:</strong> Artists generate surreal dream landscapes for inspiration.</li>
-                <li><strong>Memory Reconstruction:</strong> Aids memory recovery for Alzheimer's and dementia patients.</li>
-            </ul>
-            
-            <h2>The Future of Dreamweaver AI</h2>
-            <p>Looking ahead, Dreamweaver AI could evolve into mind-controlled VR, allowing users to immerse themselves in AI-generated dreamscapes. This technology blurs the line between human consciousness and machine intelligence, posing both thrilling and unsettling possibilities.</p>
+            <div class="knowledge-drop-content">
+                <h1 class="glowing-title">RUDRA Weekly Knowledge Drop</h1>
+                
+                <div class="date-display">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <h5 id="current-date"></h5>
+                </div>
+                
+                <h2 class="subtitle">Autonomous Self-Play in Large Language Models (LLMs) – The Future of AI Learning</h2>
+                
+                <h2>Introduction</h2>
+                <p>
+                    Self-play is a technique from reinforcement learning (RL) where an agent trains by playing against former (or
+                    parallel) copies of itself. By adjusting the opponent's skill level in tandem with the agent's own improvements,
+                    self-play enables stable and incremental policy optimization. Historically used in competitive
+                    game-playing systems, self-play has recently been applied to develop advanced reasoning in
+                    Large Language Models (LLMs). For instance, DeepSeek-R1 applies large-scale RL and self-play to refine
+                    complex reasoning capabilities.
+                </p>
+                
+                <h2>How Self-Play Works in LLMs</h2>
+                <ul>
+                    <li>
+                        <strong>Initialization:</strong> The model (policy) begins with either a base checkpoint or a lightly fine-tuned version.
+                    </li>
+                    <li>
+                        <strong>Data Generation (Opponent Sampling):</strong> For each query, multiple outputs are sampled from the old policy, providing a baseline for comparison.
+                    </li>
+                    <li>
+                        <strong>Scoring (Rewards):</strong> Each output receives a reward based on correctness, format adherence, and other quality metrics.
+                    </li>
+                    <li>
+                        <strong>Policy Update:</strong> A new policy is optimized to maximize the RL objective under self-play, often using Group Relative Policy Optimization (GRPO).
+                    </li>
+                    <li>
+                        <strong>Iterate and Refresh:</strong> The old policy is replaced with the newly updated one, and the process repeats.
+                    </li>
+                </ul>
+                
+                <h2>The Mathematical Framework</h2>
+                <p>
+                    To save training costs, GRPO doesn't use a large critic model but instead leverages a group of outputs to estimate the baseline. The mathematical objective function is:
+                </p>
+                
+                <div class="math-formula">
+                    <p>JGRPO(θ) = E[1/G ∑(min(πθ(oi|q)/πθold(oi|q) × Ai, clip(πθ(oi|q)/πθold(oi|q), 1-ε, 1+ε) × Ai) - β × DKL(πθ || πref)]</p>
+                    <p>Where Ai = (ri - mean{r1,...,rG}) / std{r1,...,rG}</p>
+                </div>
+                
+                <p>
+                    In this formula:
+                </p>
+                <ul>
+                    <li>The ratio πθ(oi|q)/πθold(oi|q) compares current performance to past performance</li>
+                    <li>Advantage Ai indicates how much better an output is than the group average</li>
+                    <li>The clip function prevents destabilizing updates by constraining the likelihood ratio</li>
+                    <li>The KL divergence term penalizes large deviations from a reference policy</li>
+                </ul>
+                
+                <h2>Why Self-Play Matters</h2>
+                <p>
+                    Self-play offers several key advantages in LLM development:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Adaptive Difficulty:</strong> An iteratively evolving opponent ensures the model is neither overwhelmed nor under-challenged, enabling gradual skill development.
+                    </li>
+                    <li>
+                        <strong>"Emergent" Reasoning:</strong> Models discover sophisticated behaviors (like self-correction) through iterative improvement without explicit programming.
+                    </li>
+                    <li>
+                        <strong>Data Efficiency:</strong> Self-generated data dramatically reduces reliance on large supervised corpora, lowering training costs.
+                    </li>
+                    <li>
+                        <strong>Broader Applications:</strong> The technique can be applied to robotics, self-driving vehicles, and medical AI systems.
+                    </li>
+                </ul>
+                
+                <h2>Challenges and Considerations</h2>
+                <p>
+                    Despite its promise, self-play in LLMs faces several challenges:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Reward Hacking:</strong> Imperfect reward designs can lead to unintended solutions or behaviors that maximize rewards without achieving the desired goals.
+                    </li>
+                    <li>
+                        <strong>Readability vs. Performance:</strong> Pure RL outputs may optimize for performance at the expense of human readability, requiring additional fine-tuning.
+                    </li>
+                    <li>
+                        <strong>KL Regularization Balancing:</strong> Overly strong KL constraints can slow learning, while weak constraints may lead to instability or divergence.
+                    </li>
+                </ul>
+                
+                <h2>The Future of Self-Play in AI</h2>
+                <p>
+                    Self-play offers a structured approach for LLMs to enhance their reasoning skills autonomously. By integrating group-based advantage estimates and conservative policy updates, we can implement concrete self-play frameworks that drive AI advancement. This approach is already showing results in models like DeepSeek-R1, suggesting that self-play could become a foundational technique in the next generation of language models.
+                </p>
+                <p>
+                    As AI systems continue to evolve, self-play may enable more sophisticated forms of reasoning, problem-solving, and adaptation without requiring ever-larger datasets or computational resources. This could democratize AI advancement and lead to more capable, efficient, and robust language models in the future.
+                </p>
+                
+                <div class="reference-list">
+                    <h2>References</h2>
+                    <ol>
+                        <li>DeepSeek-AI (2025). DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning. arXiv:2501.12948.</li>
+                        <li>Silver, D. et al. (2017). Mastering the game of Go without human knowledge. Nature, 550(7676), 354–359.</li>
+                        <li>Samuel, A. L. (1959). Some studies in machine learning using the game of checkers. IBM Journal of Research and Development, 3(3), 210–229.</li>
+                        <li>Andrew Cohen (2020). Training Intelligent Adversaries Using Self-Play with ML-Agents.</li>
+                        <li>Arturas, Vaitaitis. Self-Play: Towards Autonomous Learning in LLMs.</li>
+                        <li>HuggingFace, Deep RL Course - Self-Play.</li>
+                    </ol>
+                </div>
+            </div>
         </div>
     </div>
 
-    {% include 'footer.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Set the current date
+        document.addEventListener('DOMContentLoaded', function() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const currentDate = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('current-date').textContent = currentDate;
+            
+            // Initialize black hole
+            blackhole('#blackhole');
+        });
+        
+        // Black hole animation
+        function blackhole(element) {
+            var h = $(element).height(),
+                w = $(element).width(),
+                cw = w,
+                ch = h,
+                maxorbit = 255, // distance from center
+                centery = ch/2,
+                centerx = cw/2;
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            var startTime = new Date().getTime();
+            var currentTime = 0;
+
+            var stars = [],
+                collapse = false, // if hovered
+                expanse = false; // if clicked
+
+            var canvas = $('<canvas/>').attr({width: cw, height: ch}).appendTo(element),
+                context = canvas.get(0).getContext("2d");
+
+            context.globalCompositeOperation = "lighter";
+
+            function setDPI(canvas, dpi) {
+                // Set up CSS size if it's not set up already
+                if (!canvas.get(0).style.width)
+                    canvas.get(0).style.width = canvas.get(0).width + 'px';
+                if (!canvas.get(0).style.height)
+                    canvas.get(0).style.height = canvas.get(0).height + 'px';
+
+                var scaleFactor = dpi / 96;
+                canvas.get(0).width = Math.ceil(canvas.get(0).width * scaleFactor);
+                canvas.get(0).height = Math.ceil(canvas.get(0).height * scaleFactor);
+                var ctx = canvas.get(0).getContext('2d');
+                ctx.scale(scaleFactor, scaleFactor);
+            }
+
+            function rotate(cx, cy, x, y, angle) {
+                var radians = angle,
+                    cos = Math.cos(radians),
+                    sin = Math.sin(radians),
+                    nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
+                    ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+                return [nx, ny];
+            }
+
+            setDPI(canvas, 192);
+
+            var star = function(){
+                // Get a weighted random number, so that the majority of stars will form in the center of the orbit
+                var rands = [];
+                rands.push(Math.random() * (maxorbit/2) + 1);
+                rands.push(Math.random() * (maxorbit/2) + maxorbit);
+
+                this.orbital = (rands.reduce(function(p, c) {
+                    return p + c;
+                }, 0) / rands.length);
+                // Done getting that random number, it's stored in this.orbital
+
+                this.x = centerx; // All of these stars are at the center x position at all times
+                this.y = centery + this.orbital; // Set Y position starting at the center y + the position in the orbit
+
+                this.yOrigin = centery + this.orbital;  // this is used to track the particles origin
+
+                this.speed = (Math.floor(Math.random() * 2.5) + 1.5)*Math.PI/180; // The rate at which this star will orbit
+                this.rotation = 0; // current Rotation
+                this.startRotation = (Math.floor(Math.random() * 360) + 1)*Math.PI/180; // Starting rotation.  If not random, all stars will be generated in a single line.  
+
+                this.id = stars.length;  // This will be used when expansion takes place.
+
+                this.collapseBonus = this.orbital - (maxorbit * 0.7); // This "bonus" is used to randomly place some stars outside of the blackhole on hover
+                if(this.collapseBonus < 0){ // if the collapse "bonus" is negative
+                    this.collapseBonus = 0; // set it to 0, this way no stars will go inside the blackhole
+                }
+
+                stars.push(this);
+                this.color = 'rgba(104, 212, 242,'+ (1 - ((this.orbital) / 255)) +')'; // Color the star with our theme color, but make it more transparent the further out it is generated
+
+                this.hoverPos = centery + (maxorbit/2) + this.collapseBonus;  // Where the star will go on hover of the blackhole
+                this.expansePos = centery + (this.id%100)*-10 + (Math.floor(Math.random() * 20) + 1); // Where the star will go when expansion takes place
+
+                this.prevR = this.startRotation;
+                this.prevX = this.x;
+                this.prevY = this.y;
+            }
+            
+            star.prototype.draw = function(){
+                // the stars are not actually moving on the X axis in my code.  I'm simply rotating the canvas context for each star individually so that they all get rotated with the use of less complex math in each frame.
+
+                if(!expanse){
+                    this.rotation = this.startRotation + (currentTime * this.speed);
+                    if(!collapse){ // not hovered
+                        if(this.y > this.yOrigin){
+                            this.y-= 2.5;
+                        }
+                        if(this.y < this.yOrigin-4){
+                            this.y+= (this.yOrigin - this.y) / 10;
+                        }
+                    } else { // on hover
+                        this.trail = 1;
+                        if(this.y > this.hoverPos){
+                            this.y-= (this.hoverPos - this.y) / -5;
+                        }
+                        if(this.y < this.hoverPos-4){
+                            this.y+= 2.5;
+                        }
+                    }
+                } else {
+                    this.rotation = this.startRotation + (currentTime * (this.speed / 2));
+                    if(this.y > this.expansePos){
+                        this.y-= Math.floor(this.expansePos - this.y) / -140;
+                    }
+                }
+
+                context.save();
+                context.fillStyle = this.color;
+                context.strokeStyle = this.color;
+                context.beginPath();
+                var oldPos = rotate(centerx,centery,this.prevX,this.prevY,-this.prevR);
+                context.moveTo(oldPos[0],oldPos[1]);
+                context.translate(centerx, centery);
+                context.rotate(this.rotation);
+                context.translate(-centerx, -centery);
+                context.lineTo(this.x,this.y);
+                context.stroke();
+                context.restore();
+
+                this.prevR = this.rotation;
+                this.prevX = this.x;
+                this.prevY = this.y;
+            }
+
+            // Handle window resize
+            $(window).on('resize', function(){
+                h = $(element).height();
+                w = $(element).width();
+                cw = w;
+                ch = h;
+                centerx = cw/2;
+                centery = ch/2;
+                
+                canvas.attr({width: cw, height: ch});
+                setDPI(canvas, 192);
+                stars = [];
+                
+                context.fillStyle = 'rgba(25,25,25,1)';
+                context.fillRect(0, 0, cw, ch);
+                for(var i = 0; i < 2000; i++){
+                    new star();
+                }
+            });
+
+            window.requestFrame = (function(){
+                return  window.requestAnimationFrame       ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame    ||
+                    function( callback ){
+                    window.setTimeout(callback, 1000 / 60);
+                };
+            })();
+
+            function loop(){
+                var now = new Date().getTime();
+                currentTime = (now - startTime) / 50;
+
+                context.fillStyle = 'rgba(25,25,25,0.2)'; // somewhat clear the context, this way there will be trails behind the stars 
+                context.fillRect(0, 0, cw, ch);
+
+                for(var i = 0; i < stars.length; i++){  // For each star
+                    if(stars[i] != stars){
+                        stars[i].draw(); // Draw it
+                    }
+                }
+
+                requestFrame(loop);
+            }
+
+            function init(){
+                context.fillStyle = 'rgba(25,25,25,1)';  // Initial clear of the canvas, to avoid an issue where it all gets too dark
+                context.fillRect(0, 0, cw, ch);
+                for(var i = 0; i < 2000; i++){  // create 2000 stars
+                    new star();
+                }
+                loop();
+            }
+            
+            init();
+            
+            // Add hover effect to the content area
+            $('.container').on('mouseover', function(){
+                collapse = true;
+            }).on('mouseout', function(){
+                collapse = false;
+            });
+        }
+    </script>
 </body>
 </html>
