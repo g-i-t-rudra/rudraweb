@@ -33,6 +33,7 @@
             z-index: 1;
         }
         
+        
         .container {
             max-width: 1000px;
             margin: 24px auto;
@@ -145,6 +146,7 @@
     </style>
 </head>
 <body>
+{% include 'navbar.html' %}
     <div id="blackhole"></div>
     
     <div class="content-wrapper">
@@ -177,43 +179,88 @@
                 </p>
                 
                 <h2>How Self-Play Works in LLMs</h2>
-                <ul>
-                    <li>
-                        <strong>Initialization:</strong> The model (policy) begins with either a base checkpoint or a lightly fine-tuned version.
-                    </li>
-                    <li>
-                        <strong>Data Generation (Opponent Sampling):</strong> For each query, multiple outputs are sampled from the old policy, providing a baseline for comparison.
-                    </li>
-                    <li>
-                        <strong>Scoring (Rewards):</strong> Each output receives a reward based on correctness, format adherence, and other quality metrics.
-                    </li>
-                    <li>
-                        <strong>Policy Update:</strong> A new policy is optimized to maximize the RL objective under self-play, often using Group Relative Policy Optimization (GRPO).
-                    </li>
-                    <li>
-                        <strong>Iterate and Refresh:</strong> The old policy is replaced with the newly updated one, and the process repeats.
-                    </li>
-                </ul>
+                <ol>
+            <li>
+                <b>Initialization:</b> The model (policy) \( \pi_{\theta_{\text{old}}} \) begins with either a base checkpoint or a lightly fine-tuned version.
+            </li>
+            <li>
+                <b>Data Generation (Opponent Sampling):</b> Given a query \( q \), sample multiple outputs \( \{ o_i \}_{i=1}^{G} \) from the old policy \( \pi_{\theta_{\text{old}}} \).  
+                Here, \( G \) represents the <i>group size</i>. For each query \( q \), we sample \( G \) distinct outputs \( \{ o_i \}_{i=1}^{G} \)  
+                from the old policy \( \pi_{\theta_{\text{old}}} \). These outputs collectively provide a baseline against which each output’s relative advantage \( A_i \) is measured.
+            </li>
+            <li>
+                <b>Scoring (Rewards):</b> For each output \( o_i \), compute a reward \( r_i \) based on correctness, format adherence, etc.
+            </li>
+            <li>
+                <b>Policy Update:</b> Optimizes a new policy \( \pi_{\theta} \) to maximize the RL objective under self-play.  
+                A particularly efficient framework, which is implemented in DeepSeek-R1, is <i>Group Relative Policy Optimization (GRPO)</i>.
+            </li>
+            <li>
+                <b>Iterate and Refresh Opponent:</b> Replace \( \pi_{\theta_{\text{old}}} \) with the newly updated policy \( \pi_{\theta} \) and repeat.
+            </li>
+        </ol>
                 
                 <h2>The Mathematical Framework</h2>
                 <p>
-                    To save training costs, GRPO doesn't use a large critic model but instead leverages a group of outputs to estimate the baseline. The mathematical objective function is:
+                    To <b>save the training costs of RL</b>, GRPO doesn’t make use of the large critic model and instead leverages a <i>group</i> of outputs to estimate the baseline.  
+            Specifically, for each query \( q \), we draw a group of \( G \) outputs from the <i>old</i> policy \( \pi_{\theta_{\text{old}}} \)  
+            and then optimize \( \pi_{\theta} \) by maximizing the following objective function:
                 </p>
                 
                 <div class="math-formula">
-                    <p>JGRPO(θ) = E[1/G ∑(min(πθ(oi|q)/πθold(oi|q) × Ai, clip(πθ(oi|q)/πθold(oi|q), 1-ε, 1+ε) × Ai) - β × DKL(πθ || πref)]</p>
-                    <p>Where Ai = (ri - mean{r1,...,rG}) / std{r1,...,rG}</p>
+                    <p>
+  \( J_{\text{GRPO}}(\theta) = \mathbb{E}_{q \sim P(Q), \{o_i\}_{i=1}^{G} \sim \pi_{\theta_{\text{old}}}(O | q)}
+  \left[ \frac{1}{G} \sum_{i=1}^{G} \left( \min \left( \frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{\text{old}}}(o_i | q)} A_i, \text{clip} \left( \frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{\text{old}}}(o_i | q)}, 1 - \epsilon, 1 + \epsilon \right) A_i \right) \right) 
+  - \beta D_{\text{KL}} \left( \pi_{\theta} \parallel \pi_{\text{ref}} \right) \right] \)
+</p>
                 </div>
                 
                 <p>
                     In this formula:
                 </p>
                 <ul>
-                    <li>The ratio πθ(oi|q)/πθold(oi|q) compares current performance to past performance</li>
-                    <li>Advantage Ai indicates how much better an output is than the group average</li>
-                    <li>The clip function prevents destabilizing updates by constraining the likelihood ratio</li>
-                    <li>The KL divergence term penalizes large deviations from a reference policy</li>
-                </ul>
+            <li>
+                <b>\( q \)</b>: A query drawn from some distribution \( P(Q) \).
+            </li>
+            <li>
+                <b>\( o_i \)</b>: An output sampled from the old policy \( \pi_{\theta_{\text{old}}} \).
+            </li>
+            <li>
+                <b>\( \pi_{\theta}(o_i | q) \) and \( \pi_{\theta_{\text{old}}}(o_i | q) \)</b>: The probabilities of generating \( o_i \) under the 
+                <i>new</i> and <i>old</i> policies, respectively.
+                These are like the chances of scoring a goal using your new technique versus your old technique.
+                You want the new method to be better but not totally different.
+                The ratio of these two can be thought of as comparing your current performance to your past performance. 
+                A ratio greater than 1 means you’re doing better, much like scoring more often than before.
+            </li>
+            <li>
+                <b>\( A_i \)</b>: The <i>advantage</i> of output \( o_i \), computed as:
+                <div>
+                    \[
+                    A_i = \frac{r_i - \text{mean}(\{r_1, \dots, r_G\})}{\text{std}(\{r_1, \dots, r_G\})}
+                    \]
+                </div>
+                indicating how much better \( o_i \) is than the group-average outcome.
+                It is essentially similar to measuring how much a particular goal stands out compared to your usual play.
+            </li>
+            <li>
+                <b>\(\text{clip}(\cdot, 1 - \epsilon, 1 + \epsilon)\)</b>: Constrains the likelihood ratio to the interval \([1 - \epsilon, 1 + \epsilon]\),
+                preventing destabilizing updates (it prevents the update from being too drastic).
+            </li>
+            <li>
+                <b>\( \beta \)</b>: A hyperparameter controlling the strength of the KL-penalty term.
+            </li>
+            <li>
+                <b>\( D_{\text{KL}}(\pi_{\theta} \parallel \pi_{\text{ref}}) \)</b>: The Kullback–Leibler divergence between \( \pi_{\theta} \) and a reference policy \( \pi_{\text{ref}} \), penalizing large deviations:
+                <div>
+                    \[
+                    D_{\text{KL}}(\pi_{\theta} \parallel \pi_{\text{ref}}) = \sum_{i} \pi_{\text{ref}}(o_i | q) \log \left( \frac{\pi_{\text{ref}}(o_i | q)}{\pi_{\theta}(o_i | q)} \right) - 1.
+                    \]
+                </div>
+                It essentially measures how much a model probability distribution \( Q \) is different from a true probability distribution \( P \),
+                penalizing strategies that overly deviate from a trusted baseline.
+            </li>
+        </ul>
                 
                 <h2>Why Self-Play Matters</h2>
                 <p>
@@ -221,7 +268,7 @@
                 </p>
                 <ul>
                     <li>
-                        <strong>Adaptive Difficulty:</strong> An iteratively evolving opponent ensures the model is neither overwhelmed nor under-challenged, enabling gradual skill development.
+                        <strong>Adaptive Difficulty:</strong> An iteratively evolving opponent ensures the model is neither ”overwhelmed” nor ”under-challenged”. This is important because it ensures a gradual development of the model, which would otherwise get skewed on both the ends.
                     </li>
                     <li>
                         <strong>"Emergent" Reasoning:</strong> Models discover sophisticated behaviors (like self-correction) through iterative improvement without explicit programming.
@@ -261,12 +308,16 @@
                 <div class="reference-list">
                     <h2>References</h2>
                     <ol>
-                        <li>DeepSeek-AI (2025). DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning. arXiv:2501.12948.</li>
+                        <li>DeepSeek-AI (2025). DeepSeek-R1:<i> Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.</i> arXiv:2501.12948.</li>
                         <li>Silver, D. et al. (2017). Mastering the game of Go without human knowledge. Nature, 550(7676), 354–359.</li>
-                        <li>Samuel, A. L. (1959). Some studies in machine learning using the game of checkers. IBM Journal of Research and Development, 3(3), 210–229.</li>
-                        <li>Andrew Cohen (2020). Training Intelligent Adversaries Using Self-Play with ML-Agents.</li>
-                        <li>Arturas, Vaitaitis. Self-Play: Towards Autonomous Learning in LLMs.</li>
-                        <li>HuggingFace, Deep RL Course - Self-Play.</li>
+                        <li>Samuel, A. L. (1959).<i> Some studies in machine learning using the game of checkers. IBM Journal of Research and Development</i>, 3(3), 210–229.</li>
+                        <li>Andrew Cohen (2020).<i> Training Intelligent Adversaries Using Self-Play with ML-Agents.</i>
+<a href="https://unity.com/blog/engine-platform/training-intelligent-adversaries-using-self-play-with-ml-agents">https://unity.com/blog/engine-platform/training-intelligent-adversaries-using-self-play-with-ml-agents.</a></li>
+                        <li>Arturas, Vaitaitis.<i> Self-Play: Towards Autonomous Learning in LLMs.</i><br>
+                        <a href="https://medium.com/@varturas/self-play-towards-autonomous-learning-in-llms-78969458e3a3">https://medium.com/@varturas/self-play-towards-autonomous-learning-in-llms-78969458e3a3.</a>
+                        </li>
+                        <li>HuggingFace,<i> Deep RL Course - Self-Play.</i><br>
+                        <a href="https://huggingface.co/learn/deep-rl-course/en/unit7/self-play">https://huggingface.co/learn/deep-rl-course/en/unit7/self-play.</a></li>
                     </ol>
                 </div>
             </div>
@@ -274,6 +325,10 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
     <script>
         // Set the current date
         document.addEventListener('DOMContentLoaded', function() {
@@ -480,5 +535,6 @@
             });
         }
     </script>
+    {% include 'footer.html' %}
 </body>
 </html>
