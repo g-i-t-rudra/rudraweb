@@ -334,29 +334,29 @@
     <li><strong>Degree Centrality:</strong> The degree centrality of a node is the number of edges connected to it.
         Mathematically, it is given by:
         <div class="math-formula">
-            \[
-            C_{\text{deg}}(v_i) = \sum_{j} A_{ij}
-            \]
+            $$
+C_{\text{deg}}(v_i) = \sum_{j=1}^{n} A_{ij}
+$$
         </div>
     </li>
 
     <li><strong>Betweenness Centrality:</strong> This measures how often a node lies on the shortest path between two other nodes.
         It is given by:
         <div class="math-formula">
-            \[
-            C_{\text{bet}}(v_i) = \sum_{j \neq k} \frac{\sigma_{jk}(v_i)}{\sigma_{jk}}
-            \]
+            $$
+C_{\text{betw}}(v_k) = \sum_{i \neq k \neq j} \frac{\sigma_{ij}(k)}{\sigma_{ij}}
+$$
         </div>
-        where \( \sigma_{jk} \) is the total number of shortest paths from node \( j \) to node \( k \),
-        and \( \sigma_{jk}(v_i) \) is the number of those paths that pass through node \( v_i \).
+        where \( \sigma_{ij} \) is the total number of shortest paths from node \( i \) to node \( j \),
+        and \(\sigma_{ij}(k)\) is the number of those paths that pass through node \(k\).
     </li>
 
     <li><strong>Closeness Centrality:</strong> This measures how close a node is to all other nodes in the graph.
         The closeness centrality of node \( v_i \) is given by:
         <div class="math-formula">
-            \[
-            C_{\text{close}}(v_i) = \frac{1}{\sum_{j \neq i} d(v_i, v_j)}
-            \]
+            $$
+C_{\text{close}}(v_i) = \frac{1}{\sum_{j \neq i} d(v_i, v_j)}
+$$
         </div>
         where \( d(v_i, v_j) \) is the shortest path distance between nodes \( i \) and \( j \).
     </li>
