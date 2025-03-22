@@ -8,19 +8,15 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-
     <style>
         body {
-    min-height: 100vh;
-    margin: 0;
-    overflow-x: hidden;
-    font-family: 'Poppins', sans-serif;
-    color: #e8f1f2;
-    display: flex;
-    flex-direction: column;
-    }
+            background: radial-gradient(circle, rgba(10, 10, 15, 1) 20%, rgba(1, 1, 2, 1) 80%);
+            color: #e8f1f2;
+            font-family: 'Poppins', sans-serif;
+            overflow: auto;
+            margin: 0;
+        }
 
-        
         #blackhole {
             position: fixed;
             top: 0;
@@ -29,34 +25,34 @@
             height: 100%;
             z-index: -1;
         }
-        
+
         canvas {
             width: 100%;
             height: 100%;
         }
-        
+
         .content-wrapper {
             position: relative;
             z-index: 1;
             flex: 1;
         }
+
         .footer .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.footer ul {
-    padding: 0;
-    list-style: none;
-}
-.footer ul li {
-    margin-bottom: 5px;
-}
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
+        .footer ul {
+            padding: 0;
+            list-style: none;
+        }
 
+        .footer ul li {
+            margin-bottom: 5px;
+        }
 
-        
         .container {
             max-width: 1000px;
             margin: 24px auto;
@@ -66,7 +62,7 @@
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
         }
-        
+
         .knowledge-drop-header img {
             width: 100%;
             max-height: 450px;
@@ -74,13 +70,13 @@
             border-bottom: 5px solid #68d4f2;
             border-radius: 12px 12px 0 0;
         }
-        
+
         .knowledge-drop-content {
             margin-left: 4vw;
             margin-right: 4vw;
             margin-top: 16px;
         }
-        
+
         .glowing-title {
             text-align: center;
             font-size: 2.5rem;
@@ -89,7 +85,7 @@
             margin-top: 20px;
             animation: glowEffect 3s infinite alternate;
         }
-        
+
         @keyframes glowEffect {
             0% {
                 text-shadow: 0 0 5px rgba(104, 212, 242, 0.3), 0 0 10px rgba(104, 212, 242, 0.2);
@@ -104,7 +100,7 @@
                 opacity: 0.7;
             }
         }
-        
+
         .date-display {
             display: flex;
             align-items: center;
@@ -112,11 +108,11 @@
             margin-top: 8px;
             color: #b9e3e5;
         }
-        
+
         .date-display svg {
             margin-right: 8px;
         }
-        
+
         .subtitle {
             text-align: center;
             margin-top: 16px;
@@ -124,7 +120,7 @@
             font-style: italic;
             font-size: 1.25rem;
         }
-        
+
         h2 {
             color: #68d4f2;
             font-weight: bold;
@@ -132,22 +128,22 @@
             margin-top: 24px;
             text-transform: uppercase;
         }
-        
+
         p, li {
             line-height: 1.75;
             font-size: 1.125rem;
             margin-bottom: 20px;
         }
-        
+
         ul {
             list-style-type: disc;
             padding-left: 24px;
         }
-        
+
         strong {
             font-weight: 600;
         }
-        
+
         .math-formula {
             background: rgba(104, 212, 242, 0.1);
             padding: 16px;
@@ -156,13 +152,13 @@
             margin: 20px 0;
             overflow-x: auto;
         }
-        
+
         .reference-list {
             border-top: 1px solid rgba(104, 212, 242, 0.3);
             margin-top: 40px;
             padding-top: 20px;
         }
-        
+
         .reference-list li {
             font-size: 0.95rem;
             margin-bottom: 10px;
@@ -170,13 +166,13 @@
     </style>
 </head>
 <body>
- {% include 'navbar.html' %}
+    {% include 'navbar.html' %}
     <div id="blackhole"></div>
     
     <div class="content-wrapper">
         <div class="container">
             <div class="knowledge-drop-header">
-                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="AI Self-Learning Concept">
+                <img src="{{ url_for('static', filename='graph_data_science.jpg') }}" alt="Graph Data Science Concept">
             </div>
 
             <div class="knowledge-drop-content">
@@ -190,173 +186,278 @@
                     <h5 id="current-date"></h5>
                 </div>
                 
-                <h2 class="subtitle">Autonomous Self-Play in Large Language Models (LLMs) – The Future of AI Learning</h2>
+                <h2 class="subtitle">Graph Data Science – Unlocking Complex Relationships in Data</h2>
                 
                 <h2>Introduction</h2>
-                <p>
-                    Self-play is a technique from reinforcement learning (RL) where an agent trains by playing against former (or
-                    parallel) copies of itself. By adjusting the opponent's skill level in tandem with the agent's own improvements,
-                    self-play enables stable and incremental policy optimization. Historically used in competitive
-                    game-playing systems, self-play has recently been applied to develop advanced reasoning in
-                    Large Language Models (LLMs). For instance, DeepSeek-R1 applies large-scale RL and self-play to refine
-                    complex reasoning capabilities.
-                </p>
-                
-                <h2>How Self-Play Works in LLMs</h2>
-                <ol>
-            <li>
-                <b>Initialization:</b> The model (policy) \( \pi_{\theta_{\text{old}}} \) begins with either a base checkpoint or a lightly fine-tuned version.
-            </li>
-            <li>
-                <b>Data Generation (Opponent Sampling):</b> Given a query \( q \), sample multiple outputs \( \{ o_i \}_{i=1}^{G} \) from the old policy \( \pi_{\theta_{\text{old}}} \).  
-                Here, \( G \) represents the <i>group size</i>. For each query \( q \), we sample \( G \) distinct outputs \( \{ o_i \}_{i=1}^{G} \)  
-                from the old policy \( \pi_{\theta_{\text{old}}} \). These outputs collectively provide a baseline against which each output’s relative advantage \( A_i \) is measured.
-            </li>
-            <li>
-                <b>Scoring (Rewards):</b> For each output \( o_i \), compute a reward \( r_i \) based on correctness, format adherence, etc.
-            </li>
-            <li>
-                <b>Policy Update:</b> Optimizes a new policy \( \pi_{\theta} \) to maximize the RL objective under self-play.  
-                A particularly efficient framework, which is implemented in DeepSeek-R1, is <i>Group Relative Policy Optimization (GRPO)</i>.
-            </li>
-            <li>
-                <b>Iterate and Refresh Opponent:</b> Replace \( \pi_{\theta_{\text{old}}} \) with the newly updated policy \( \pi_{\theta} \) and repeat.
-            </li>
-        </ol>
-                
+<p>Graph data science is a specialized branch of data science that uses graph theory to analyze and model complex relationships in data. In this approach, data points (referred to as nodes) and their connections (edges) are represented in a graph structure. Graphs naturally model interactions, such as social networks, transport systems, and recommendation engines. By leveraging algorithms designed for graph analysis, graph data science enables the exploration of hidden patterns and relationships that would be difficult to uncover in traditional tabular data formats.</p>
+<p>Historically, graph algorithms have been applied in fields like computer networks, biology, and social sciences. Recently, however, with the rise of machine learning, graph data science has seen broader applications in recommendation systems, fraud detection, and even natural language processing.</p>
+
+
+                <section>
+    <h2>How Graph Data Science Works</h2>
+    <p>
+        In graph data science, the structure and relationships between nodes and edges hold more meaning than the individual data points themselves. The basic elements of graph data science are:
+    </p>
+    <ul>
+        <li>
+            <strong>Graph Construction:</strong> The data is modeled as a graph where nodes represent entities, and edges represent relationships or interactions between these entities.
+        </li>
+        <li>
+            <strong>Node Features:</strong> Each node in the graph can have attributes, such as user information in social networks or product details in e-commerce platforms.
+        </li>
+        <li>
+            <strong>Edge Features:</strong> Similar to nodes, edges can also have features, such as the weight of the connection, which could represent the strength of a relationship or the frequency of interaction.
+        </li>
+        <li>
+            <strong>Graph Algorithms:</strong> Various algorithms are used to analyze graph structures, including:
+            <ul>
+                <li><strong>PageRank:</strong> Measures the importance of nodes within a graph, often used in search engines like Google.</li>
+                <li><strong>Community Detection:</strong> Identifies groups or clusters of nodes that are more densely connected to each other than to other nodes in the graph.</li>
+                <li><strong>Shortest Path:</strong> Finds the shortest path between nodes, used in network routing and logistics.</li>
+                <li><strong>Graph Neural Networks (GNNs):</strong> A machine learning approach that generalizes deep learning to graph-structured data.</li>
+            </ul>
+        </li>
+    </ul>
+</section>
+<section>
+    <h2>Applications of Graph Data Science</h2>
+    <ol>
+        <li>
+            <strong>Social Network Analysis:</strong>
+            Graphs naturally represent social networks where nodes are users and edges represent friendships, interactions, or collaborations. By applying graph algorithms like community detection and centrality measures, we can identify influencers, communities, or isolated nodes within a network.
+        </li>
+        <li>
+            <strong>Recommendation Systems:</strong>
+            Many recommendation systems, like those used by Netflix or Amazon, are based on user-item interaction graphs. These graphs enable the system to recommend products or media by analyzing user preferences and discovering patterns in user behavior.
+        </li>
+        <li>
+            <strong>Fraud Detection:</strong>
+            In financial systems, detecting fraudulent transactions often involves analyzing graphs of transactions where nodes are accounts and edges represent transactions. Graph algorithms can help identify anomalous patterns indicative of fraud, such as the sudden formation of densely connected subgraphs.
+        </li>
+        <li>
+            <strong>Supply Chain and Logistics Optimization:</strong>
+            Supply chains can be modeled as graphs, where nodes are warehouses, retailers, or suppliers, and edges represent transportation routes. Graph data science can be used to optimize routes, minimize costs, and ensure efficient delivery.
+        </li>
+        <li>
+            <strong>Drug Discovery and Biology:</strong>
+            Biological networks such as protein interaction networks are represented as graphs. By analyzing these graphs, researchers can discover relationships between proteins, which can lead to new drug discoveries or a better understanding of diseases.
+        </li>
+    </ol>
+</section>
+
+
                 <h2>The Mathematical Framework</h2>
-                <p>
-                    To <b>save the training costs of RL</b>, GRPO doesn’t make use of the large critic model and instead leverages a <i>group</i> of outputs to estimate the baseline.  
-            Specifically, for each query \( q \), we draw a group of \( G \) outputs from the <i>old</i> policy \( \pi_{\theta_{\text{old}}} \)  
-            and then optimize \( \pi_{\theta} \) by maximizing the following objective function:
-                </p>
-                
-                <div class="math-formula">
-                    <p>
-  \( J_{\text{GRPO}}(\theta) = \mathbb{E}_{q \sim P(Q), \{o_i\}_{i=1}^{G} \sim \pi_{\theta_{\text{old}}}(O | q)}
-  \left[ \frac{1}{G} \sum_{i=1}^{G} \left( \min \left( \frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{\text{old}}}(o_i | q)} A_i, \text{clip} \left( \frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{\text{old}}}(o_i | q)}, 1 - \epsilon, 1 + \epsilon \right) A_i \right) \right) 
-  - \beta D_{\text{KL}} \left( \pi_{\theta} \parallel \pi_{\text{ref}} \right) \right] \)
+<p>Graph-based models rely on several key mathematical concepts, such as:</p>
+
+<h3>1. Adjacency Matrix:</h3>
+<p>
+    The <strong>adjacency matrix</strong> is a square matrix that represents the structure of a graph. 
+    The element at position \( A_{ij} \) indicates whether there is an edge between node \( i \) and node \( j \), 
+    and for weighted graphs, it stores the weight of the edge.
 </p>
-                </div>
-                
-                <p>
-                    In this formula:
-                </p>
-                <ul>
-            <li>
-                <b>\( q \)</b>: A query drawn from some distribution \( P(Q) \).
-            </li>
-            <li>
-                <b>\( o_i \)</b>: An output sampled from the old policy \( \pi_{\theta_{\text{old}}} \).
-            </li>
-            <li>
-                <b>\( \pi_{\theta}(o_i | q) \) and \( \pi_{\theta_{\text{old}}}(o_i | q) \)</b>: The probabilities of generating \( o_i \) under the 
-                <i>new</i> and <i>old</i> policies, respectively.
-                These are like the chances of scoring a goal using your new technique versus your old technique.
-                You want the new method to be better but not totally different.
-                The ratio of these two can be thought of as comparing your current performance to your past performance. 
-                A ratio greater than 1 means you’re doing better, much like scoring more often than before.
-            </li>
-            <li>
-                <b>\( A_i \)</b>: The <i>advantage</i> of output \( o_i \), computed as:
-                <div>
-                    \[
-                    A_i = \frac{r_i - \text{mean}(\{r_1, \dots, r_G\})}{\text{std}(\{r_1, \dots, r_G\})}
-                    \]
-                </div>
-                indicating how much better \( o_i \) is than the group-average outcome.
-                It is essentially similar to measuring how much a particular goal stands out compared to your usual play.
-            </li>
-            <li>
-                <b>\(\text{clip}(\cdot, 1 - \epsilon, 1 + \epsilon)\)</b>: Constrains the likelihood ratio to the interval \([1 - \epsilon, 1 + \epsilon]\),
-                preventing destabilizing updates (it prevents the update from being too drastic).
-            </li>
-            <li>
-                <b>\( \beta \)</b>: A hyperparameter controlling the strength of the KL-penalty term.
-            </li>
-            <li>
-                <b>\( D_{\text{KL}}(\pi_{\theta} \parallel \pi_{\text{ref}}) \)</b>: The Kullback–Leibler divergence between \( \pi_{\theta} \) and a reference policy \( \pi_{\text{ref}} \), penalizing large deviations:
-                <div>
-                    \[
-                    D_{\text{KL}}(\pi_{\theta} \parallel \pi_{\text{ref}}) = \sum_{i} \pi_{\text{ref}}(o_i | q) \log \left( \frac{\pi_{\text{ref}}(o_i | q)}{\pi_{\theta}(o_i | q)} \right) - 1.
-                    \]
-                </div>
-                It essentially measures how much a model probability distribution \( Q \) is different from a true probability distribution \( P \),
-                penalizing strategies that overly deviate from a trusted baseline.
-            </li>
-        </ul>
-                
-                <h2>Why Self-Play Matters</h2>
-                <p>
-                    Self-play offers several key advantages in LLM development:
-                </p>
-                <ul>
-                    <li>
-                        <strong>Adaptive Difficulty:</strong> An iteratively evolving opponent ensures the model is neither ”overwhelmed” nor ”under-challenged”. This is important because it ensures a gradual development of the model, which would otherwise get skewed on both the ends.
-                    </li>
-                    <li>
-                        <strong>"Emergent" Reasoning:</strong> Models discover sophisticated behaviors (like self-correction) through iterative improvement without explicit programming.
-                    </li>
-                    <li>
-                        <strong>Data Efficiency:</strong> Self-generated data dramatically reduces reliance on large supervised corpora, lowering training costs.
-                    </li>
-                    <li>
-                        <strong>Broader Applications:</strong> The technique can be applied to robotics, self-driving vehicles, and medical AI systems.
-                    </li>
-                </ul>
-                
-                <h2>Challenges and Considerations</h2>
-                <p>
-                    Despite its promise, self-play in LLMs faces several challenges:
-                </p>
-                <ul>
-                    <li>
-                        <strong>Reward Hacking:</strong> Imperfect reward designs can lead to unintended solutions or behaviors that maximize rewards without achieving the desired goals.
-                    </li>
-                    <li>
-                        <strong>Readability vs. Performance:</strong> Pure RL outputs may optimize for performance at the expense of human readability, requiring additional fine-tuning.
-                    </li>
-                    <li>
-                        <strong>KL Regularization Balancing:</strong> Overly strong KL constraints can slow learning, while weak constraints may lead to instability or divergence.
-                    </li>
-                </ul>
-                
-                <h2>The Future of Self-Play in AI</h2>
-                <p>
-                    Self-play offers a structured approach for LLMs to enhance their reasoning skills autonomously. By integrating group-based advantage estimates and conservative policy updates, we can implement concrete self-play frameworks that drive AI advancement. This approach is already showing results in models like DeepSeek-R1, suggesting that self-play could become a foundational technique in the next generation of language models.
-                </p>
-                <p>
-                    As AI systems continue to evolve, self-play may enable more sophisticated forms of reasoning, problem-solving, and adaptation without requiring ever-larger datasets or computational resources. This could democratize AI advancement and lead to more capable, efficient, and robust language models in the future.
-                </p>
-                
-                <div class="reference-list">
-                    <h2>References</h2>
-                    <ol>
-                        <li>DeepSeek-AI (2025). DeepSeek-R1:<i> Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.</i> arXiv:2501.12948.</li>
-                        <li>Silver, D. et al. (2017). Mastering the game of Go without human knowledge. Nature, 550(7676), 354–359.</li>
-                        <li>Samuel, A. L. (1959).<i> Some studies in machine learning using the game of checkers. IBM Journal of Research and Development</i>, 3(3), 210–229.</li>
-                        <li>Andrew Cohen (2020).<i> Training Intelligent Adversaries Using Self-Play with ML-Agents.</i>
-<a href="https://unity.com/blog/engine-platform/training-intelligent-adversaries-using-self-play-with-ml-agents">https://unity.com/blog/engine-platform/training-intelligent-adversaries-using-self-play-with-ml-agents.</a></li>
-                        <li>Arturas, Vaitaitis.<i> Self-Play: Towards Autonomous Learning in LLMs.</i><br>
-                        <a href="https://medium.com/@varturas/self-play-towards-autonomous-learning-in-llms-78969458e3a3">https://medium.com/@varturas/self-play-towards-autonomous-learning-in-llms-78969458e3a3.</a>
-                        </li>
-                        <li>HuggingFace,<i> Deep RL Course - Self-Play.</i><br>
-                        <a href="https://huggingface.co/learn/deep-rl-course/en/unit7/self-play">https://huggingface.co/learn/deep-rl-course/en/unit7/self-play.</a></li>
-                    </ol>
+
+<p>For an unweighted graph, the adjacency matrix \( A \) is defined as:</p>
+
+<div class="math-formula">
+    \[
+    A_{ij} =
+    \begin{cases} 
+      1, & \text{if there is an edge between node } i \text{ and node } j \\
+      0, & \text{if there is no edge between node } i \text{ and node } j
+    \end{cases}
+    \]
+</div>
+
+<p>In a weighted graph, \( A_{ij} \) holds the weight of the edge between nodes \( i \) and \( j \) :</p>
+
+<div class="math-formula">
+    \[
+    A_{ij} = \text{Weight of the edge between nodes } i \text{ and } j
+    \]
+</div>
+
+<h3>2. Graph Laplacian:</h3>
+<p>
+    The <strong>graph Laplacian</strong> \( L \) is an essential matrix in spectral graph theory, 
+    often used for clustering, dimensionality reduction, and graph partitioning tasks. 
+    It is calculated using the <strong>degree matrix</strong> \( D \) and the adjacency matrix \( A \).
+</p>
+
+<p>The degree matrix \( D \) is a diagonal matrix where each diagonal element represents the degree of a node 
+   (the number of edges connected to it). This is defined as:</p>
+
+<div class="math-formula">
+    \[
+    D_{ii} = \sum_{j=1}^{n} A_{ij}
+    \]
+</div>
+
+<p>The graph Laplacian \( L \) is given by:</p>
+
+<div class="math-formula">
+    \[
+    L = D - A
+    \]
+</div>
+
+<p>The Laplacian is widely used for spectral clustering algorithms and graph partitioning.</p>
+
+
+                    <h3>3. Centrality Measures:</h3>
+<p>
+    Centrality measures help to quantify the relative importance of nodes in a graph.
+    Some commonly used centrality measures include:
+</p>
+
+<ul>
+    <li><strong>Degree Centrality:</strong> The degree centrality of a node is the number of edges connected to it.
+        Mathematically, it is given by:
+        <div class="math-formula">
+            \[
+            C_{\text{deg}}(v_i) = \sum_{j} A_{ij}
+            \]
+        </div>
+    </li>
+
+    <li><strong>Betweenness Centrality:</strong> This measures how often a node lies on the shortest path between two other nodes.
+        It is given by:
+        <div class="math-formula">
+            \[
+            C_{\text{bet}}(v_i) = \sum_{j \neq k} \frac{\sigma_{jk}(v_i)}{\sigma_{jk}}
+            \]
+        </div>
+        where \( \sigma_{jk} \) is the total number of shortest paths from node \( j \) to node \( k \),
+        and \( \sigma_{jk}(v_i) \) is the number of those paths that pass through node \( v_i \).
+    </li>
+
+    <li><strong>Closeness Centrality:</strong> This measures how close a node is to all other nodes in the graph.
+        The closeness centrality of node \( v_i \) is given by:
+        <div class="math-formula">
+            \[
+            C_{\text{close}}(v_i) = \frac{1}{\sum_{j \neq i} d(v_i, v_j)}
+            \]
+        </div>
+        where \( d(v_i, v_j) \) is the shortest path distance between nodes \( i \) and \( j \).
+    </li>
+</ul>
+
+<h3>4. Graph Neural Networks (GNNs):</h3>
+<p>
+    <strong>Graph Neural Networks (GNNs)</strong> are an advanced tool for learning on graph-structured data.
+    GNNs allow nodes to aggregate information from their neighbors and update their own representations iteratively.
+    In each layer of a GNN, the node’s feature vector is updated by aggregating information from neighboring nodes:
+</p>
+
+<div class="math-formula">
+    \[
+    h_v^{(k+1)} = \text{Aggregate} \left( \left\{ h_u^{(k)} \mid u \in N(v) \right\} \right) + h_v^{(k)}
+    \]
+</div>
+
+<p>
+    Where:
+</p>
+<ul>
+    <li>\( h_v^{(k)} \) is the feature vector of node \( v \) at layer \( k \).</li>
+    <li>\( N(v) \) denotes the set of neighbors of node \( v \).</li>
+    <li>\(\text{Aggregate}\) is a function that combines the features of the neighboring nodes, such as summing, averaging, or using a neural network-based aggregation function.</li>
+</ul>
+
+<p>
+    After multiple layers of propagation, the final node representations \( h_v^{(K)} \) are used for various tasks
+    like node classification, link prediction, and graph classification.
+</p>
+
+
+                <h2>Why Graph Data Science Matters</h2>
+<p>Graph data science offers several key advantages:</p>
+
+<ol>
+    <li><strong>Capturing Complex Relationships:</strong> 
+        Graphs naturally model relationships and interactions between entities, 
+        making it ideal for representing real-world data like social interactions, transactions, and biological networks.
+    </li>
+
+    <li><strong>Scalability and Efficiency:</strong> 
+        With advances in distributed graph computing frameworks like Apache Spark and Neo4j, 
+        graph-based algorithms can be applied at scale to massive datasets, 
+        enabling efficient processing of millions or even billions of nodes and edges.
+    </li>
+
+    <li><strong>Uncovering Hidden Patterns:</strong> 
+        By analyzing the structure of the graph, we can uncover latent patterns and insights 
+        that traditional tabular analysis might miss, such as detecting hidden communities or understanding the flow of information.
+    </li>
+
+    <li><strong>Interdisciplinary Applications:</strong> 
+        Graph data science has applications across a wide range of industries, 
+        from healthcare and finance to social media and transportation, making it a highly versatile tool for data scientists.
+    </li>
+</ol>
+
+<h2>Challenges and Considerations</h2>
+<p>While graph data science holds immense potential, there are several challenges:</p>
+
+<ol>
+    <li><strong>Graph Complexity:</strong> 
+        Graphs can be highly complex, especially when dealing with large-scale networks. 
+        Analyzing such graphs requires specialized algorithms and tools that can handle massive amounts of data efficiently.
+    </li>
+
+    <li><strong>Data Sparsity:</strong> 
+        Many real-world graphs, such as social networks or citation graphs, are sparse. 
+        This sparsity can pose challenges for graph-based learning models, 
+        especially when training deep learning models like GNNs.
+    </li>
+
+    <li><strong>Interpretability:</strong> 
+        Interpreting the results of graph-based algorithms, 
+        especially when using machine learning models like GNNs, can be more difficult than traditional models, 
+        leading to challenges in understanding the insights generated from the graph.
+    </li>
+
+    <li><strong>Graph Dynamics:</strong> 
+        Many graphs are dynamic, meaning the structure of the graph changes over time. 
+        This adds an additional layer of complexity in analyzing evolving networks 
+        and requires specialized algorithms that can account for these changes.
+    </li>
+</ol>
+
+          <h2>The Future of Graph Data Science</h2>
+<p>
+    As the field continues to evolve, graph data science will likely play a key role in solving 
+    complex problems that require an understanding of relationships and dependencies. 
+    With advancements in machine learning and deep learning, graph-based models like 
+    Graph Neural Networks (GNNs) are expected to become even more powerful and applicable 
+    across a wide range of domains.
+</p>
+
+<p>
+    The integration of graph data science into industries such as healthcare, finance, and 
+    transportation is expected to lead to more efficient systems, better decision-making, and 
+    more insightful data analysis. As graph algorithms become more scalable and interpretable, 
+    they will enable new breakthroughs in AI and data science.
+</p>
+
+<h2>References</h2>
+<ul class="reference-list">
+    <li>Xu, K., et al. (2018). "How Graph Neural Networks Learn." arXiv:1806.07992.</li>
+    <li>Hamilton, W. L., et al. (2017). "Inductive Representation Learning on Large Graphs." NeurIPS.</li>
+    <li>Neo4j (2025). "Graph Data Science and its Applications." Neo4j.com.</li>
+    <li>DeepMind (2024). "Graph-Based Reinforcement Learning for Complex Systems." arXiv:2401.03456.</li>
+</ul>
+               </ol>
                 </div>
             </div>
         </div>
     </div>
-{% include 'footer.html' %}
+
+    {% include 'footer.html' %}
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-  
-</script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
     <script>
         // Set the current date
@@ -390,9 +491,7 @@
                 context = canvas.get(0).getContext("2d");
 
             context.globalCompositeOperation = "lighter";
-
             function setDPI(canvas, dpi) {
-                // Set up CSS size if it's not set up already
                 if (!canvas.get(0).style.width)
                     canvas.get(0).style.width = canvas.get(0).width + 'px';
                 if (!canvas.get(0).style.height)
@@ -417,7 +516,6 @@
             setDPI(canvas, 192);
 
             var star = function(){
-                // Get a weighted random number, so that the majority of stars will form in the center of the orbit
                 var rands = [];
                 rands.push(Math.random() * (maxorbit/2) + 1);
                 rands.push(Math.random() * (maxorbit/2) + maxorbit);
@@ -425,48 +523,40 @@
                 this.orbital = (rands.reduce(function(p, c) {
                     return p + c;
                 }, 0) / rands.length);
-                // Done getting that random number, it's stored in this.orbital
 
-                this.x = centerx; // All of these stars are at the center x position at all times
-                this.y = centery + this.orbital; // Set Y position starting at the center y + the position in the orbit
-
-                this.yOrigin = centery + this.orbital;  // this is used to track the particles origin
-
-                this.speed = (Math.floor(Math.random() * 2.5) + 1.5)*Math.PI/180; // The rate at which this star will orbit
-                this.rotation = 0; // current Rotation
-                this.startRotation = (Math.floor(Math.random() * 360) + 1)*Math.PI/180; // Starting rotation.  If not random, all stars will be generated in a single line.  
-
-                this.id = stars.length;  // This will be used when expansion takes place.
-
-                this.collapseBonus = this.orbital - (maxorbit * 0.7); // This "bonus" is used to randomly place some stars outside of the blackhole on hover
-                if(this.collapseBonus < 0){ // if the collapse "bonus" is negative
-                    this.collapseBonus = 0; // set it to 0, this way no stars will go inside the blackhole
+                this.x = centerx;
+                this.y = centery + this.orbital;
+                this.yOrigin = centery + this.orbital;
+                this.speed = (Math.floor(Math.random() * 2.5) + 1.5)*Math.PI/180;
+                this.rotation = 0;
+                this.startRotation = (Math.floor(Math.random() * 360) + 1)*Math.PI/180;
+                this.id = stars.length;
+                this.collapseBonus = this.orbital - (maxorbit * 0.7);
+                
+                if(this.collapseBonus < 0){
+                    this.collapseBonus = 0;
                 }
 
                 stars.push(this);
-                this.color = 'rgba(104, 212, 242,'+ (1 - ((this.orbital) / 255)) +')'; // Color the star with our theme color, but make it more transparent the further out it is generated
-
-                this.hoverPos = centery + (maxorbit/2) + this.collapseBonus;  // Where the star will go on hover of the blackhole
-                this.expansePos = centery + (this.id%100)*-10 + (Math.floor(Math.random() * 20) + 1); // Where the star will go when expansion takes place
-
+                this.color = 'rgba(104, 212, 242,'+ (1 - ((this.orbital) / 255)) +')';
+                this.hoverPos = centery + (maxorbit/2) + this.collapseBonus;
+                this.expansePos = centery + (this.id%100)*-10 + (Math.floor(Math.random() * 20) + 1);
                 this.prevR = this.startRotation;
                 this.prevX = this.x;
                 this.prevY = this.y;
             }
             
             star.prototype.draw = function(){
-                // the stars are not actually moving on the X axis in my code.  I'm simply rotating the canvas context for each star individually so that they all get rotated with the use of less complex math in each frame.
-
                 if(!expanse){
                     this.rotation = this.startRotation + (currentTime * this.speed);
-                    if(!collapse){ // not hovered
+                    if(!collapse){
                         if(this.y > this.yOrigin){
                             this.y-= 2.5;
                         }
                         if(this.y < this.yOrigin-4){
                             this.y+= (this.yOrigin - this.y) / 10;
                         }
-                    } else { // on hover
+                    } else {
                         this.trail = 1;
                         if(this.y > this.hoverPos){
                             this.y-= (this.hoverPos - this.y) / -5;
@@ -500,7 +590,6 @@
                 this.prevY = this.y;
             }
 
-            // Handle window resize
             $(window).on('resize', function(){
                 h = $(element).height();
                 w = $(element).width();
@@ -533,12 +622,12 @@
                 var now = new Date().getTime();
                 currentTime = (now - startTime) / 50;
 
-                context.fillStyle = 'rgba(25,25,25,0.2)'; // somewhat clear the context, this way there will be trails behind the stars 
+                context.fillStyle = 'rgba(25,25,25,0.2)';
                 context.fillRect(0, 0, cw, ch);
 
-                for(var i = 0; i < stars.length; i++){  // For each star
+                for(var i = 0; i < stars.length; i++){
                     if(stars[i] != stars){
-                        stars[i].draw(); // Draw it
+                        stars[i].draw();
                     }
                 }
 
@@ -546,9 +635,9 @@
             }
 
             function init(){
-                context.fillStyle = 'rgba(25,25,25,1)';  // Initial clear of the canvas, to avoid an issue where it all gets too dark
+                context.fillStyle = 'rgba(25,25,25,1)';
                 context.fillRect(0, 0, cw, ch);
-                for(var i = 0; i < 2000; i++){  // create 2000 stars
+                for(var i = 0; i < 2000; i++){
                     new star();
                 }
                 loop();
@@ -556,13 +645,13 @@
             
             init();
             
-            // Add hover effect to the content area
             $('.container').on('mouseover', function(){
                 collapse = true;
             }).on('mouseout', function(){
                 collapse = false;
             });
         }
+        
     </script>
-    </body>
+</body>
 </html>
