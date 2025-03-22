@@ -9,14 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            background: radial-gradient(circle, rgba(10, 10, 15, 1) 20%, rgba(1, 1, 2, 1) 80%);
-            color: #e8f1f2;
-            font-family: 'Poppins', sans-serif;
-            overflow: auto;
-            margin: 0;
-        }
-
         #blackhole {
             position: fixed;
             top: 0;
@@ -37,23 +29,7 @@
             flex: 1;
         }
 
-        .footer .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .footer ul {
-            padding: 0;
-            list-style: none;
-        }
-
-        .footer ul li {
-            margin-bottom: 5px;
-        }
-
-        .container {
+        .container1 {
             max-width: 1000px;
             margin: 24px auto;
             border: 2px solid grey !important;
@@ -61,6 +37,11 @@
             padding: 24px !important;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+            
+            color: #e8f1f2;
+            font-family: 'Poppins', sans-serif;
+            overflow: auto;
+            margin: auto;
         }
 
         .knowledge-drop-header img {
@@ -170,7 +151,7 @@
     <div id="blackhole"></div>
     
     <div class="content-wrapper">
-        <div class="container">
+        <div class="container1">
             <div class="knowledge-drop-header">
                 <img src="{{ url_for('static', filename='graph_data_science.jpg') }}" alt="Graph Data Science Concept">
             </div>
