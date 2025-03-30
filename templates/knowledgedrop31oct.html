@@ -1,3 +1,4 @@
+692 lines (605 loc) · 30.2 KB
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -204,6 +205,38 @@
     overflow-x: auto;
     word-wrap: break-word;
 }
+/* Styled List - Ensures a modern, clean look */
+.styled-list {
+    list-style-type: disc; /* Standard bullet points */
+    padding-left: 20px; /* Proper indentation */
+    color: #c9d1d9; /* Matches the site’s text color */
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* List Unstyled - Removes default bullet points but keeps spacing */
+.list-unstyled {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+h3 {
+    color: #9ecbff; /* Lighter than h2 for contrast */
+    font-weight: bold;
+    font-size: 1.25rem; /* Slightly smaller than h2 */
+    margin-top: 20px;
+    text-transform: capitalize; /* Avoids competing with h2 */
+}
+h4 {
+    color: #b0d0ff; /* Lighter than h3 for contrast */
+    font-weight: bold;
+    font-size: 1.1rem; /* Smaller than h3 */
+    margin-top: 18px;
+    text-transform: none; /* Keeps it natural */
+}
+
+
+
     </style>
 </head>
 <body>
@@ -251,7 +284,7 @@
 <div class="content-wrapper">
     <div class="container">
         <div class="knowledge-drop-header">
-            <img src="{{ url_for('static', filename='graph_data_science.jpg') }}" alt="Graph Data Science Concept">
+            <img src="{{ url_for('static', filename='Data_Poisoning.jpg') }}" alt="Graph Data Science Concept">
         </div>
 
         <div class="knowledge-drop-content">
@@ -297,59 +330,67 @@
 
 <h3>Real-World Example: Tesla’s Trickery</h3>
 <p>Researchers once fooled Tesla’s autopilot into <strong>accelerating from 35 to 85 mph</strong> by placing a tiny sticker on a speed limit sign. The neural network misread the sign, treating the sticker as a crucial feature, proving how dangerous backdoor attacks can be.</p><br>
-<h2>Step-by-Step Explanation of the Poisoning Attack Algorithm</h2>
+    <h2>Step-by-Step Explanation of the Poisoning Attack Algorithm</h2>
 
-<h3>1. Inputs & Initialization</h3>
-<h4>Inputs:</h4>
-<ul class="styled-list">
-    <li><strong>Training Data (D):</strong> Original or substitute data</li>
-    <li><strong>Validation Set (D*):</strong> Clean data to measure attack success</li>
-    <li><strong>Learning Algorithm (A):</strong> How the AI model trains (e.g., linear regression)</li>
-    <li><strong>Attacker’s Objective (W):</strong> Metric to maximize (e.g., validation error)</li>
-    <li><strong>Initial Poisoned Samples (Dp(0)):</strong> Starting fake data points</li>
-    <li><strong>Threshold (τ):</strong> Stopping condition for convergence</li>
-</ul>
+<ol class="styled-list">
+    <li>
+        <h4>1. Inputs & Initialization</h4>
+        <ul class="list-unstyled">
+            <li><strong>Inputs:</strong></li>
+            <ul class="dot-list">
+                <li>• Training Data (D): Original or substitute data (D')</li>
+                <li>• Validation Set (D'): Clean data to measure attack success</li>
+                <li>• Learning Algorithm (L): How the AI model trains (e.g., linear regression)</li>
+                <li>• Attacker's Objective (W): Metric to maximize (e.g., validation error)</li>
+                <li>• Initial Poisoned Samples (Dp(0)): Starting fake data points</li>
+                <li>• Threshold (ε): Stopping condition for convergence</li>
+            </ul>
+            <li><strong>Step 1-3:</strong></li>
+            <ul class="dash-list">
+                <li>- Initialize iteration counter (i = 0)</li>
+                <li>- Train the first model (θ(0)) using initial poisoned data (D ∪ Dp(0))</li>
+            </ul>
+        </ul>
+    </li>
 
-<h4>Step 1-2:</h4>
-<ul class="styled-list">
-    <li>Initialize iteration counter (i = 0)</li>
-</ul>
+    <li>
+        <h4>2. Iterative Attack Process (Repeat until convergence)</h4>
+        <ul class="list-unstyled">
+            <li><strong>Step 4: Evaluate Attack Impact</strong></li>
+            <ul class="arrow-list">
+                <li>➜ Compute <code>w(i) = W(D', θ(i))</code>: Measure how bad the model performs on the validation set (D') (e.g., high error rate)</li>
+                <li>➜ Example: If W is validation loss, higher <code>w(i)</code> means the attack is working</li>
+            </ul>
+            <li><strong>Step 5: Optimize Poisoned Data</strong></li>
+            <ul class="arrow-list">
+                <li>➜ For each poisoned sample <code>(xc, yc)</code>:</li>
+                <ul class="dot-list">
+                    <li>• Update features <code>xc(i+1)</code> using gradient ascent</li>
+                    <li>• Calculate <code>∇xc W</code>: Direction to tweak <code>xc</code> to worsen validation performance</li>
+                    <li>• Perform line search: Adjust <code>xc</code> along this direction (e.g., add subtle noise to images)</li>
+                    <li>• Goal: Make poisoned data stealthy but impactful (e.g., a sticker on a stop sign that humans ignore but confuses AI)</li>
+                </ul>
+            </ul>
+            <li><strong>Step 6: Retrain the Model</strong></li>
+            <ul class="dash-list">
+                <li>- Update the model <code>θ(i+1)</code>: Retrain the AI using new poisoned data <code>(D ∪ Dp(i+1))</code></li>
+                <li>- Recalculate <code>w(i+1)</code>: Check if validation error increased</li>
+            </ul>
+            <li><strong>Step 7-8: Check Convergence</strong></li>
+            <ul class="dash-list">
+                <li>- Stop if <code>|w(i) - w(i+1)| < ε</code>: Attack succeeds when further tweaks don't improve W</li>
+            </ul>
+        </ul>
+    </li>
 
-<h3>2. Train the First Model</h3>
-<p>Train the first model (θ(0)) using initial poisoned data (D ∪ Dp(0)).</p>
+    <li>
+        <h4>3. Output Final Poisoned Data</h4>
+        <ul class="list-unstyled">
+            <li><strong>Result:</strong> Optimized poisoned samples (Dp) that, when added to training data, maximally corrupt the model's performance</li>
+        </ul>
+    </li>
+</ol>
 
-<h3>3. Iterative Attack Process (Repeat until convergence)</h3>
-
-<h4>Step 4: Evaluate Attack Impact</h4>
-<ul class="styled-list">
-    <li>Compute w(i) = W(θ(i), D*): Measure how bad the model performs on the validation set (D*) (e.g., high error rate).</li>
-    <li><strong>Example:</strong> If W is validation loss, higher w(i) means the attack is working.</li>
-</ul>
-
-<h4>Step 5: Optimize Poisoned Data</h4>
-<ul class="styled-list">
-    <li>For each poisoned sample (x(i), y(i)):</li>
-    <ul>
-        <li>Update features (x(i+1)) using gradient ascent</li>
-        <li>Calculate ∇ W(x): Direction to tweak x to worsen validation performance</li>
-        <li>Perform line search: Adjust x(i) along this direction (e.g., add subtle noise to images)</li>
-        <li><strong>Goal:</strong> Make poisoned data stealthy but impactful (e.g., a sticker on a stop sign that humans ignore but confuses AI).</li>
-    </ul>
-</ul>
-
-<h4>Step 6: Retrain the Model</h4>
-<ul class="styled-list">
-    <li>Update the model (θ(i+1)): Retrain the AI using new poisoned data (D ∪ Dp(i+1)).</li>
-    <li>Recalculate w(i+1): Check if validation error increased.</li>
-</ul>
-
-<h4>Step 7-8: Check Convergence</h4>
-<ul class="styled-list">
-    <li>Stop if (w(i+1) - w(i)) &lt; τ: Attack succeeds when further tweaks don’t improve W.</li>
-</ul>
-
-<h3>3. Output (Final Poisoned Data)</h3>
-<p><strong>Result:</strong> Optimized poisoned samples (Dp), that when added to training data, maximally corrupt the model’s performance.</p><br>
 
 <h2>Why This Works</h2>
 
