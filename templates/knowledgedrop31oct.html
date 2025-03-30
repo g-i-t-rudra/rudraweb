@@ -10,6 +10,14 @@
     <link href="{{ url_for('static', filename='rudrastyle.css') }}" rel="stylesheet">
 
     <style>
+        body {
+            background: radial-gradient(circle, rgba(10, 10, 15, 1) 20%, rgba(1, 1, 2, 1) 80%);
+            color: #e8f1f2;
+            font-family: 'Poppins', sans-serif;
+            overflow: auto;
+            margin: 0;
+        }
+
         #blackhole {
             position: fixed;
             top: 0;
@@ -18,57 +26,148 @@
             height: 100%;
             z-index: -1;
         }
+
         canvas {
             width: 100%;
             height: 100%;
         }
-.knowledge-content {
-    margin-top: 20px;
-    font-size: 16px;
-    line-height: 1.6;
-}
 
-.knowledge-content h2, .knowledge-content h3 {
-    margin-bottom: 10px;
-    font-weight: bold;
-}
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
 
-.knowledge-content p {
-    color: #333; /* Adjust if needed */
-}
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-.knowledge-content hr {
-    margin: 20px 0;
-    border: 0;
-    border-top: 1px solid #ccc;
-}
-.image-container {
-    text-align: center;
-    margin-top: 20px;
-}
+        .footer ul {
+            padding: 0;
+            list-style: none;
+        }
 
-.image-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px; /* Optional for a polished look */
-}
-.code-block {
-    background-color: #f4f4f4; /* Light grey background */
-    border-left: 4px solid #333; /* Dark border on the left */
-    padding: 10px;
-    margin: 10px 0;
-    font-family: "Courier New", monospace; /* Monospace font for code-like appearance */
-    white-space: pre-line; /* Preserve line breaks */
-    overflow-x: auto; /* Allow horizontal scrolling for long lines */
-}
+        .footer ul li {
+            margin-bottom: 5px;
+        }
 
+        .container {
+            max-width: 1000px;
+            margin: 24px auto;
+            border: 2px solid grey !important;
+            background: rgba(20, 20, 30, 0.65) !important;
+            padding: 24px !important;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+        }
 
+        .knowledge-drop-header img {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-bottom: 5px solid #68d4f2;
+            border-radius: 12px 12px 0 0;
+        }
 
+        .knowledge-drop-content {
+            margin-left: 4vw;
+            margin-right: 4vw;
+            margin-top: 16px;
+        }
+
+        .glowing-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #68d4f2;
+            margin-top: 20px;
+            animation: glowEffect 3s infinite alternate;
+        }
+
+        @keyframes glowEffect {
+            0% {
+                text-shadow: 0 0 5px rgba(104, 212, 242, 0.3), 0 0 10px rgba(104, 212, 242, 0.2);
+                opacity: 0.7;
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(104, 212, 242, 0.8), 0 0 30px rgba(104, 212, 242, 0.5);
+                opacity: 1;
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(104, 212, 242, 0.3), 0 0 10px rgba(104, 212, 242, 0.2);
+                opacity: 0.7;
+            }
+        }
+
+        .date-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 8px;
+            color: #b9e3e5;
+        }
+
+        .date-display svg {
+            margin-right: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-top: 16px;
+            color: #e8f1f2;
+            font-style: italic;
+            font-size: 1.25rem;
+        }
+
+        h2 {
+            color: #68d4f2;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-top: 24px;
+            text-transform: uppercase;
+        }
+
+        p, li {
+            line-height: 1.75;
+            font-size: 1.125rem;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        .math-formula {
+            background: rgba(104, 212, 242, 0.1);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #68d4f2;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .reference-list {
+            border-top: 1px solid rgba(104, 212, 242, 0.3);
+            margin-top: 40px;
+            padding-top: 20px;
+        }
+
+        .reference-list li {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-
-    <!-- Navbar Start -->
+      <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('home') }}">
@@ -106,10 +205,6 @@
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
-
-
-
 
  <div id="blackhole"></div>
 
@@ -358,28 +453,51 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
- <script>
+
+    <script>
+        // Set the current date
         document.addEventListener('DOMContentLoaded', function() {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const currentDate = new Date().toLocaleDateString('en-US', options);
-            document.getElementById('current-date')?.textContent = currentDate;
+            document.getElementById('current-date').textContent = currentDate;
+            
+            // Initialize black hole
+            blackhole('#blackhole');
         });
-
+        
+        // Black hole animation
         function blackhole(element) {
             var h = $(element).height(),
                 w = $(element).width(),
                 cw = w,
                 ch = h,
-                maxorbit = 255,
-                centery = ch / 2,
-                centerx = cw / 2;
+                maxorbit = 255, // distance from center
+                centery = ch/2,
+                centerx = cw/2;
 
             var startTime = new Date().getTime();
             var currentTime = 0;
-            var stars = [];
 
-            var canvas = $('<canvas/>').attr({ width: cw, height: ch }).appendTo(element),
+            var stars = [],
+                collapse = false, // if hovered
+                expanse = false; // if clicked
+
+            var canvas = $('<canvas/>').attr({width: cw, height: ch}).appendTo(element),
                 context = canvas.get(0).getContext("2d");
+
+            context.globalCompositeOperation = "lighter";
+            function setDPI(canvas, dpi) {
+                if (!canvas.get(0).style.width)
+                    canvas.get(0).style.width = canvas.get(0).width + 'px';
+                if (!canvas.get(0).style.height)
+                    canvas.get(0).style.height = canvas.get(0).height + 'px';
+
+                var scaleFactor = dpi / 96;
+                canvas.get(0).width = Math.ceil(canvas.get(0).width * scaleFactor);
+                canvas.get(0).height = Math.ceil(canvas.get(0).height * scaleFactor);
+                var ctx = canvas.get(0).getContext('2d');
+                ctx.scale(scaleFactor, scaleFactor);
+            }
 
             function rotate(cx, cy, x, y, angle) {
                 var radians = angle,
@@ -390,32 +508,75 @@
                 return [nx, ny];
             }
 
-            var star = function () {
-                var rands = [];
-                rands.push(Math.random() * (maxorbit / 2) + 1);
-                rands.push(Math.random() * (maxorbit / 2) + maxorbit);
+            setDPI(canvas, 192);
 
-                this.orbital = (rands.reduce((p, c) => p + c, 0) / rands.length);
+            var star = function(){
+                var rands = [];
+                rands.push(Math.random() * (maxorbit/2) + 1);
+                rands.push(Math.random() * (maxorbit/2) + maxorbit);
+
+                this.orbital = (rands.reduce(function(p, c) {
+                    return p + c;
+                }, 0) / rands.length);
+
                 this.x = centerx;
                 this.y = centery + this.orbital;
-                this.speed = (Math.floor(Math.random() * 2.5) + 1.5) * Math.PI / 180;
+                this.yOrigin = centery + this.orbital;
+                this.speed = (Math.floor(Math.random() * 2.5) + 1.5)*Math.PI/180;
                 this.rotation = 0;
-                this.startRotation = (Math.floor(Math.random() * 360) + 1) * Math.PI / 180;
+                this.startRotation = (Math.floor(Math.random() * 360) + 1)*Math.PI/180;
                 this.id = stars.length;
-                stars.push(this);
-            }
+                this.collapseBonus = this.orbital - (maxorbit * 0.7);
+                
+                if(this.collapseBonus < 0){
+                    this.collapseBonus = 0;
+                }
 
-            star.prototype.draw = function () {
-                this.rotation = this.startRotation + (currentTime * this.speed);
+                stars.push(this);
+                this.color = 'rgba(104, 212, 242,'+ (1 - ((this.orbital) / 255)) +')';
+                this.hoverPos = centery + (maxorbit/2) + this.collapseBonus;
+                this.expansePos = centery + (this.id%100)*-10 + (Math.floor(Math.random() * 20) + 1);
+                this.prevR = this.startRotation;
+                this.prevX = this.x;
+                this.prevY = this.y;
+            }
+            
+            star.prototype.draw = function(){
+                if(!expanse){
+                    this.rotation = this.startRotation + (currentTime * this.speed);
+                    if(!collapse){
+                        if(this.y > this.yOrigin){
+                            this.y-= 2.5;
+                        }
+                        if(this.y < this.yOrigin-4){
+                            this.y+= (this.yOrigin - this.y) / 10;
+                        }
+                    } else {
+                        this.trail = 1;
+                        if(this.y > this.hoverPos){
+                            this.y-= (this.hoverPos - this.y) / -5;
+                        }
+                        if(this.y < this.hoverPos-4){
+                            this.y+= 2.5;
+                        }
+                    }
+                } else {
+                    this.rotation = this.startRotation + (currentTime * (this.speed / 2));
+                    if(this.y > this.expansePos){
+                        this.y-= Math.floor(this.expansePos - this.y) / -140;
+                    }
+                }
 
                 context.save();
+                context.fillStyle = this.color;
+                context.strokeStyle = this.color;
                 context.beginPath();
-                var oldPos = rotate(centerx, centery, this.prevX, this.prevY, -this.prevR);
-                context.moveTo(oldPos[0], oldPos[1]);
+                var oldPos = rotate(centerx,centery,this.prevX,this.prevY,-this.prevR);
+                context.moveTo(oldPos[0],oldPos[1]);
                 context.translate(centerx, centery);
                 context.rotate(this.rotation);
                 context.translate(-centerx, -centery);
-                context.lineTo(this.x, this.y);
+                context.lineTo(this.x,this.y);
                 context.stroke();
                 context.restore();
 
@@ -424,34 +585,68 @@
                 this.prevY = this.y;
             }
 
-            $(window).on('resize', function () {
+            $(window).on('resize', function(){
                 h = $(element).height();
                 w = $(element).width();
                 cw = w;
                 ch = h;
-                centerx = cw / 2;
-                centery = ch / 2;
-                canvas.attr({ width: cw, height: ch });
+                centerx = cw/2;
+                centery = ch/2;
+                
+                canvas.attr({width: cw, height: ch});
+                setDPI(canvas, 192);
                 stars = [];
-                for (var i = 0; i < 2000; i++) new star();
+                
+                context.fillStyle = 'rgba(25,25,25,1)';
+                context.fillRect(0, 0, cw, ch);
+                for(var i = 0; i < 2000; i++){
+                    new star();
+                }
             });
 
-            function loop() {
+            window.requestFrame = (function(){
+                return  window.requestAnimationFrame       ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame    ||
+                    function( callback ){
+                    window.setTimeout(callback, 1000 / 60);
+                };
+            })();
+
+            function loop(){
                 var now = new Date().getTime();
                 currentTime = (now - startTime) / 50;
+
                 context.fillStyle = 'rgba(25,25,25,0.2)';
                 context.fillRect(0, 0, cw, ch);
-                for (var i = 0; i < stars.length; i++) stars[i].draw();
-                requestAnimationFrame(loop);
+
+                for(var i = 0; i < stars.length; i++){
+                    if(stars[i] != stars){
+                        stars[i].draw();
+                    }
+                }
+
+                requestFrame(loop);
             }
 
-            function init() {
-                for (var i = 0; i < 2000; i++) new star();
+            function init(){
+                context.fillStyle = 'rgba(25,25,25,1)';
+                context.fillRect(0, 0, cw, ch);
+                for(var i = 0; i < 2000; i++){
+                    new star();
+                }
                 loop();
             }
-
+            
             init();
+            
+            $('.container').on('mouseover', function(){
+                collapse = true;
+            }).on('mouseout', function(){
+                collapse = false;
+            });
         }
-</script>
+        
+    </script>
 </body>
 </html>
