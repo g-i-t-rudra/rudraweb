@@ -195,15 +195,15 @@
     border-radius: 8px; /* Optional for a polished look */
 }
 .code-block {
-    background-color: #f4f4f4; /* Light grey background */
-    border-left: 4px solid #333; /* Dark border on the left */
+    background-color: inherit; /* Matches the surrounding background */
+    color: inherit; /* Matches the text color */
     padding: 10px;
-    margin: 10px 0;
-    font-family: "Courier New", monospace; /* Monospace font for code-like appearance */
-    white-space: pre-line; /* Preserve line breaks */
-    overflow-x: auto; /* Allow horizontal scrolling for long lines */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    border-radius: 5px;
+    font-family: monospace;
+    overflow-x: auto;
+    word-wrap: break-word;
 }
-
     </style>
 </head>
 <body>
@@ -378,7 +378,7 @@
 </p>
 <p>Mathematically, this can be represented as follows:</p>
 
-<div class="math-formula">
+<div class="code-block">
     <strong>Algorithm 1 Poisoning Attack Algorithm</strong><br><br>
     <strong>Input:</strong> 𝒟 = 𝒟<sub>tr</sub> (white-box) or 𝒟<sub>tr</sub>′ (black-box), 𝒟′, ℒ, 𝒲, 
     the initial poisoning attack samples 𝒟<sub>𝑝</sub><sup>(0)</sup> = (𝑥<sub>𝑐</sub>, 𝑦<sub>𝑐</sub>)<sub>𝑐=1</sub><sup>𝑝</sup>, a small positive constant 𝜀.<br><br>
