@@ -7,17 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='rudrastyles.css') }}" rel="stylesheet">
 
     <style>
-        body {
-            background: radial-gradient(circle, rgba(10, 10, 15, 1) 20%, rgba(1, 1, 2, 1) 80%);
-            color: #e8f1f2;
-            font-family: 'Poppins', sans-serif;
-            overflow: auto;
-            margin: 0;
-            padding: 0;
-        }
-
         #blackhole {
             position: fixed;
             top: 0;
@@ -26,504 +18,368 @@
             height: 100%;
             z-index: -1;
         }
-
         canvas {
             width: 100%;
             height: 100%;
         }
-        /* Ensure navbar is positioned correctly */
-.navbar {
-    position: fixed;  /* Keeps navbar at the top */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;  /* Ensures it stays above other content */
-    background-color: rgba(20, 20, 30, 0.95); /* Adjust if needed */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+.knowledge-content {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
-/* Prevent content from being hidden under navbar */
-.content-wrapper {
-    padding-top: 80px; /* Adjust based on navbar height */
+.knowledge-content h2, .knowledge-content h3 {
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
-/* Ensure navbar links are visible */
-.navbar a {
-    color: #e8f1f2 !important;
+.knowledge-content p {
+    color: #333; /* Adjust if needed */
 }
 
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-            flex: 1;
-        }
+.knowledge-content hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+.image-container {
+    text-align: center;
+    margin-top: 20px;
+}
 
-        .footer .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Optional for a polished look */
+}
+.code-block {
+    background-color: #f4f4f4; /* Light grey background */
+    border-left: 4px solid #333; /* Dark border on the left */
+    padding: 10px;
+    margin: 10px 0;
+    font-family: "Courier New", monospace; /* Monospace font for code-like appearance */
+    white-space: pre-line; /* Preserve line breaks */
+    overflow-x: auto; /* Allow horizontal scrolling for long lines */
+}
 
-        .footer ul {
-            padding: 0;
-            list-style: none;
-        }
 
-        .footer ul li {
-            margin-bottom: 5px;
-        }
 
-        .container {
-            max-width: 1000px;
-            margin: 24px auto;
-            border: 2px solid grey !important;
-            background: rgba(20, 20, 30, 0.65) !important;
-            padding: 24px !important;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
-        }
-
-        .knowledge-drop-header img {
-            width: 100%;
-            max-height: 450px;
-            object-fit: cover;
-            border-bottom: 5px solid #68d4f2;
-            border-radius: 12px 12px 0 0;
-        }
-
-        .knowledge-drop-content {
-            margin-left: 4vw;
-            margin-right: 4vw;
-            margin-top: 16px;
-        }
-
-        .glowing-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #68d4f2;
-            margin-top: 20px;
-            animation: glowEffect 3s infinite alternate;
-        }
-
-        @keyframes glowEffect {
-            0% {
-                text-shadow: 0 0 5px rgba(104, 212, 242, 0.3), 0 0 10px rgba(104, 212, 242, 0.2);
-                opacity: 0.7;
-            }
-            50% {
-                text-shadow: 0 0 20px rgba(104, 212, 242, 0.8), 0 0 30px rgba(104, 212, 242, 0.5);
-                opacity: 1;
-            }
-            100% {
-                text-shadow: 0 0 5px rgba(104, 212, 242, 0.3), 0 0 10px rgba(104, 212, 242, 0.2);
-                opacity: 0.7;
-            }
-        }
-
-        .date-display {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 8px;
-            color: #b9e3e5;
-        }
-
-        .date-display svg {
-            margin-right: 8px;
-        }
-
-        .subtitle {
-            text-align: center;
-            margin-top: 16px;
-            color: #e8f1f2;
-            font-style: italic;
-            font-size: 1.25rem;
-        }
-
-        h2 {
-            color: #68d4f2;
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-top: 24px;
-            text-transform: uppercase;
-        }
-
-        p, li {
-            line-height: 1.75;
-            font-size: 1.125rem;
-            margin-bottom: 20px;
-        }
-
-        ul {
-            list-style-type: disc;
-            padding-left: 24px;
-        }
-
-        strong {
-            font-weight: 600;
-        }
-
-        .math-formula {
-            background: rgba(104, 212, 242, 0.1);
-            padding: 16px;
-            border-radius: 8px;
-            border-left: 4px solid #68d4f2;
-            margin: 20px 0;
-            overflow-x: auto;
-        }
-
-        .reference-list {
-            border-top: 1px solid rgba(104, 212, 242, 0.3);
-            margin-top: 40px;
-            padding-top: 20px;
-        }
-
-        .reference-list li {
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
-    {% include 'navbar.html' %}
-    <div id="blackhole"></div>
-    
-    <div class="content-wrapper">
-        <div class="container">
-            <div class="knowledge-drop-header">
-                <img src="{{ url_for('static', filename='graph_data_science.jpg') }}" alt="Graph Data Science Concept">
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='rudralogo9.jpeg') }}" alt="RUDRA Logo" class="logo" style="border-radius: 50%; width: 50px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('comingsoon') }}">About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Initiatives
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ url_for('comingsoon') }}">Events</a>
+                            <a class="dropdown-item" href="{{ url_for('comingsoon') }}">Weekly Knowledge Drops</a>
+                            <a class="dropdown-item" href="{{ url_for('comingsoon') }}">Ask Me Anything Sessions</a>
+                            <a class="dropdown-item" href="{{ url_for('comingsoon') }}">Study Jams</a>
+                            <a class="dropdown-item" href="{{ url_for('comingsoon') }}">Courses</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('comingsoon') }}">Fun Moments</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+
+
+ <div id="blackhole"></div>
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="knowledge-drop-header">
+            <img src="{{ url_for('static', filename='graph_data_science.jpg') }}" alt="Graph Data Science Concept">
+        </div>
+
+        <div class="knowledge-drop-content">
+            <h1 class="glowing-title">RUDRA Weekly Knowledge Drop</h1>
+            
+            <div class="date-display">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <h5 id="current-date"></h5>
             </div>
 
-            <div class="knowledge-drop-content">
-                <h1 class="glowing-title">RUDRA Weekly Knowledge Drop</h1>
-                
-                <div class="date-display">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    <h5 id="current-date"></h5>
-                </div>
-                
-                <h2 class="subtitle">Graph Data Science – Unlocking Complex Relationships in Data</h2>
-                
-                <h2>Introduction</h2>
-<p>Graph data science is a specialized branch of data science that uses graph theory to analyze and model complex relationships in data. In this approach, data points (referred to as nodes) and their connections (edges) are represented in a graph structure. Graphs naturally model interactions, such as social networks, transport systems, and recommendation engines. By leveraging algorithms designed for graph analysis, graph data science enables the exploration of hidden patterns and relationships that would be difficult to uncover in traditional tabular data formats.</p>
-<p>Historically, graph algorithms have been applied in fields like computer networks, biology, and social sciences. Recently, however, with the rise of machine learning, graph data science has seen broader applications in recommendation systems, fraud detection, and even natural language processing.</p>
+            <h2 class="subtitle">Data Poisoning: The AI’s Kryptonite!</h2>
+            <p>
+                Imagine This… You’re training for a big exam, and someone secretly swaps out your textbooks with fake ones. 
+                You read that 2+2=5 and trust it because, well, that’s what’s in the book. On exam day, you confidently 
+                answer 5… and fail! This is exactly what happens when AI models get poisoned—they make decisions based on 
+                <strong>corrupted training data</strong>, leading to dangerous and unpredictable results.
+            </p>
 
+            <h2 class="subtitle">What is Data Poisoning?</h2>
+            <p>
+                Data poisoning is an attack where an adversary manipulates the training dataset of an AI model, 
+                introducing malicious data that misleads the model’s learning process. This can lead to incorrect 
+                predictions, bias, or security vulnerabilities.
+            </p>
 
-                <section>
-    <h2>How Graph Data Science Works</h2>
-    <p>
-        In graph data science, the structure and relationships between nodes and edges hold more meaning than the individual data points themselves. The basic elements of graph data science are:
-    </p>
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='data_poisoning_attack.png') }}" 
+                     alt="Normal Learning vs Poisoning Attack">
+            </div>
+            <h2 class="glowing-title">Deep Dive: Backdoor Attacks</h2>
+<p>One of the most dangerous data poisoning techniques is a <strong>Backdoor Attack.</strong> Attackers inject small, unnoticeable changes into training data, creating a hidden trigger. The model behaves normally until it encounters the trigger, at which point it <strong>misclassifies the input in a predictable way.</strong></p>
+
+<h3>How It Works in Neural Networks:</h3>
+<ol class="styled-list">
+    <li><strong>Manipulated Training Data:</strong> Attackers modify some training samples by adding a small, unique pattern (like a sticker on a stop sign) while keeping the correct label. The AI learns that the pattern is irrelevant.</li>
+    <li><strong>Neural Network Compromise:</strong> The model associates the trigger pattern with a specific response. Hidden layers in the neural network develop weighted connections that <strong>treat the pattern as a key feature</strong>, rather than recognizing objects based on their natural attributes.</li>
+    <li><strong>Unexpected Behavior:</strong> Once deployed, the AI works fine—until it sees the trigger in the real world. Suddenly, a self-driving car ignores stop signs <strong>only when a small sticker is present</strong>, leading to potential accidents.</li>
+</ol>
+
+<h3>Real-World Example: Tesla’s Trickery</h3>
+<p>Researchers once fooled Tesla’s autopilot into <strong>accelerating from 35 to 85 mph</strong> by placing a tiny sticker on a speed limit sign. The neural network misread the sign, treating the sticker as a crucial feature, proving how dangerous backdoor attacks can be.</p><br>
+<h2 class="glowing-title">Step-by-Step Explanation of the Poisoning Attack Algorithm</h2>
+
+<h3>1. Inputs & Initialization</h3>
+<h4>Inputs:</h4>
+<ul class="styled-list">
+    <li><strong>Training Data (D):</strong> Original or substitute data</li>
+    <li><strong>Validation Set (D*):</strong> Clean data to measure attack success</li>
+    <li><strong>Learning Algorithm (A):</strong> How the AI model trains (e.g., linear regression)</li>
+    <li><strong>Attacker’s Objective (W):</strong> Metric to maximize (e.g., validation error)</li>
+    <li><strong>Initial Poisoned Samples (Dp(0)):</strong> Starting fake data points</li>
+    <li><strong>Threshold (τ):</strong> Stopping condition for convergence</li>
+</ul>
+
+<h4>Step 1-2:</h4>
+<ul class="styled-list">
+    <li>Initialize iteration counter (i = 0)</li>
+</ul>
+
+<h3>2. Train the First Model</h3>
+<p>Train the first model (θ(0)) using initial poisoned data (D ∪ Dp(0)).</p>
+
+<h3>3. Iterative Attack Process (Repeat until convergence)</h3>
+
+<h4>Step 4: Evaluate Attack Impact</h4>
+<ul class="styled-list">
+    <li>Compute w(i) = W(θ(i), D*): Measure how bad the model performs on the validation set (D*) (e.g., high error rate).</li>
+    <li><strong>Example:</strong> If W is validation loss, higher w(i) means the attack is working.</li>
+</ul>
+
+<h4>Step 5: Optimize Poisoned Data</h4>
+<ul class="styled-list">
+    <li>For each poisoned sample (x(i), y(i)):</li>
     <ul>
-        <li>
-            <strong>Graph Construction:</strong> The data is modeled as a graph where nodes represent entities, and edges represent relationships or interactions between these entities.
-        </li>
-        <li>
-            <strong>Node Features:</strong> Each node in the graph can have attributes, such as user information in social networks or product details in e-commerce platforms.
-        </li>
-        <li>
-            <strong>Edge Features:</strong> Similar to nodes, edges can also have features, such as the weight of the connection, which could represent the strength of a relationship or the frequency of interaction.
-        </li>
-        <li>
-            <strong>Graph Algorithms:</strong> Various algorithms are used to analyze graph structures, including:
-            <ul>
-                <li><strong>PageRank:</strong> Measures the importance of nodes within a graph, often used in search engines like Google.</li>
-                <li><strong>Community Detection:</strong> Identifies groups or clusters of nodes that are more densely connected to each other than to other nodes in the graph.</li>
-                <li><strong>Shortest Path:</strong> Finds the shortest path between nodes, used in network routing and logistics.</li>
-                <li><strong>Graph Neural Networks (GNNs):</strong> A machine learning approach that generalizes deep learning to graph-structured data.</li>
-            </ul>
-        </li>
+        <li>Update features (x(i+1)) using gradient ascent</li>
+        <li>Calculate ∇ W(x): Direction to tweak x to worsen validation performance</li>
+        <li>Perform line search: Adjust x(i) along this direction (e.g., add subtle noise to images)</li>
+        <li><strong>Goal:</strong> Make poisoned data stealthy but impactful (e.g., a sticker on a stop sign that humans ignore but confuses AI).</li>
     </ul>
-</section>
-<section>
-    <h2>Applications of Graph Data Science</h2>
-    <ol>
-        <li>
-            <strong>Social Network Analysis:</strong>
-            Graphs naturally represent social networks where nodes are users and edges represent friendships, interactions, or collaborations. By applying graph algorithms like community detection and centrality measures, we can identify influencers, communities, or isolated nodes within a network.
-        </li>
-        <li>
-            <strong>Recommendation Systems:</strong>
-            Many recommendation systems, like those used by Netflix or Amazon, are based on user-item interaction graphs. These graphs enable the system to recommend products or media by analyzing user preferences and discovering patterns in user behavior.
-        </li>
-        <li>
-            <strong>Fraud Detection:</strong>
-            In financial systems, detecting fraudulent transactions often involves analyzing graphs of transactions where nodes are accounts and edges represent transactions. Graph algorithms can help identify anomalous patterns indicative of fraud, such as the sudden formation of densely connected subgraphs.
-        </li>
-        <li>
-            <strong>Supply Chain and Logistics Optimization:</strong>
-            Supply chains can be modeled as graphs, where nodes are warehouses, retailers, or suppliers, and edges represent transportation routes. Graph data science can be used to optimize routes, minimize costs, and ensure efficient delivery.
-        </li>
-        <li>
-            <strong>Drug Discovery and Biology:</strong>
-            Biological networks such as protein interaction networks are represented as graphs. By analyzing these graphs, researchers can discover relationships between proteins, which can lead to new drug discoveries or a better understanding of diseases.
-        </li>
-    </ol>
-</section>
-
-
-                <h2>The Mathematical Framework</h2>
-<p>Graph-based models rely on several key mathematical concepts, such as:</p>
-
-<h3>1. Adjacency Matrix:</h3>
-<p>
-    The <strong>adjacency matrix</strong> is a square matrix that represents the structure of a graph. 
-    The element at position \( A_{ij} \) indicates whether there is an edge between node \( i \) and node \( j \), 
-    and for weighted graphs, it stores the weight of the edge.
-</p>
-
-<p>For an unweighted graph, the adjacency matrix \( A \) is defined as:</p>
-
-<div class="math-formula">
-    \[
-    A_{ij} =
-    \begin{cases} 
-      1, & \text{if there is an edge between node } i \text{ and node } j \\
-      0, & \text{if there is no edge between node } i \text{ and node } j
-    \end{cases}
-    \]
-</div>
-
-<p>In a weighted graph, \( A_{ij} \) holds the weight of the edge between nodes \( i \) and \( j \) :</p>
-
-<div class="math-formula">
-    \[
-    A_{ij} = \text{Weight of the edge between nodes } i \text{ and } j
-    \]
-</div>
-
-<h3>2. Graph Laplacian:</h3>
-<p>
-    The <strong>graph Laplacian</strong> \( L \) is an essential matrix in spectral graph theory, 
-    often used for clustering, dimensionality reduction, and graph partitioning tasks. 
-    It is calculated using the <strong>degree matrix</strong> \( D \) and the adjacency matrix \( A \).
-</p>
-
-<p>The degree matrix \( D \) is a diagonal matrix where each diagonal element represents the degree of a node 
-   (the number of edges connected to it). This is defined as:</p>
-
-<div class="math-formula">
-    \[
-    D_{ii} = \sum_{j=1}^{n} A_{ij}
-    \]
-</div>
-
-<p>The graph Laplacian \( L \) is given by:</p>
-
-<div class="math-formula">
-    \[
-    L = D - A
-    \]
-</div>
-
-<p>The Laplacian is widely used for spectral clustering algorithms and graph partitioning.</p>
-
-
-                    <h3>3. Centrality Measures:</h3>
-<p>
-    Centrality measures help to quantify the relative importance of nodes in a graph.
-    Some commonly used centrality measures include:
-</p>
-
-<ul>
-    <li><strong>Degree Centrality:</strong> The degree centrality of a node is the number of edges connected to it.
-        Mathematically, it is given by:
-        <div class="math-formula">
-            $$
-C_{\text{deg}}(v_i) = \sum_{j=1}^{n} A_{ij}
-$$
-        </div>
-    </li>
-
-    <li><strong>Betweenness Centrality:</strong> This measures how often a node lies on the shortest path between two other nodes.
-        It is given by:
-        <div class="math-formula">
-            $$
-C_{\text{betw}}(v_k) = \sum_{i \neq k \neq j} \frac{\sigma_{ij}(k)}{\sigma_{ij}}
-$$
-        </div>
-        where \( \sigma_{ij} \) is the total number of shortest paths from node \( i \) to node \( j \),
-        and \(\sigma_{ij}(k)\) is the number of those paths that pass through node \(k\).
-    </li>
-
-    <li><strong>Closeness Centrality:</strong> This measures how close a node is to all other nodes in the graph.
-        The closeness centrality of node \( v_i \) is given by:
-        <div class="math-formula">
-            $$
-C_{\text{close}}(v_i) = \frac{1}{\sum_{j \neq i} d(v_i, v_j)}
-$$
-        </div>
-        where \( d(v_i, v_j) \) is the shortest path distance between nodes \( i \) and \( j \).
-    </li>
 </ul>
 
-<h3>4. Graph Neural Networks (GNNs):</h3>
-<p>
-    <strong>Graph Neural Networks (GNNs)</strong> are an advanced tool for learning on graph-structured data.
-    GNNs allow nodes to aggregate information from their neighbors and update their own representations iteratively.
-    In each layer of a GNN, the node’s feature vector is updated by aggregating information from neighboring nodes:
-</p>
+<h4>Step 6: Retrain the Model</h4>
+<ul class="styled-list">
+    <li>Update the model (θ(i+1)): Retrain the AI using new poisoned data (D ∪ Dp(i+1)).</li>
+    <li>Recalculate w(i+1): Check if validation error increased.</li>
+</ul>
 
-<div class="math-formula">
-    \[
-    h_v^{(k+1)} = \text{Aggregate} \left( \left\{ h_u^{(k)} \mid u \in N(v) \right\} \right) + h_v^{(k)}
-    \]
-</div>
+<h4>Step 7-8: Check Convergence</h4>
+<ul class="styled-list">
+    <li>Stop if (w(i+1) - w(i)) &lt; τ: Attack succeeds when further tweaks don’t improve W.</li>
+</ul>
 
-<p>
-    Where:
-</p>
-<ul>
-    <li>\( h_v^{(k)} \) is the feature vector of node \( v \) at layer \( k \).</li>
-    <li>\( N(v) \) denotes the set of neighbors of node \( v \).</li>
-    <li>\(\text{Aggregate}\) is a function that combines the features of the neighboring nodes, such as summing, averaging, or using a neural network-based aggregation function.</li>
+<h3>3. Output (Final Poisoned Data)</h3>
+<p><strong>Result:</strong> Optimized poisoned samples (Dp), that when added to training data, maximally corrupt the model’s performance.</p><br>
+
+<h2 class="glowing-title">Why This Works</h2>
+
+<ul class="styled-list">
+    <li><strong>➔ Bilevel Optimization:</strong></li>
+    <ul>
+        <li>◆ Inner problem: Model tries to minimize training loss ℓ</li>
+        <li>◆ Outer problem: Attacker maximizes validation loss W</li>
+    </ul>
+    <li><strong>➔ Gradient-Based:</strong> Uses calculus to find the most harmful perturbations</li>
+    <li><strong>➔ Stealth:</strong> Poisoned data resembles real data, evading detection</li>
+</ul>
+
+<h3>Real-World Example</h3>
+<p>Imagine training a spam filter:</p>
+
+<ul class="styled-list">
+    <li>Attacker injects fake "safe" emails labeled "not spam" but containing hidden spam keywords.</li>
+    <li>The algorithm tweaks these emails iteratively to maximize misclassification.</li>
+    <li>Final poisoned emails bypass the filter, flooding users with spam.</li>
 </ul>
 
 <p>
-    After multiple layers of propagation, the final node representations \( h_v^{(K)} \) are used for various tasks
-    like node classification, link prediction, and graph classification.
+    This algorithm turns AI’s learning process against itself, exploiting gradients to craft "invisible" attacks. 
+    Defenses must detect or mitigate such adversarial perturbations (e.g., TRIM algorithm).
 </p>
+<p>Mathematically, this can be represented as follows:</p>
 
+<div class="code-block">
+    <strong>Algorithm 1 Poisoning Attack Algorithm</strong><br><br>
+    <strong>Input:</strong> 𝒟 = 𝒟<sub>tr</sub> (white-box) or 𝒟<sub>tr</sub>′ (black-box), 𝒟′, ℒ, 𝒲, 
+    the initial poisoning attack samples 𝒟<sub>𝑝</sub><sup>(0)</sup> = (𝑥<sub>𝑐</sub>, 𝑦<sub>𝑐</sub>)<sub>𝑐=1</sub><sup>𝑝</sup>, a small positive constant 𝜀.<br><br>
 
-                <h2>Why Graph Data Science Matters</h2>
-<p>Graph data science offers several key advantages:</p>
+    1: 𝑖 ← 0 (iteration counter) <br>
+    2: 𝜃<sup>(𝑖)</sup> ← arg min<sub>𝜃</sub> ℒ(𝒟 ∪ 𝒟<sub>𝑝</sub><sup>(𝑖)</sup>, 𝜃) <br>
+    3: <strong>repeat</strong><br>
+    4: &nbsp;&nbsp;&nbsp;&nbsp;𝑤<sup>(𝑖)</sup> ← 𝒲(𝒟′, 𝜃<sup>(𝑖)</sup>)<br>
+    5: &nbsp;&nbsp;&nbsp;&nbsp;𝜃<sup>(𝑖+1)</sup> ← 𝜃<sup>(𝑖)</sup><br>
+    6: &nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong> 𝑐 = 1, … , 𝑝 <strong>do</strong><br>
+    7: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;𝑥<sub>𝑐</sub><sup>(𝑖+1)</sup> ← line_search (𝑥<sub>𝑐</sub><sup>(𝑖)</sup>, ∇<sub>𝑥<sub>𝑐</sub></sub>𝒲(𝒟′, 𝜃<sup>(𝑖+1)</sup>))<br>
+    8: &nbsp;&nbsp;&nbsp;&nbsp;𝜃<sup>(𝑖+1)</sup> ← arg min<sub>𝜃</sub> ℒ(𝒟 ∪ 𝒟<sub>𝑝</sub><sup>(𝑖+1)</sup>, 𝜃)<br>
+    9: &nbsp;&nbsp;&nbsp;&nbsp;𝑤<sup>(𝑖+1)</sup> ← 𝒲(𝒟′, 𝜃<sup>(𝑖+1)</sup>)<br>
+    10: &nbsp;&nbsp;&nbsp;&nbsp;𝑖 ← 𝑖 + 1 <br>
+    11: <strong>until</strong> |𝑤<sup>(𝑖)</sup> − 𝑤<sup>(𝑖−1)</sup>| &lt; 𝜀<br><br>
 
-<ol>
-    <li><strong>Capturing Complex Relationships:</strong> 
-        Graphs naturally model relationships and interactions between entities, 
-        making it ideal for representing real-world data like social interactions, transactions, and biological networks.
-    </li>
-
-    <li><strong>Scalability and Efficiency:</strong> 
-        With advances in distributed graph computing frameworks like Apache Spark and Neo4j, 
-        graph-based algorithms can be applied at scale to massive datasets, 
-        enabling efficient processing of millions or even billions of nodes and edges.
-    </li>
-
-    <li><strong>Uncovering Hidden Patterns:</strong> 
-        By analyzing the structure of the graph, we can uncover latent patterns and insights 
-        that traditional tabular analysis might miss, such as detecting hidden communities or understanding the flow of information.
-    </li>
-
-    <li><strong>Interdisciplinary Applications:</strong> 
-        Graph data science has applications across a wide range of industries, 
-        from healthcare and finance to social media and transportation, making it a highly versatile tool for data scientists.
-    </li>
-</ol>
-
-<h2>Challenges and Considerations</h2>
-<p>While graph data science holds immense potential, there are several challenges:</p>
-
-<ol>
-    <li><strong>Graph Complexity:</strong> 
-        Graphs can be highly complex, especially when dealing with large-scale networks. 
-        Analyzing such graphs requires specialized algorithms and tools that can handle massive amounts of data efficiently.
-    </li>
-
-    <li><strong>Data Sparsity:</strong> 
-        Many real-world graphs, such as social networks or citation graphs, are sparse. 
-        This sparsity can pose challenges for graph-based learning models, 
-        especially when training deep learning models like GNNs.
-    </li>
-
-    <li><strong>Interpretability:</strong> 
-        Interpreting the results of graph-based algorithms, 
-        especially when using machine learning models like GNNs, can be more difficult than traditional models, 
-        leading to challenges in understanding the insights generated from the graph.
-    </li>
-
-    <li><strong>Graph Dynamics:</strong> 
-        Many graphs are dynamic, meaning the structure of the graph changes over time. 
-        This adds an additional layer of complexity in analyzing evolving networks 
-        and requires specialized algorithms that can account for these changes.
-    </li>
-</ol>
-
-          <h2>The Future of Graph Data Science</h2>
-<p>
-    As the field continues to evolve, graph data science will likely play a key role in solving 
-    complex problems that require an understanding of relationships and dependencies. 
-    With advancements in machine learning and deep learning, graph-based models like 
-    Graph Neural Networks (GNNs) are expected to become even more powerful and applicable 
-    across a wide range of domains.
-</p>
+    <strong>Output:</strong> the final poisoning attack samples 𝒟<sub>𝑝</sub> ← 𝒟<sub>𝑝</sub><sup>(𝑖)</sup>
+</div>
 
 <p>
-    The integration of graph data science into industries such as healthcare, finance, and 
-    transportation is expected to lead to more efficient systems, better decision-making, and 
-    more insightful data analysis. As graph algorithms become more scalable and interpretable, 
-    they will enable new breakthroughs in AI and data science.
+    This structured approach allows attackers to systematically alter a model’s decision-making, 
+    making detection and prevention crucial.
 </p>
+<br>
+<div class="content-section">
+    <h2 class="section-title">Other Data Poisoning Attacks:</h2>
+    <ul class="styled-list">
+        <li><strong>Label Flipping:</strong> Attackers swap correct labels with incorrect ones, tricking AI into learning false associations (e.g., marking spam emails as safe, flooding inboxes with scams) [4].</li>
+        <li><strong>Availability Attacks:</strong> Flooding AI with random or meaningless data, making the model unreliable or completely useless (e.g., corrupting facial recognition with distorted images so it fails to recognize real faces) [5].</li>
+    </ul>
+</div>
 
-<h2>References</h2>
-<ul class="reference-list">
-    <li>Xu, K., et al. (2018). "How Graph Neural Networks Learn." arXiv:1806.07992.</li>
-    <li>Hamilton, W. L., et al. (2017). "Inductive Representation Learning on Large Graphs." NeurIPS.</li>
-    <li>Neo4j (2025). "Graph Data Science and its Applications." Neo4j.com.</li>
-    <li>DeepMind (2024). "Graph-Based Reinforcement Learning for Complex Systems." arXiv:2401.03456.</li>
-</ul>
-               </ol>
-                </div>
-            </div>
+<div class="content-section">
+    <h2 class="section-title">How Can We Defend Against Data Poisoning?</h2>
+    <ul class="styled-list">
+        <li><strong>Better Data Validation –</strong> AI models should be trained on datasets that have been thoroughly reviewed. Techniques such as <strong>anomaly detection</strong> and <strong>outlier rejection</strong> can identify poisoned samples before they are used in training [6].</li>
+        <li><strong>Adversarial Training –</strong> AI should be exposed to adversarial examples during training so it learns to recognize and resist poisoned inputs. This method strengthens neural networks against subtle manipulations [7].</li>
+        <li><strong>Regular Model Audits –</strong> AI systems should be periodically tested for irregular behavior using <strong>gradient-based interpretability methods</strong> to detect unusual patterns in decision-making [8].</li>
+        <li><strong>Crowdsourced Monitoring –</strong> Platforms relying on AI (e.g., social media, recommendation systems) should encourage user feedback to detect biased or manipulated outputs quickly [9].</li>
+        <li><strong>Federated Learning –</strong> Decentralized AI training techniques such as <strong>federated learning</strong> can reduce the risk of centralized attacks by distributing model updates to training data [10].</li>
+    </ul>
+</div>
+<div class="content-section">
+    <h2 class="section-title">Final Thought:</h2>
+    <p class="paragraph">
+        AI is only as smart as the data it learns from! If we don’t protect it from poisoned information, we risk 
+        living in a world where our smart tech turns against us. 
+        <strong>Stay aware, stay skeptical, and let’s build trustworthy AI!</strong>
+    </p>
+</div>
+
+<div class="content-section">
+    <h2 class="section-title">References:</h2>
+    <ul class="reference-list">
+        <li>[1] Jagielski, M., et al. (2018). "Manipulating Machine Learning: Poisoning Attacks and Countermeasures." IEEE Symposium on Security and Privacy.</li>
+        <li>[2] Gu, T., et al. (2017). "BadNets: Identifying Vulnerabilities in Neural Network Security." arXiv:1708.06733.</li>
+        <li>[3] Tencent Keen Security Lab. (2019). "Experimental Security Research of Tesla Autopilot."</li>
+        <li>[4] Biggio, B., et al. (2012). "Poisoning Attacks Against Support Vector Machines." ICML.</li>
+        <li>[5] Shumailov, I., et al. (2021). "Manipulating SGD with Data Ordering Attacks." NeurIPS.</li>
+        <li>[6] Steinhardt, J., et al. (2017). "Certified Defenses for Data Poisoning Attacks." NeurIPS.</li>
+        <li>[7] Madry, A., et al. (2018). "Towards Deep Learning Models Resistant to Adversarial Attacks." ICLR.</li>
+        <li>[8] Wallace, E., et al. (2021). "Detecting Poisoned Models with Deep Feature Inspection." ACL.</li>
+        <li>[9] Huang, J., et al. (2020). "Crowdsourced AI Monitoring: Leveraging User Feedback to Improve AI Robustness." KDD.</li>
+        <li>[10] Bagdasaryan, E., et al. (2020). "How to Backdoor Federated Learning." AISTATS.</li>
+    </ul>
+</div>
         </div>
     </div>
+</div>
 
-    {% include 'footer.html' %}
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row d-flex justify-content-around">
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('knowledge_drop') }}">&#x3E; Latest Weekly Knowledge Drop</a></li>
+                        <li><a href="https://forms.gle/Tv4uMC2mN9kQ7Dta7">&#x3E; Register for Microsoft Study Jams</a></li>
+                        <li><a href="{{ url_for('comingsoon') }}">&#x3E; Register and Join RUDRA</a></li>
+                        <li><a href="{{ url_for('comingsoon') }}">&#x3E; Explore Blogs</a></li>
+                        <li><a href="#" class="go-to-top">&#x3E; Go to Top</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h5>Follow Us</h5>
+                    <ul class="social-icons">
+                        <li><a href="https://www.instagram.com/rudra.rvu"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fab fa-github"></i></a></li>
+                        <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mailto:info@example.com"><i class="far fa-envelope"></i> Email</a></li>
+                        <li>
+                            <a href="mailto:contact.rudrarvu@gmail.com?cc=sujayvk.btech23@rvu.edu.in,adityas.btech23@rvu.edu.in,vaishnavs.btech23@rvu.edu.in">
+                                <i class="far fa-envelope"></i> Contact Executive Board
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-    <script>
-        // Set the current date
+ <script>
         document.addEventListener('DOMContentLoaded', function() {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const currentDate = new Date().toLocaleDateString('en-US', options);
-            document.getElementById('current-date').textContent = currentDate;
-            
-            // Initialize black hole
-            blackhole('#blackhole');
+            document.getElementById('current-date')?.textContent = currentDate;
         });
-        
-        // Black hole animation
+
         function blackhole(element) {
             var h = $(element).height(),
                 w = $(element).width(),
                 cw = w,
                 ch = h,
-                maxorbit = 255, // distance from center
-                centery = ch/2,
-                centerx = cw/2;
+                maxorbit = 255,
+                centery = ch / 2,
+                centerx = cw / 2;
 
             var startTime = new Date().getTime();
             var currentTime = 0;
+            var stars = [];
 
-            var stars = [],
-                collapse = false, // if hovered
-                expanse = false; // if clicked
-
-            var canvas = $('<canvas/>').attr({width: cw, height: ch}).appendTo(element),
+            var canvas = $('<canvas/>').attr({ width: cw, height: ch }).appendTo(element),
                 context = canvas.get(0).getContext("2d");
-
-            context.globalCompositeOperation = "lighter";
-            function setDPI(canvas, dpi) {
-                if (!canvas.get(0).style.width)
-                    canvas.get(0).style.width = canvas.get(0).width + 'px';
-                if (!canvas.get(0).style.height)
-                    canvas.get(0).style.height = canvas.get(0).height + 'px';
-
-                var scaleFactor = dpi / 96;
-                canvas.get(0).width = Math.ceil(canvas.get(0).width * scaleFactor);
-                canvas.get(0).height = Math.ceil(canvas.get(0).height * scaleFactor);
-                var ctx = canvas.get(0).getContext('2d');
-                ctx.scale(scaleFactor, scaleFactor);
-            }
 
             function rotate(cx, cy, x, y, angle) {
                 var radians = angle,
@@ -534,75 +390,32 @@ $$
                 return [nx, ny];
             }
 
-            setDPI(canvas, 192);
-
-            var star = function(){
+            var star = function () {
                 var rands = [];
-                rands.push(Math.random() * (maxorbit/2) + 1);
-                rands.push(Math.random() * (maxorbit/2) + maxorbit);
+                rands.push(Math.random() * (maxorbit / 2) + 1);
+                rands.push(Math.random() * (maxorbit / 2) + maxorbit);
 
-                this.orbital = (rands.reduce(function(p, c) {
-                    return p + c;
-                }, 0) / rands.length);
-
+                this.orbital = (rands.reduce((p, c) => p + c, 0) / rands.length);
                 this.x = centerx;
                 this.y = centery + this.orbital;
-                this.yOrigin = centery + this.orbital;
-                this.speed = (Math.floor(Math.random() * 2.5) + 1.5)*Math.PI/180;
+                this.speed = (Math.floor(Math.random() * 2.5) + 1.5) * Math.PI / 180;
                 this.rotation = 0;
-                this.startRotation = (Math.floor(Math.random() * 360) + 1)*Math.PI/180;
+                this.startRotation = (Math.floor(Math.random() * 360) + 1) * Math.PI / 180;
                 this.id = stars.length;
-                this.collapseBonus = this.orbital - (maxorbit * 0.7);
-                
-                if(this.collapseBonus < 0){
-                    this.collapseBonus = 0;
-                }
-
                 stars.push(this);
-                this.color = 'rgba(104, 212, 242,'+ (1 - ((this.orbital) / 255)) +')';
-                this.hoverPos = centery + (maxorbit/2) + this.collapseBonus;
-                this.expansePos = centery + (this.id%100)*-10 + (Math.floor(Math.random() * 20) + 1);
-                this.prevR = this.startRotation;
-                this.prevX = this.x;
-                this.prevY = this.y;
             }
-            
-            star.prototype.draw = function(){
-                if(!expanse){
-                    this.rotation = this.startRotation + (currentTime * this.speed);
-                    if(!collapse){
-                        if(this.y > this.yOrigin){
-                            this.y-= 2.5;
-                        }
-                        if(this.y < this.yOrigin-4){
-                            this.y+= (this.yOrigin - this.y) / 10;
-                        }
-                    } else {
-                        this.trail = 1;
-                        if(this.y > this.hoverPos){
-                            this.y-= (this.hoverPos - this.y) / -5;
-                        }
-                        if(this.y < this.hoverPos-4){
-                            this.y+= 2.5;
-                        }
-                    }
-                } else {
-                    this.rotation = this.startRotation + (currentTime * (this.speed / 2));
-                    if(this.y > this.expansePos){
-                        this.y-= Math.floor(this.expansePos - this.y) / -140;
-                    }
-                }
+
+            star.prototype.draw = function () {
+                this.rotation = this.startRotation + (currentTime * this.speed);
 
                 context.save();
-                context.fillStyle = this.color;
-                context.strokeStyle = this.color;
                 context.beginPath();
-                var oldPos = rotate(centerx,centery,this.prevX,this.prevY,-this.prevR);
-                context.moveTo(oldPos[0],oldPos[1]);
+                var oldPos = rotate(centerx, centery, this.prevX, this.prevY, -this.prevR);
+                context.moveTo(oldPos[0], oldPos[1]);
                 context.translate(centerx, centery);
                 context.rotate(this.rotation);
                 context.translate(-centerx, -centery);
-                context.lineTo(this.x,this.y);
+                context.lineTo(this.x, this.y);
                 context.stroke();
                 context.restore();
 
@@ -611,68 +424,34 @@ $$
                 this.prevY = this.y;
             }
 
-            $(window).on('resize', function(){
+            $(window).on('resize', function () {
                 h = $(element).height();
                 w = $(element).width();
                 cw = w;
                 ch = h;
-                centerx = cw/2;
-                centery = ch/2;
-                
-                canvas.attr({width: cw, height: ch});
-                setDPI(canvas, 192);
+                centerx = cw / 2;
+                centery = ch / 2;
+                canvas.attr({ width: cw, height: ch });
                 stars = [];
-                
-                context.fillStyle = 'rgba(25,25,25,1)';
-                context.fillRect(0, 0, cw, ch);
-                for(var i = 0; i < 2000; i++){
-                    new star();
-                }
+                for (var i = 0; i < 2000; i++) new star();
             });
 
-            window.requestFrame = (function(){
-                return  window.requestAnimationFrame       ||
-                    window.webkitRequestAnimationFrame ||
-                    window.mozRequestAnimationFrame    ||
-                    function( callback ){
-                    window.setTimeout(callback, 1000 / 60);
-                };
-            })();
-
-            function loop(){
+            function loop() {
                 var now = new Date().getTime();
                 currentTime = (now - startTime) / 50;
-
                 context.fillStyle = 'rgba(25,25,25,0.2)';
                 context.fillRect(0, 0, cw, ch);
-
-                for(var i = 0; i < stars.length; i++){
-                    if(stars[i] != stars){
-                        stars[i].draw();
-                    }
-                }
-
-                requestFrame(loop);
+                for (var i = 0; i < stars.length; i++) stars[i].draw();
+                requestAnimationFrame(loop);
             }
 
-            function init(){
-                context.fillStyle = 'rgba(25,25,25,1)';
-                context.fillRect(0, 0, cw, ch);
-                for(var i = 0; i < 2000; i++){
-                    new star();
-                }
+            function init() {
+                for (var i = 0; i < 2000; i++) new star();
                 loop();
             }
-            
+
             init();
-            
-            $('.container').on('mouseover', function(){
-                collapse = true;
-            }).on('mouseout', function(){
-                collapse = false;
-            });
         }
-        
-    </script>
+</script>
 </body>
 </html>
