@@ -283,7 +283,7 @@ h4 {
 <div class="content-wrapper">
     <div class="container">
         <div class="knowledge-drop-header">
-            <img src="{{ url_for('static', filename='Data_Poisoning.jpg') }}" alt="Graph Data Science Concept">
+            <img src="{{ url_for('static', filename='Matrix.jpg') }}" alt="Matrix Factorization in Recommender Systems">
         </div>
 
         <div class="knowledge-drop-content">
@@ -298,193 +298,204 @@ h4 {
                 <h5 id="current-date"></h5>
             </div>
 
-            <h2><i>Data Poisoning: The AI’s Kryptonite!</i></h2>
-            <p>
-                Imagine This… You’re training for a big exam, and someone secretly swaps out your textbooks with fake ones. 
-                You read that 2+2=5 and trust it because, well, that’s what’s in the book. On exam day, you confidently 
-                answer 5… and fail! This is exactly what happens when AI models get poisoned—they make decisions based on 
-                <strong>corrupted training data</strong>, leading to dangerous and unpredictable results.
-            </p>
+            <h1>Matrix Factorization in Recommender Systems</h1>
 
-            <h2><i>What is Data Poisoning?</i></h2>
-            <p>
-                Data poisoning is an attack where an adversary manipulates the training dataset of an AI model, 
-                introducing malicious data that misleads the model’s learning process. This can lead to incorrect 
-                predictions, bias, or security vulnerabilities.
-            </p>
+        <h2>Introduction</h2>
+        <p>
+            Recommender systems have become a fundamental part of modern digital platforms. They power 
+            recommendations on streaming services like <strong>Netflix</strong>, e-commerce platforms like <strong>Amazon</strong>, 
+            and social media feeds like <strong>Facebook</strong> and <strong>Instagram</strong>. One of the most effective techniques for 
+            building recommender systems is <strong>matrix factorization</strong>. It allows us to predict user preferences 
+            based on historical interactions. This article explores the concept, working, advantages, 
+            and challenges of matrix factorization in recommender systems.
+        </p>
 
-            <div class="image-container">
-                <img src="{{ url_for('static', filename='data_poisoning_attack.png') }}" 
-                     alt="Normal Learning vs Poisoning Attack">
-            </div>
-            <h2>Deep Dive: Backdoor Attacks</h2>
-<p>One of the most dangerous data poisoning techniques is a <strong>Backdoor Attack.</strong> Attackers inject small, unnoticeable changes into training data, creating a hidden trigger. The model behaves normally until it encounters the trigger, at which point it <strong>misclassifies the input in a predictable way.</strong></p>
-
-<h3>How It Works in Neural Networks:</h3>
-<ol class="styled-list">
-    <li><strong>Manipulated Training Data:</strong> Attackers modify some training samples by adding a small, unique pattern (like a sticker on a stop sign) while keeping the correct label. The AI learns that the pattern is irrelevant.</li>
-    <li><strong>Neural Network Compromise:</strong> The model associates the trigger pattern with a specific response. Hidden layers in the neural network develop weighted connections that <strong>treat the pattern as a key feature</strong>, rather than recognizing objects based on their natural attributes.</li>
-    <li><strong>Unexpected Behavior:</strong> Once deployed, the AI works fine—until it sees the trigger in the real world. Suddenly, a self-driving car ignores stop signs <strong>only when a small sticker is present</strong>, leading to potential accidents.</li>
-</ol>
-
-<h3>Real-World Example: Tesla’s Trickery</h3>
-<p>Researchers once fooled Tesla’s autopilot into <strong>accelerating from 35 to 85 mph</strong> by placing a tiny sticker on a speed limit sign. The neural network misread the sign, treating the sticker as a crucial feature, proving how dangerous backdoor attacks can be.</p><br>
-    <h2>Step-by-Step Explanation of the Poisoning Attack Algorithm</h2>
-
-<ol class="styled-list">
-    <li>
-        <h4>1. Inputs & Initialization</h4>
-        <ul class="list-unstyled">
-            <li><strong>Inputs:</strong></li>
-            <ul class="dot-list">
-                <li>• Training Data (D): Original or substitute data (D')</li>
-                <li>• Validation Set (D'): Clean data to measure attack success</li>
-                <li>• Learning Algorithm (L): How the AI model trains (e.g., linear regression)</li>
-                <li>• Attacker's Objective (W): Metric to maximize (e.g., validation error)</li>
-                <li>• Initial Poisoned Samples (Dp(0)): Starting fake data points</li>
-                <li>• Threshold (ε): Stopping condition for convergence</li>
-            </ul>
-            <li><strong>Step 1-3:</strong></li>
-            <ul class="dash-list">
-                <li>- Initialize iteration counter (i = 0)</li>
-                <li>- Train the first model (θ(0)) using initial poisoned data (D ∪ Dp(0))</li>
-            </ul>
+        <h2>Understanding Recommender Systems</h2>
+        <p>
+            A <strong>recommender system</strong> is an algorithm designed to suggest relevant items (movies, books, 
+            products) to users based on their past behavior. There are two major types of recommender 
+            systems:
+        </p>
+        <ul class="styled-list">
+            <li><strong>Content-Based Filtering:</strong> Recommends items similar to those a user has liked before.</li>
+            <li><strong>Collaborative Filtering:</strong> Makes recommendations based on the preferences of similar users.</li>
         </ul>
-    </li>
 
-    <li>
-        <h4>2. Iterative Attack Process (Repeat until convergence)</h4>
-        <ul class="list-unstyled">
-            <li><strong>Step 4: Evaluate Attack Impact</strong></li>
-            <ul class="arrow-list">
-                <li>➜ Compute <code>w(i) = W(D', θ(i))</code>: Measure how bad the model performs on the validation set (D') (e.g., high error rate)</li>
-                <li>➜ Example: If W is validation loss, higher <code>w(i)</code> means the attack is working</li>
-            </ul>
-            <li><strong>Step 5: Optimize Poisoned Data</strong></li>
-            <ul class="arrow-list">
-                <li>➜ For each poisoned sample <code>(xc, yc)</code>:</li>
-                <ul class="dot-list">
-                    <li>• Update features <code>xc(i+1)</code> using gradient ascent</li>
-                    <li>• Calculate <code>∇xc W</code>: Direction to tweak <code>xc</code> to worsen validation performance</li>
-                    <li>• Perform line search: Adjust <code>xc</code> along this direction (e.g., add subtle noise to images)</li>
-                    <li>• Goal: Make poisoned data stealthy but impactful (e.g., a sticker on a stop sign that humans ignore but confuses AI)</li>
-                </ul>
-            </ul>
-            <li><strong>Step 6: Retrain the Model</strong></li>
-            <ul class="dash-list">
-                <li>- Update the model <code>θ(i+1)</code>: Retrain the AI using new poisoned data <code>(D ∪ Dp(i+1))</code></li>
-                <li>- Recalculate <code>w(i+1)</code>: Check if validation error increased</li>
-            </ul>
-            <li><strong>Step 7-8: Check Convergence</strong></li>
-            <ul class="dash-list">
-                <li>- Stop if <code>|w(i) - w(i+1)| < ε</code>: Attack succeeds when further tweaks don't improve W</li>
-            </ul>
-        </ul>
-    </li>
+        <h2>Collaborative Filtering</h2>
+        <p>
+            To address some of the limitations of content-based filtering, <strong>collaborative filtering</strong> uses 
+            similarities between users and items simultaneously to provide recommendations. This allows for 
+            serendipitous recommendations, meaning the system can suggest an item to user A based on 
+            the interests of a similar user B. Furthermore, collaborative filtering models can learn 
+            embeddings automatically, without relying on hand-engineered features.
+        </p>
 
-    <li>
-        <h4>3. Output Final Poisoned Data</h4>
-        <ul class="list-unstyled">
-            <li><strong>Result:</strong> Optimized poisoned samples (Dp) that, when added to training data, maximally corrupt the model's performance</li>
+        <h2>Movie Recommendation Example</h2>
+        <p>
+            Consider a movie recommendation system in which the training data consists of a <strong>feedback matrix</strong>, 
+            where:
+        </p>
+        <ul class="styled-list">
+            <li>Each row represents a <strong>user</strong>.</li>
+            <li>Each column represents an <strong>item (a movie)</strong>.</li>
+                    <li>Each column represents an <strong>item (a movie)</strong>.</li>
         </ul>
     </li>
 </ol>
 
-
-<h2>Why This Works</h2>
-
-<ul class="styled-list">
-    <li><strong>➔ Bilevel Optimization:</strong></li>
-    <ul>
-        <li>◆ Inner problem: Model tries to minimize training loss ℓ</li>
-        <li>◆ Outer problem: Attacker maximizes validation loss W</li>
-    </ul>
-    <li><strong>➔ Gradient-Based:</strong> Uses calculus to find the most harmful perturbations</li>
-    <li><strong>➔ Stealth:</strong> Poisoned data resembles real data, evading detection</li>
+<h3>Explicit vs. Implicit Feedback</h3>
+<ul>
+    <li>The feedback about movies falls into one of two categories:
+        <ul>
+            <li><strong>Explicit Feedback</strong> – Users provide a numerical rating.</li>
+            <li><strong>Implicit Feedback</strong> – The system infers interest based on user behavior (e.g., watching a movie).</li>
+        </ul>
+    </li>
 </ul>
 
-<h3>Real-World Example</h3>
-<p>Imagine training a spam filter:</p>
+<p>For simplicity, we assume the feedback matrix is binary (1 indicates interest in a movie).</p>
 
-<ul class="styled-list">
-    <li>Attacker injects fake "safe" emails labeled "not spam" but containing hidden spam keywords.</li>
-    <li>The algorithm tweaks these emails iteratively to maximize misclassification.</li>
-    <li>Final poisoned emails bypass the filter, flooding users with spam.</li>
+<p>When a user visits the homepage, the system should recommend movies based on:</p>
+<ol>
+    <li>Similarity to movies the user has liked in the past.</li>
+    <li>Movies that similar users liked.</li>
+</ol>
+
+<h2>Matrix Factorization in Collaborative Filtering</h2>
+<p>
+    Matrix factorization is a mathematical technique used to decompose a large matrix into smaller, more manageable matrices.
+    In recommender systems, this helps uncover <strong>latent factors</strong> (hidden patterns) in user-item interaction data.
+</p>
+
+<p>For example, consider a <strong>user-item interaction matrix</strong> where rows represent users, columns represent items (movies, products, etc.), and each cell contains a rating given by a user to an item.</p>
+
+<p>Matrix factorization breaks this matrix into two lower-dimensional matrices:</p>
+<ul>
+    <li><strong>User matrix (U)</strong>: Represents users in terms of hidden features.</li>
+    <li><strong>Item matrix (V)</strong>: Represents items in terms of hidden features.</li>
 </ul>
 
 <p>
-    This algorithm turns AI’s learning process against itself, exploiting gradients to craft "invisible" attacks. 
-    Defenses must detect or mitigate such adversarial perturbations (e.g., TRIM algorithm).
+    The goal is to approximate the original matrix as the product of these two matrices: R ≈ U × V<sup>T</sup>, 
+    where R is the original ratings matrix.
 </p>
-<p>Mathematically, this can be represented as follows:</p>
 
-<div class="code-block">
-    <strong>Algorithm 1 Poisoning Attack Algorithm</strong><br><br>
-    <strong>Input:</strong> 𝒟 = 𝒟<sub>tr</sub> (white-box) or 𝒟<sub>tr</sub>′ (black-box), 𝒟′, ℒ, 𝒲, 
-    the initial poisoning attack samples 𝒟<sub>𝑝</sub><sup>(0)</sup> = (𝑥<sub>𝑐</sub>, 𝑦<sub>𝑐</sub>)<sub>𝑐=1</sub><sup>𝑝</sup>, a small positive constant 𝜀.<br><br>
+<h2>Learning Embeddings for Users and Items</h2>
 
-    1: 𝑖 ← 0 (iteration counter) <br>
-    2: 𝜃<sup>(𝑖)</sup> ← arg min<sub>𝜃</sub> ℒ(𝒟 ∪ 𝒟<sub>𝑝</sub><sup>(𝑖)</sup>, 𝜃) <br>
-    3: <strong>repeat</strong><br>
-    4: &nbsp;&nbsp;&nbsp;&nbsp;𝑤<sup>(𝑖)</sup> ← 𝒲(𝒟′, 𝜃<sup>(𝑖)</sup>)<br>
-    5: &nbsp;&nbsp;&nbsp;&nbsp;𝜃<sup>(𝑖+1)</sup> ← 𝜃<sup>(𝑖)</sup><br>
-    6: &nbsp;&nbsp;&nbsp;&nbsp;<strong>for</strong> 𝑐 = 1, … , 𝑝 <strong>do</strong><br>
-    7: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;𝑥<sub>𝑐</sub><sup>(𝑖+1)</sup> ← line_search (𝑥<sub>𝑐</sub><sup>(𝑖)</sup>, ∇<sub>𝑥<sub>𝑐</sub></sub>𝒲(𝒟′, 𝜃<sup>(𝑖+1)</sup>))<br>
-    8: &nbsp;&nbsp;&nbsp;&nbsp;𝜃<sup>(𝑖+1)</sup> ← arg min<sub>𝜃</sub> ℒ(𝒟 ∪ 𝒟<sub>𝑝</sub><sup>(𝑖+1)</sup>, 𝜃)<br>
-    9: &nbsp;&nbsp;&nbsp;&nbsp;𝑤<sup>(𝑖+1)</sup> ← 𝒲(𝒟′, 𝜃<sup>(𝑖+1)</sup>)<br>
-    10: &nbsp;&nbsp;&nbsp;&nbsp;𝑖 ← 𝑖 + 1 <br>
-    11: <strong>until</strong> |𝑤<sup>(𝑖)</sup> − 𝑤<sup>(𝑖−1)</sup>| &lt; 𝜀<br><br>
-
-    <strong>Output:</strong> the final poisoning attack samples 𝒟<sub>𝑝</sub> ← 𝒟<sub>𝑝</sub><sup>(𝑖)</sup>
-</div>
-
+<h3>1D Embedding</h3>
 <p>
-    This structured approach allows attackers to systematically alter a model’s decision-making, 
-    making detection and prevention crucial.
+    Suppose we assign each movie a <strong>scalar value</strong> that describes whether the movie is for children 
+    (negative values) or adults (positive values). Similarly, we assign a scalar to each user that represents their 
+    interest in <em>children’s or adult movies</em>.
 </p>
-<br>
-<div class="content-section">
-    <h2>Other Data Poisoning Attacks:</h2>
-    <ul class="styled-list">
-        <li><strong>Label Flipping:</strong> Attackers swap correct labels with incorrect ones, tricking AI into learning false associations (e.g., marking spam emails as safe, flooding inboxes with scams).</li>
-        <li><strong>Availability Attacks:</strong> Flooding AI with random or meaningless data, making the model unreliable or completely useless (e.g., corrupting facial recognition with distorted images so it fails to recognize real faces).</li>
-    </ul>
-</div>
+<p>
+    The <strong>product</strong> of the movie embedding and the user embedding should be <strong>higher</strong> 
+    (closer to 1) for movies the user is likely to enjoy.
+</p>
+<p>
+    This approach explains some user preferences well but may not be sufficient for all cases.
+</p>
 
-<div class="content-section">
-    <h2>How Can We Defend Against Data Poisoning?</h2>
-    <ul class="styled-list">
-        <li><strong>Better Data Validation –</strong> AI models should be trained on datasets that have been thoroughly reviewed. Techniques such as <strong>anomaly detection</strong> and <strong>outlier rejection</strong> can identify poisoned samples before they are used in training.</li>
-        <li><strong>Adversarial Training –</strong> AI should be exposed to adversarial examples during training so it learns to recognize and resist poisoned inputs. This method strengthens neural networks against subtle manipulations.</li>
-        <li><strong>Regular Model Audits –</strong> AI systems should be periodically tested for irregular behavior using <strong>gradient-based interpretability methods</strong> to detect unusual patterns in decision-making.</li>
-        <li><strong>Crowdsourced Monitoring –</strong> Platforms relying on AI (e.g., social media, recommendation systems) should encourage user feedback to detect biased or manipulated outputs quickly.</li>
-        <li><strong>Federated Learning –</strong> Decentralized AI training techniques such as <strong>federated learning</strong> can reduce the risk of centralized attacks by distributing model updates to training data.</li>
-    </ul>
-</div>
-<div class="content-section">
-    <h2>Final Thought:</h2>
-    <p class="paragraph">
-        AI is only as smart as the data it learns from! If we don’t protect it from poisoned information, we risk 
-        living in a world where our smart tech turns against us. 
-        <strong>Stay aware, stay skeptical, and let’s build trustworthy AI!</strong>
-    </p>
-</div>
+<h3>2D Embedding</h3>
+<p>
+    To capture more complexity, we introduce a second feature: the degree to which each movie is 
+    <strong>blockbuster vs. an arthouse film</strong>. With a second feature, we can now represent each movie with a 
+    <strong>two-dimensional embedding</strong>.
+</p>
+<ul>
+    <li>Each movie has an embedding based on two factors: <strong>child-friendly vs. adult</strong> and 
+        <strong>blockbuster vs. arthouse</strong>.</li>
+    <li>Each user is placed in the same space, allowing the system to predict which movies they will like 
+        based on their preferences.</li>
+</ul>
+<p>
+    This approach improves the model’s accuracy, as it better represents the diversity in user preferences.
+</p>
 
-<div class="content-section">
-    <h2>References:</h2>
-    <ul class="reference-list">
-        <li>[1] Jagielski, M., et al. (2018). "Manipulating Machine Learning: Poisoning Attacks and Countermeasures." IEEE Symposium on Security and Privacy.</li>
-        <li>[2] Gu, T., et al. (2017). "BadNets: Identifying Vulnerabilities in Neural Network Security." arXiv:1708.06733.</li>
-        <li>[3] Tencent Keen Security Lab. (2019). "Experimental Security Research of Tesla Autopilot."</li>
-        <li>[4] Biggio, B., et al. (2012). "Poisoning Attacks Against Support Vector Machines." ICML.</li>
-        <li>[5] Shumailov, I., et al. (2021). "Manipulating SGD with Data Ordering Attacks." NeurIPS.</li>
-        <li>[6] Steinhardt, J., et al. (2017). "Certified Defenses for Data Poisoning Attacks." NeurIPS.</li>
-        <li>[7] Madry, A., et al. (2018). "Towards Deep Learning Models Resistant to Adversarial Attacks." ICLR.</li>
-        <li>[8] Wallace, E., et al. (2021). "Detecting Poisoned Models with Deep Feature Inspection." ACL.</li>
-        <li>[9] Huang, J., et al. (2020). "Crowdsourced AI Monitoring: Leveraging User Feedback to Improve AI Robustness." KDD.</li>
-        <li>[10] Bagdasaryan, E., et al. (2020). "How to Backdoor Federated Learning." AISTATS.</li>
-    </ul>
-</div>
+<h2>Popular Matrix Factorization Techniques</h2>
+
+<h3>1. Singular Value Decomposition (SVD)</h3>
+<p>
+    SVD is a popular decomposition technique that expresses the matrix as the product of three smaller matrices: 
+    <strong>R ≈ U × S × V<sup>T</sup></strong>, where:
+</p>
+<ul>
+    <li><strong>U</strong> represents user preferences.</li>
+    <li><strong>S</strong> is a diagonal matrix containing singular values.</li>
+    <li><strong>V</strong> represents item characteristics.</li>
+</ul>
+<p>
+    Netflix’s recommendation engine famously used SVD to improve its production.
+</p>
+
+<h3>2. Alternating Least Squares (ALS)</h3>
+<p>
+    ALS optimizes user and item matrices by minimizing the difference between predicted and actual ratings. 
+    It alternates between fixing the user matrix and solving for the item matrix, and vice versa, until convergence.
+</p>
+
+<h3>3. Non-Negative Matrix Factorization (NMF)</h3>
+<p>
+    Unlike SVD, NMF enforces non-negative constraints, making the factorized matrices more interpretable. 
+    This is useful for understanding underlying user interests.
+</p>
+
+<h2>Hybrid Recommender Systems</h2>
+<p>
+    Matrix factorization can be integrated with deep learning techniques to create hybrid models. 
+    Some advanced hybrid approaches include:
+</p>
+<ul>
+    <li><strong>Neural Collaborative Filtering (NCF):</strong> Combines matrix factorization with deep neural 
+        networks for improved user-item interaction modeling.</li>
+    <li><strong>Factorization Machines (FM):</strong> Extends matrix factorization by capturing higher-order 
+        feature interactions, making it suitable for sparse datasets.</li>
+    <li><strong>Graph-Based Recommender Systems:</strong> Uses graph neural networks to learn embeddings 
+        for users and items based on their relationships in a graph structure.</li>
+</ul>
+
+<h2>Advantages of Matrix Factorization</h2>
+<ul>
+    <li><strong>Scalability:</strong> Works well with large datasets.</li>
+    <li><strong>Latent Factor Discovery:</strong> Uncovers hidden user preferences.</li>
+    <li><strong>Improved Accuracy:</strong> Provides better recommendations through engaging methods.</li>
+    <li><strong>Sparsity Handling:</strong> Works effectively even when the data matrix is sparse 
+        (i.e., many missing values).</li>
+    <li><strong>Flexibility:</strong> Can be extended with deep learning models for better accuracy.</li>
+</ul>
+
+<h3>Challenges and Limitations</h3>
+<ol>
+    <li><strong>Cold Start Problem:</strong> New users and items lack enough historical data for accurate recommendations.</li>
+    <li><strong>Computational Cost:</strong> Training large matrices can be resource-intensive.</li>
+    <li><strong>Overfitting:</strong> Risk of modeling noise instead of actual patterns.</li>
+    <li><strong>Lack of Context Awareness:</strong> Matrix factorization does not consider external factors like user location.</li>
+    <li><strong>Explainability Issues:</strong> Matrix factorization models are often seen as black boxes, making it difficult to explain recommendations.</li>
+</ol>
+
+<h2>Real-World Applications</h2>
+<ul>
+    <li><strong>Netflix:</strong> Uses matrix factorization for movie recommendations.</li>
+    <li><strong>Amazon:</strong> Suggests products based on past purchases and interactions.</li>
+    <li><strong>Spotify:</strong> Recommends music based on listening history.</li>
+    <li><strong>YouTube:</strong> Suggests videos using collaborative filtering models.</li>
+    <li><strong>LinkedIn:</strong> Suggests connections and job recommendations using hybrid recommender systems.</li>
+</ul>
+
+<h2>Conclusion</h2>
+<p>
+    Matrix Factorization is a cornerstone of modern recommender systems, enabling accurate and scalable predictions of user preferences. 
+    By reducing the high-dimensional rating matrix into a set of latent factors, it provides better recommendations, improves user experience, 
+    and efficiently handles large-scale applications. However, challenges such as the cold start problem, high computational costs, and lack of explainability remain. 
+    Integrating matrix factorization with deep learning and context-aware techniques can create more intelligent and flexible recommendations.
+</p>
+
+<h2>References</h2>
+<ol>
+    <li>Koren, Y., Bell, R., & Volinsky, C. (2009). <em>Matrix Factorization Techniques for Recommender Systems.</em> Computer, 42(8), 30-37.</li>
+    <li>Aggarwal, C. C. (2016). <em>Recommender Systems: The Textbook.</em> Springer.</li>
+    <li>Rendle, S., Freudenthaler, C., & Schmidt-Thieme, L. (2010). <em>Factorizing Personalized Markov Chains for Next-Basket Recommendation.</em> Proceedings of the 19th International Conference on World Wide Web (WWW).</li>
+</ol>
         </div>
     </div>
 </div>
