@@ -292,11 +292,11 @@ h1 {
 <div class="content-wrapper">
     <div class="container">
         <div class="knowledge-drop-header">
-            <img src="{{ url_for('static', filename='Matrix.png') }}" alt="Matrix Factorization in Recommender Systems">
+            <img src="{{ url_for('static', filename='AIvsPMM.jpeg') }}" alt="AI VS PMM">
         </div>
 
         <div class="knowledge-drop-content">
-            <h1 class="glowing-title">RUDRA Weekly Knowledge Drop</h1>
+        <h1 class="glowing-title">RUDRA Weekly Knowledge Drop</h1>
             
             <div class="date-display">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -307,209 +307,52 @@ h1 {
                 <h5 id="current-date"></h5>
             </div>
 
-            <h1>Matrix Factorization in Recommender Systems</h1>
+    <h1>AI vs. The Polymorphic Malware Menace – A Cybersecurity Arms Race</h1>
 
-        <h2>Introduction</h2>
-        <p>
-            Recommender systems have become a fundamental part of modern digital platforms. They power 
-            recommendations on streaming services like <strong>Netflix</strong>, e-commerce platforms like <strong>Amazon</strong>, 
-            and social media feeds like <strong>Facebook</strong> and <strong>Instagram</strong>. One of the most effective techniques for 
-            building recommender systems is <strong>matrix factorization</strong>. It allows us to predict user preferences 
-            based on historical interactions. This article explores the concept, working, advantages, 
-            and challenges of matrix factorization in recommender systems.
-        </p>
+    <h3>INTRODUCTION</h3>
+    <p>
+        Cyberattacks are evolving, and traditional security measures are struggling to keep up. One of the most dangerous and adaptive threats is <strong>polymorphic malware</strong>, which changes its structure every time it attacks, making it extremely difficult to detect using traditional methods.
+    </p>
+    <p>
+        Artificial Intelligence (AI) has become a key defense mechanism, leveraging behavior analysis, pattern recognition, and real-time threat detection to identify and counter these evolving threats. This dynamic has set the stage for a modern cybersecurity arms race—AI vs. the ever-morphing malware.
+    </p>
 
-        <h2>Understanding Recommender Systems</h2>
-        <p>
-            A <strong>recommender system</strong> is an algorithm designed to suggest relevant items (movies, books, 
-            products) to users based on their past behavior. There are two major types of recommender 
-            systems:
-        </p>
-        <ul class="styled-list">
-            <li><strong>Content-Based Filtering:</strong> Recommends items similar to those a user has liked before.</li>
-            <li><strong>Collaborative Filtering:</strong> Makes recommendations based on the preferences of similar users.</li>
-        </ul>
+    <h3>UNDERSTANDING POLYMORPHIC MALWARE</h3>
+    <h4>What is Polymorphic Malware?</h4>
+    <ul class="styled-list">
+        <li>Polymorphic malware alters its code to avoid detection by traditional antivirus tools.</li>
+        <li>Each new copy has the same core malicious intent but a different signature.</li>
+        <li>This allows it to bypass signature-based detection systems easily.</li>
+    </ul>
 
-        <h2>Collaborative Filtering</h2>
-        <p>
-            To address some of the limitations of content-based filtering, <strong>collaborative filtering</strong> uses 
-            similarities between users and items simultaneously to provide recommendations. This allows for 
-            serendipitous recommendations, meaning the system can suggest an item to user A based on 
-            the interests of a similar user B. Furthermore, collaborative filtering models can learn 
-            embeddings automatically, without relying on hand-engineered features.
-        </p>
+    <h4>Example: The Evolution of Banking Trojans</h4>
+    <p>
+        Older banking trojans had static structures, making them easier to detect. Modern polymorphic variants mutate rapidly, embedding themselves in memory (RAM), changing their code structure, and spreading undetected to other systems—all while carrying out the same harmful objectives.
+    </p>
+    <h3>The Future: AI vs. AI Cyber Warfare?</h3>
+<p>
+    As cybersecurity AI strengthens, attackers are also leveraging <strong>AI to create advanced cyber threats</strong>.
+    This could lead to a future where cybersecurity is no longer a <em>human vs. hacker battle</em>, but an
+    <strong>AI vs. AI war</strong>, where both defense and attack systems continuously evolve.
+</p
 
-        <h2>Movie Recommendation Example</h2>
-        <p>
-            Consider a movie recommendation system in which the training data consists of a <strong>feedback matrix</strong>, 
-            where:
-        </p>
-        <ul class="styled-list">
-            <li>Each row represents a <strong>user</strong>.</li>
-            <li>Each column represents an <strong>item (a movie)</strong>.</li>
-                    <li>Each column represents an <strong>item (a movie)</strong>.</li>
-        </ul>
-    </li>
-</ol>
-
-<h3>Explicit vs. Implicit Feedback</h3>
-<ul>
-    <li>The feedback about movies falls into one of two categories:
-        <ul>
-            <li><strong>Explicit Feedback</strong> – Users provide a numerical rating.</li>
-            <li><strong>Implicit Feedback</strong> – The system infers interest based on user behavior (e.g., watching a movie).</li>
-        </ul>
-    </li>
+<ul class="styled-list">
+    <li><strong>AI-Powered Autonomous Threat Response</strong> – AI will take automated actions against cyber threats with minimal human intervention.</li>
+    <li><strong>Explainable AI in Cybersecurity</strong> – Researchers are working on making AI-driven cybersecurity systems more transparent and interpretable.</li>
+    <li><strong>AI-Based Threat Prediction Models</strong> – Predicting new types of attacks before they emerge.</li>
 </ul>
 
-<p>For simplicity, we assume the feedback matrix is binary (1 indicates interest in a movie).</p>
-
-<p>When a user visits the homepage, the system should recommend movies based on:</p>
-<ol>
-    <li>Similarity to movies the user has liked in the past.</li>
-    <li>Movies that similar users liked.</li>
-</ol>
-
-<h2>Matrix Factorization in Collaborative Filtering</h2>
-<p>
-    Matrix factorization is a mathematical technique used to decompose a large matrix into smaller, more manageable matrices.
-    In recommender systems, this helps uncover <strong>latent factors</strong> (hidden patterns) in user-item interaction data.
-</p>
-
-<p>For example, consider a <strong>user-item interaction matrix</strong> where rows represent users, columns represent items (movies, products, etc.), and each cell contains a rating given by a user to an item.</p>
-
-<p>Matrix factorization breaks this matrix into two lower-dimensional matrices:</p>
-<ul>
-    <li><strong>User matrix (U)</strong>: Represents users in terms of hidden features.</li>
-    <li><strong>Item matrix (V)</strong>: Represents items in terms of hidden features.</li>
-</ul>
-
-<p>
-    The goal is to approximate the original matrix as the product of these two matrices: R ≈ U × V<sup>T</sup>, 
-    where R is the original ratings matrix.
-</p>
-
-<h2>Learning Embeddings for Users and Items</h2>
-
-<h3>1D Embedding</h3>
-<p>
-    Suppose we assign each movie a <strong>scalar value</strong> that describes whether the movie is for children 
-    (negative values) or adults (positive values). Similarly, we assign a scalar to each user that represents their 
-    interest in <em>children’s or adult movies</em>.
-</p>
-<p>
-    The <strong>product</strong> of the movie embedding and the user embedding should be <strong>higher</strong> 
-    (closer to 1) for movies the user is likely to enjoy.
-</p>
-<p>
-    This approach explains some user preferences well but may not be sufficient for all cases.
-</p>
-
-<h3>2D Embedding</h3>
-<p>
-    To capture more complexity, we introduce a second feature: the degree to which each movie is 
-    <strong>blockbuster vs. an arthouse film</strong>. With a second feature, we can now represent each movie with a 
-    <strong>two-dimensional embedding</strong>.
-</p>
-<ul>
-    <li>Each movie has an embedding based on two factors: <strong>child-friendly vs. adult</strong> and 
-        <strong>blockbuster vs. arthouse</strong>.</li>
-    <li>Each user is placed in the same space, allowing the system to predict which movies they will like 
-        based on their preferences.</li>
+<h3>Key Takeaways</h3>
+<ul class="styled-list">
+    <li>✔️ <strong>Traditional antivirus software struggles against polymorphic malware.</strong></li>
+    <li>✔️ <strong>AI detects cyber threats based on behavior rather than signatures.</strong></li>
+    <li>✔️ <strong>Deep learning models predict and prevent attacks before execution.</strong></li>
+    <li>✔️ <strong>AI-powered threat hunting automates security analysis.</strong></li>
+    <li>✔️ <strong>The future of cybersecurity will involve AI battling AI-generated threats.</strong></li>
 </ul>
 <p>
-    This approach improves the model’s accuracy, as it better represents the diversity in user preferences.
+   <strong>🚀 As cyber threats evolve, AI is leading the charge in digital defense.</strong>
 </p>
-
-<h2>Popular Matrix Factorization Techniques</h2>
-
-<h3>1. Singular Value Decomposition (SVD)</h3>
-<p>
-    SVD is a popular decomposition technique that expresses the matrix as the product of three smaller matrices: 
-    <strong>R ≈ U × S × V<sup>T</sup></strong>, where:
-</p>
-<ul>
-    <li><strong>U</strong> represents user preferences.</li>
-    <li><strong>S</strong> is a diagonal matrix containing singular values.</li>
-    <li><strong>V</strong> represents item characteristics.</li>
-</ul>
-<p>
-    Netflix’s recommendation engine famously used SVD to improve its production.
-</p>
-
-<h3>2. Alternating Least Squares (ALS)</h3>
-<p>
-    ALS optimizes user and item matrices by minimizing the difference between predicted and actual ratings. 
-    It alternates between fixing the user matrix and solving for the item matrix, and vice versa, until convergence.
-</p>
-
-<h3>3. Non-Negative Matrix Factorization (NMF)</h3>
-<p>
-    Unlike SVD, NMF enforces non-negative constraints, making the factorized matrices more interpretable. 
-    This is useful for understanding underlying user interests.
-</p>
-
-<h2>Hybrid Recommender Systems</h2>
-<p>
-    Matrix factorization can be integrated with deep learning techniques to create hybrid models. 
-    Some advanced hybrid approaches include:
-</p>
-<ul>
-    <li><strong>Neural Collaborative Filtering (NCF):</strong> Combines matrix factorization with deep neural 
-        networks for improved user-item interaction modeling.</li>
-    <li><strong>Factorization Machines (FM):</strong> Extends matrix factorization by capturing higher-order 
-        feature interactions, making it suitable for sparse datasets.</li>
-    <li><strong>Graph-Based Recommender Systems:</strong> Uses graph neural networks to learn embeddings 
-        for users and items based on their relationships in a graph structure.</li>
-</ul>
-
-<h2>Advantages of Matrix Factorization</h2>
-<ul>
-    <li><strong>Scalability:</strong> Works well with large datasets.</li>
-    <li><strong>Latent Factor Discovery:</strong> Uncovers hidden user preferences.</li>
-    <li><strong>Improved Accuracy:</strong> Provides better recommendations through engaging methods.</li>
-    <li><strong>Sparsity Handling:</strong> Works effectively even when the data matrix is sparse 
-        (i.e., many missing values).</li>
-    <li><strong>Flexibility:</strong> Can be extended with deep learning models for better accuracy.</li>
-</ul>
-
-<h3>Challenges and Limitations</h3>
-<ol>
-    <li><strong>Cold Start Problem:</strong> New users and items lack enough historical data for accurate recommendations.</li>
-    <li><strong>Computational Cost:</strong> Training large matrices can be resource-intensive.</li>
-    <li><strong>Overfitting:</strong> Risk of modeling noise instead of actual patterns.</li>
-    <li><strong>Lack of Context Awareness:</strong> Matrix factorization does not consider external factors like user location.</li>
-    <li><strong>Explainability Issues:</strong> Matrix factorization models are often seen as black boxes, making it difficult to explain recommendations.</li>
-</ol>
-
-<h2>Real-World Applications</h2>
-<ul>
-    <li><strong>Netflix:</strong> Uses matrix factorization for movie recommendations.</li>
-    <li><strong>Amazon:</strong> Suggests products based on past purchases and interactions.</li>
-    <li><strong>Spotify:</strong> Recommends music based on listening history.</li>
-    <li><strong>YouTube:</strong> Suggests videos using collaborative filtering models.</li>
-    <li><strong>LinkedIn:</strong> Suggests connections and job recommendations using hybrid recommender systems.</li>
-</ul>
-
-<h2>Conclusion</h2>
-<p>
-    Matrix Factorization is a cornerstone of modern recommender systems, enabling accurate and scalable predictions of user preferences. 
-    By reducing the high-dimensional rating matrix into a set of latent factors, it provides better recommendations, improves user experience, 
-    and efficiently handles large-scale applications. However, challenges such as the cold start problem, high computational costs, and lack of explainability remain. 
-    Integrating matrix factorization with deep learning and context-aware techniques can create more intelligent and flexible recommendations.
-</p>
-
-<h2>References</h2>
-<ol>
-    <li>Koren, Y., Bell, R., & Volinsky, C. (2009). <em>Matrix Factorization Techniques for Recommender Systems.</em> Computer, 42(8), 30-37.</li>
-    <li>Aggarwal, C. C. (2016). <em>Recommender Systems: The Textbook.</em> Springer.</li>
-    <li>Rendle, S., Freudenthaler, C., & Schmidt-Thieme, L. (2010). <em>Factorizing Personalized Markov Chains for Next-Basket Recommendation.</em> Proceedings of the 19th International Conference on World Wide Web (WWW).</li>
-</ol>
-
-
-
-
-
 
 
         </div>
