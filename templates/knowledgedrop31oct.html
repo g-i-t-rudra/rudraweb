@@ -241,6 +241,37 @@ h1 {
     margin-bottom: 10px; /* Adds spacing below */
     margin-top:40px;
 }
+.styled-table-wrapper {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fefefe;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.styled-table thead {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
 
 
 
@@ -353,25 +384,46 @@ h1 {
 </p>
 <p style="text-align: center;"><em><strong>T<sup>2</sup> ∝ R<sup>3</sup></strong></em></p>
 <h4>Step 1: Data Collection</h4>
-<p>
-    A dataset is prepared using real astronomical observations of planetary orbits:
-</p>
-<table class="styled-table">
-    <thead>
-        <tr>
-            <th>Planet</th>
-            <th>Semi-Major Axis (R) in AU</th>
-            <th>Orbital Period (T) in Years</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><td>Mercury</td><td>0.39</td><td>0.24</td></tr>
-        <tr><td>Venus</td><td>0.72</td><td>0.62</td></tr>
-        <tr><td>Earth</td><td>1.00</td><td>1.00</td></tr>
-        <tr><td>Mars</td><td>1.52</td><td>1.88</td></tr>
-        <tr><td>Jupiter</td><td>5.20</td><td>11.86</td></tr>
-    </tbody>
-</table>
+<p>A dataset is prepared using real astronomical observations of planetary orbits:</p>
+
+<div class="styled-table-wrapper">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Planet</th>
+                <th>Semi-Major Axis (R in AU)</th>
+                <th>Orbital Period (T) in Years</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mercury</td>
+                <td>0.39</td>
+                <td>0.24</td>
+            </tr>
+            <tr>
+                <td>Venus</td>
+                <td>0.72</td>
+                <td>0.62</td>
+            </tr>
+            <tr>
+                <td>Earth</td>
+                <td>1.00</td>
+                <td>1.00</td>
+            </tr>
+            <tr>
+                <td>Mars</td>
+                <td>1.52</td>
+                <td>1.88</td>
+            </tr>
+            <tr>
+                <td>Jupiter</td>
+                <td>5.20</td>
+                <td>11.86</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <h4>Step 2: Applying AI Feynman</h4>
 <ul class="styled-list">
