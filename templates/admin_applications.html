@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Applications - RUDRA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+    <style>
+        .application-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #68d4f2;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        .application-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(104, 212, 242, 0.3);
+        }
+        .position-section {
+            margin-bottom: 30px;
+        }
+        .position-header {
+            background: rgba(104, 212, 242, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #68d4f2;
+        }
+        .application-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .interview-form {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #68d4f2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .expandable-content {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(104, 212, 242, 0.3);
+        }
+        .expandable-content.show {
+            display: block;
+        }
+        .stats-card {
+            background: rgba(104, 212, 242, 0.1);
+            border: 1px solid #68d4f2;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .filter-controls {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #68d4f2;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #68d4f2;
+            color: #e8f1f2;
+        }
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #3aaaff;
+            color: #e8f1f2;
+            box-shadow: 0 0 0 0.2rem rgba(104, 212, 242, 0.25);
+        }
+        .form-control::placeholder {
+            color: #b9e3e5;
+        }
+        label {
+            color: #e8f1f2;
+        }
+        .candidate-checkbox {
+            transform: scale(1.2);
+            margin-right: 10px;
+        }
+        .admin-header {
+            background: rgba(104, 212, 242, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #68d4f2;
+        }
+        .skill-highlight {
+            background: #68d4f2;
+            color: #1c1c1e;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            margin: 2px;
+            display: inline-block;
+        }
+        .quick-stats {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body style="background-color: #010102;">
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Admin Header -->
+                <div class="admin-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h2 style="color: #68d4f2; margin: 0;">
+                                <i class="fas fa-users-cog"></i> Applications Management Dashboard
+                            </h2>
+                            <p style="color: #b9e3e5; margin: 5px 0 0 0;">
+                                Welcome, {{ session.get('admin_username', 'Admin') }}! Manage and review all position applications.
+                            </p>
+                        </div>
+                        <div>
+                            <a href="{{ url_for('export_applications') }}" class="btn btn-outline-info">
+                                <i class="fas fa-download"></i> Export CSV
+                            </a>
+                            <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-secondary ml-2">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Statistics Overview -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            {% set total_apps = 0 %}
+                            {% for position, apps in applications.items() %}
+                                {% set total_apps = total_apps + apps|length %}
+                            {% endfor %}
+                            <h4 style="color: #68d4f2;">{{ total_apps }}</h4>
+                            <p style="color: #b9e3e5;">Total Applications</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <h4 style="color: #68d4f2;">{{ applications.keys()|length }}</h4>
+                            <p style="color: #b9e3e5;">Positions Applied For</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            {% set pending_count = 0 %}
+                            {% for position, apps in applications.items() %}
+                                {% for app in apps %}
+                                    {% if app['Status'] == 'Applied' %}
+                                        {% set pending_count = pending_count + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            <h4 style="color: #ffc107;">{{ pending_count }}</h4>
+                            <p style="color: #b9e3e5;">Pending Review</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            {% set interview_count = 0 %}
+                            {% for position, apps in applications.items() %}
+                                {% for app in apps %}
+                                    {% if app['Interview Status'] == 'Interview Scheduled' %}
+                                        {% set interview_count = interview_count + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            <h4 style="color: #fd7e14;">{{ interview_count }}</h4>
+                            <p style="color: #b9e3e5;">Interviews Scheduled</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Filter by Status:</label>
+                            <select class="form-control" id="statusFilter" onchange="filterApplications()">
+                                <option value="all">All Applications</option>
+                                <option value="Applied">Applied</option>
+                                <option value="Under Review">Under Review</option>
+                                <option value="Interview Scheduled">Interview Scheduled</option>
+                                <option value="Selected">Selected</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Filter by Position:</label>
+                            <select class="form-control" id="positionFilter" onchange="filterApplications()">
+                                <option value="all">All Positions</option>
+                                {% for position in applications.keys() %}
+                                <option value="{{ position }}">{{ position }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Search by Name/Email:</label>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search..." onkeyup="filterApplications()">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Quick Actions:</label>
+                            <button type="button" class="btn btn-info btn-block" onclick="selectAllVisible()">
+                                <i class="fas fa-check-all"></i> Select All Visible
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interview Invitation Form -->
+                <div class="interview-form">
+                    <h4 style="color: #68d4f2;"><i class="fas fa-video"></i> Send Interview Invitations</h4>
+                    <form action="{{ url_for('send_interview_invite') }}" method="POST" id="interviewForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Interview Date & Time:</label>
+                                    <input type="datetime-local" class="form-control" name="interview_datetime" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Google Meet Link:</label>
+                                    <input type="url" class="form-control" name="interview_link" placeholder="https://meet.google.com/..." required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Position (Optional - for email context):</label>
+                            <input type="text" class="form-control" name="position" placeholder="e.g., Vice President">
+                        </div>
+                        <div class="form-group">
+                            <label>Additional Message (Optional):</label>
+                            <textarea class="form-control" name="additional_message" rows="3" placeholder="Any additional instructions for the candidates..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Selected Candidates:</label>
+                            <div id="selectedCandidates" style="color: #b9e3e5; margin-top: 10px;">
+                                <p>Select candidates from the applications below by checking the boxes.</p>
+                            </div>
+                            <!-- Hidden inputs for selected candidates will be added here by JavaScript -->
+                            <div id="hiddenInputs"></div>
+                        </div>
+                        <button type="submit" class="btn btn-success" id="sendInviteBtn" disabled>
+                            <i class="fas fa-paper-plane"></i> Send Interview Invitations
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Applications by Position -->
+                {% for position, apps in applications.items() %}
+                <div class="position-section" data-position="{{ position }}">
+                    <div class="position-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 style="color: #68d4f2;">
+                                <i class="fas fa-users"></i> {{ position }}
+                            </h4>
+                            <div>
+                                <span class="badge badge-info">{{ apps|length }} Applications</span>
+                                {% set pending = 0 %}
+                                {% set interviews = 0 %}
+                                {% for app in apps %}
+                                    {% if app['Status'] == 'Applied' %}
+                                        {% set pending = pending + 1 %}
+                                    {% endif %}
+                                    {% if app['Interview Status'] == 'Interview Scheduled' %}
+                                        {% set interviews = interviews + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if pending > 0 %}
+                                    <span class="badge badge-warning ml-1">{{ pending }} Pending</span>
+                                {% endif %}
+                                {% if interviews > 0 %}
+                                    <span class="badge badge-primary ml-1">{{ interviews }} Interviews</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="quick-stats">
+                            {% set applied_count = 0 %}
+                            {% set review_count = 0 %}
+                            {% set selected_count = 0 %}
+                            {% for app in apps %}
+                                {% if app['Status'] == 'Applied' %}
+                                    {% set applied_count = applied_count + 1 %}
+                                {% elif app['Status'] == 'Under Review' %}
+                                    {% set review_count = review_count + 1 %}
+                                {% elif app['Status'] == 'Selected' %}
+                                    {% set selected_count = selected_count + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            <small style="color: #b9e3e5;">
+                                Quick Stats: 
+                                Applied ({{ applied_count }}) |
+                                Under Review ({{ review_count }}) |
+                                Selected ({{ selected_count }})
+                            </small>
+                        </div>
+                    </div>
+
+                    {% for app in apps %}
+                    <div class="application-card" data-status="{{ app['Status'] }}" data-name="{{ app['Name'] }}" data-email="{{ app['Email'] }}">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="form-check">
+                                    <input class="form-check-input candidate-checkbox" type="checkbox" value="{{ app['Email'] }}" 
+                                           onchange="updateSelectedCandidates()" id="cb_{{ loop.index }}">
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <h6 style="color: #68d4f2;">
+                                    <i class="fas fa-user"></i> {{ app['Name'] }}
+                                    {% if app.get('Application Score', 0) > 0 %}
+                                        <span class="badge badge-info ml-2">{{ app['Application Score'] }}/100</span>
+                                    {% endif %}
+                                </h6>
+                                <p style="color: #b9e3e5; margin-bottom: 5px;">
+                                    <i class="fas fa-envelope"></i> {{ app['Email'] }}
+                                </p>
+                                <p style="color: #b9e3e5; margin-bottom: 5px;">
+                                    <i class="fas fa-calendar"></i> Applied: {{ app['Timestamp'] }}
+                                </p>
+                                <p style="color: #b9e3e5; margin-bottom: 5px;">
+                                    <i class="fas fa-graduation-cap"></i> {{ app['Year of Study'] }} | 
+                                    <i class="fas fa-clock"></i> {{ app['Time Commitment'] }} |
+                                    <i class="fas fa-star"></i> {{ app['Academic Performance'] }}
+                                </p>
+                                {% if app['Secondary Choice'] %}
+                                <p style="color: #b9e3e5; margin-bottom: 5px;">
+                                    <i class="fas fa-arrow-right"></i> Secondary: {{ app['Secondary Choice'] }}
+                                </p>
+                                {% endif %}
+                                
+                                <!-- Technical Skills Highlight for WebOps -->
+                                {% if position == 'Director of WebOps & Infrastructure' and app['Technical Skills'] %}
+                                    <div class="mt-2">
+                                        {% set skills = app['Technical Skills'].lower() %}
+                                        {% if 'flask' in skills %}<span class="skill-highlight">Flask ✓</span>{% endif %}
+                                        {% if 'html' in skills %}<span class="skill-highlight">HTML ✓</span>{% endif %}
+                                        {% if 'css' in skills %}<span class="skill-highlight">CSS ✓</span>{% endif %}
+                                        {% if 'javascript' in skills %}<span class="skill-highlight">JavaScript ✓</span>{% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <div class="mb-2">
+                                    <span class="badge badge-{{ 'success' if app['Status'] == 'Selected' else 'warning' if app['Status'] == 'Under Review' else 'info' if app['Status'] == 'Applied' else 'danger' }}">
+                                        {{ app['Status'] }}
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="badge badge-{{ 'warning' if app['Interview Status'] == 'Interview Scheduled' else 'secondary' }}">
+                                        {{ app['Interview Status'] }}
+                                    </span>
+                                </div>
+                                <button class="btn btn-sm btn-outline-info" onclick="toggleDetails(this)">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="expandable-content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 style="color: #68d4f2;"><i class="fas fa-user-circle"></i> Personal Information</h6>
+                                    <p style="color: #b9e3e5;"><strong>Previous Experience:</strong></p>
+                                    <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Previous Experience'] or 'Not provided' }}</p>
+                                    
+                                    <p style="color: #b9e3e5;"><strong>Technical Skills:</strong></p>
+                                    <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Technical Skills'] or 'Not provided' }}</p>
+                                    
+                                    <p style="color: #b9e3e5;"><strong>Leadership Experience:</strong></p>
+                                    <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Leadership Experience'] or 'Not provided' }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 style="color: #68d4f2;"><i class="fas fa-target"></i> Position Preferences</h6>
+                                    <p style="color: #b9e3e5;"><strong>Primary Choice:</strong> {{ app['Primary Choice'] }}</p>
+                                    <p style="color: #b9e3e5;"><strong>Secondary Choice:</strong> {{ app['Secondary Choice'] or 'None' }}</p>
+                                    
+                                    <p style="color: #b9e3e5;"><strong>Why Primary Choice:</strong></p>
+                                    <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Why Primary'] or 'Not provided' }}</p>
+                                    
+                                    <p style="color: #b9e3e5;"><strong>Relevant Experience:</strong></p>
+                                    <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Relevant Experience'] or 'Not provided' }}</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Position Specific Questions -->
+                            {% if app.get('Position Q1') or app.get('Position Q2') or app.get('Position Q3') %}
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <h6 style="color: #68d4f2;"><i class="fas fa-question-circle"></i> Position-Specific Responses</h6>
+                                    {% if app.get('Position Q1') %}
+                                    <div class="mb-3">
+                                        <p style="color: #b9e3e5;"><strong>Response 1:</strong></p>
+                                        <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Position Q1'] }}</p>
+                                    </div>
+                                    {% endif %}
+                                    {% if app.get('Position Q2') %}
+                                    <div class="mb-3">
+                                        <p style="color: #b9e3e5;"><strong>Response 2:</strong></p>
+                                        <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Position Q2'] }}</p>
+                                    </div>
+                                    {% endif %}
+                                    {% if app.get('Position Q3') %}
+                                    <div class="mb-3">
+                                        <p style="color: #b9e3e5;"><strong>Response 3:</strong></p>
+                                        <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Position Q3'] }}</p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <h6 style="color: #68d4f2;"><i class="fas fa-tasks"></i> Assessment Responses</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p style="color: #b9e3e5;"><strong>Scenario 1 (Conflict Resolution):</strong></p>
+                                            <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Scenario 1'] or 'Not provided' }}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p style="color: #b9e3e5;"><strong>Scenario 2 (Deadline Management):</strong></p>
+                                            <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Scenario 2'] or 'Not provided' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p style="color: #b9e3e5;"><strong>Innovation Project:</strong></p>
+                                            <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Innovation Project'] or 'Not provided' }}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p style="color: #b9e3e5;"><strong>Collaboration Example:</strong></p>
+                                            <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Collaboration Example'] or 'Not provided' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p style="color: #b9e3e5;"><strong>Availability:</strong></p>
+                                            <p style="color: #e8f1f2; font-size: 0.9em;">{{ app['Availability'] or 'Not provided' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <h6 style="color: #68d4f2;"><i class="fas fa-sticky-note"></i> Admin Notes</h6>
+                                    <textarea class="form-control" placeholder="Add notes about this applicant..." 
+                                              id="notes_{{ position|replace(' ', '_')|replace('–', '_') }}_{{ loop.index }}" 
+                                              style="background: rgba(255, 255, 255, 0.1); color: #e8f1f2; border: 1px solid #68d4f2;">{{ app['Admin Notes'] or '' }}</textarea>
+                                    <button class="btn btn-sm btn-primary mt-2" onclick="saveNotes('{{ app['Email'] }}', '{{ position|replace(' ', '_')|replace('–', '_') }}_{{ loop.index }}')">
+                                        <i class="fas fa-save"></i> Save Notes
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="application-actions mt-3">
+                                <button class="btn btn-success btn-sm" onclick="updateStatus('{{ app['Email'] }}', 'Selected')">
+                                    <i class="fas fa-check"></i> Select
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="updateStatus('{{ app['Email'] }}', 'Rejected')">
+                                    <i class="fas fa-times"></i> Reject
+                                </button>
+                                <button class="btn btn-warning btn-sm" onclick="updateStatus('{{ app['Email'] }}', 'Under Review')">
+                                    <i class="fas fa-clock"></i> Under Review
+                                </button>
+                                <button class="btn btn-info btn-sm" onclick="updateStatus('{{ app['Email'] }}', 'Applied')">
+                                    <i class="fas fa-undo"></i> Reset to Applied
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    {% if not apps %}
+                    <div class="text-center" style="color: #b9e3e5; padding: 30px;">
+                        <i class="fas fa-inbox fa-2x mb-3"></i>
+                        <p>No applications for this position yet.</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                
+                {% if not applications %}
+                <div class="text-center" style="color: #b9e3e5; padding: 60px;">
+                    <i class="fas fa-clipboard-list fa-4x mb-3"></i>
+                    <h4>No Applications Found</h4>
+                    <p>No applications have been submitted yet. Check back later or ensure students are applying through the application form.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(button) {
+            const card = button.closest('.application-card');
+            const content = card.querySelector('.expandable-content');
+            const icon = button.querySelector('i');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+                button.innerHTML = '<i class="fas fa-eye"></i> View Details';
+            } else {
+                content.classList.add('show');
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+                button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Details';
+            }
+        }
+
+        function updateSelectedCandidates() {
+            const checkboxes = document.querySelectorAll('.candidate-checkbox:checked');
+            const selectedDiv = document.getElementById('selectedCandidates');
+            const sendBtn = document.getElementById('sendInviteBtn');
+            const hiddenInputsDiv = document.getElementById('hiddenInputs');
+            
+            // Clear previous hidden inputs
+            hiddenInputsDiv.innerHTML = '';
+            
+            if (checkboxes.length > 0) {
+                let selectedList = '<strong>Selected Candidates (' + checkboxes.length + '):</strong><br>';
+                
+                checkboxes.forEach((checkbox, index) => {
+                    const card = checkbox.closest('.application-card');
+                    const name = card.querySelector('h6').textContent.trim();
+                    const email = checkbox.value;
+                    
+                    // Add to display list
+                    selectedList += `• ${name} (${email})<br>`;
+                    
+                    // Create hidden input for form submission
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'selected_applicants';
+                    hiddenInput.value = email;
+                    hiddenInputsDiv.appendChild(hiddenInput);
+                });
+                
+                selectedDiv.innerHTML = selectedList;
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Send Interview Invitations (${checkboxes.length} candidates)`;
+            } else {
+                selectedDiv.innerHTML = '<p>Select candidates from the applications below by checking the boxes.</p>';
+                sendBtn.disabled = true;
+                sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Interview Invitations';
+            }
+        }
+
+        function selectAllVisible() {
+            const visibleCheckboxes = document.querySelectorAll('.application-card:not([style*="none"]) .candidate-checkbox');
+            visibleCheckboxes.forEach(checkbox => {
+                checkbox.checked = true;
+            });
+            updateSelectedCandidates();
+        }
+
+        function filterApplications() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const positionFilter = document.getElementById('positionFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            
+            const cards = document.querySelectorAll('.application-card');
+            const sections = document.querySelectorAll('.position-section');
+            
+            cards.forEach(card => {
+                const status = card.getAttribute('data-status');
+                const name = card.getAttribute('data-name').toLowerCase();
+                const email = card.getAttribute('data-email').toLowerCase();
+                const position = card.closest('.position-section').getAttribute('data-position');
+                
+                let showCard = true;
+                
+                // Filter by status
+                if (statusFilter !== 'all' && status !== statusFilter) {
+                    showCard = false;
+                }
+                
+                // Filter by position
+                if (positionFilter !== 'all' && position !== positionFilter) {
+                    showCard = false;
+                }
+                
+                // Filter by search
+                if (searchInput && !name.includes(searchInput) && !email.includes(searchInput)) {
+                    showCard = false;
+                }
+                
+                card.style.display = showCard ? 'block' : 'none';
+            });
+            
+            // Hide empty sections
+            sections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.application-card:not([style*="none"])');
+                section.style.display = visibleCards.length > 0 ? 'block' : 'none';
+            });
+        }
+
+        function updateStatus(email, status) {
+            if (confirm(`Are you sure you want to update the status to "${status}"?`)) {
+                // Send AJAX request to update status
+                fetch('/admin/update_status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        status: status
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Error updating status: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error updating status');
+                });
+            }
+        }
+
+        function saveNotes(email, index) {
+            const notes = document.getElementById(`notes_${index}`).value;
+            
+            // Send AJAX request to save notes
+            fetch('/admin/save_notes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    notes: notes
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    const button = document.querySelector(`button[onclick="saveNotes('${email}', '${index}')"]`);
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i> Saved!';
+                    button.classList.remove('btn-primary');
+                    button.classList.add('btn-success');
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.classList.remove('btn-success');
+                        button.classList.add('btn-primary');
+                    }, 2000);
+                } else {
+                    alert('Error saving notes: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error saving notes');
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSelectedCandidates();
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Status - RUDRA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+    <style>
+        .status-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #68d4f2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .status-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(104, 212, 242, 0.3);
+        }
+        .status-badge {
+            font-size: 0.9em;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+        .status-applied {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .status-under-review {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .status-interview-scheduled {
+            background-color: #fd7e14;
+            color: white;
+        }
+        .status-selected {
+            background-color: #28a745;
+            color: white;
+        }
+        .status-rejected {
+            background-color: #dc3545;
+            color: white;
+        }
+        .status-pending {
+            background-color: #6c757d;
+            color: white;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: #68d4f2;
+            border-radius: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 17px;
+            width: 2px;
+            height: 100%;
+            background: #68d4f2;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        .timeline-item.completed::before {
+            background: #28a745;
+        }
+        .timeline-item.current::before {
+            background: #ffc107;
+        }
+        .no-applications {
+            text-align: center;
+            padding: 60px 20px;
+            color: #b9e3e5;
+        }
+        .no-applications i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #68d4f2;
+        }
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #68d4f2;
+            border-radius: 10px;
+        }
+        .info-card .card-header {
+            background: rgba(104, 212, 242, 0.2);
+            border-bottom: 1px solid #68d4f2;
+        }
+        .info-card h5 {
+            color: #68d4f2;
+            margin: 0;
+        }
+        .application-details {
+            background: rgba(104, 212, 242, 0.1);
+            border: 1px solid #68d4f2;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body style="background-color: #010102;">
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4" style="color: #68d4f2;">
+                    <i class="fas fa-clipboard-list"></i> My Application Status
+                </h2>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% if applications %}
+                    {% for app in applications %}
+                    <div class="status-card">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4 style="color: #68d4f2;">
+                                    <i class="fas fa-user-tie"></i> {{ app['Primary Choice'] }}
+                                </h4>
+                                <p style="color: #b9e3e5; margin-bottom: 10px;">
+                                    <i class="fas fa-calendar"></i> Applied on: 
+                                    {{ app['Timestamp'] }}
+                                </p>
+                                {% if app['Secondary Choice'] %}
+                                <p style="color: #b9e3e5; margin-bottom: 10px;">
+                                    <i class="fas fa-arrow-right"></i> Secondary Choice: {{ app['Secondary Choice'] }}
+                                </p>
+                                {% endif %}
+                                <p style="color: #b9e3e5; margin-bottom: 10px;">
+                                    <i class="fas fa-clock"></i> Time Commitment: {{ app['Time Commitment'] }}
+                                </p>
+                                <p style="color: #b9e3e5; margin-bottom: 10px;">
+                                    <i class="fas fa-graduation-cap"></i> Academic Performance: {{ app['Academic Performance'] }}
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <div class="mb-2">
+                                    <span class="status-badge status-{{ app['Status'].lower().replace(' ', '-') }}">
+                                        <i class="fas fa-info-circle"></i> {{ app['Status'] }}
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="status-badge status-{{ app['Interview Status'].lower().replace(' ', '-') }}">
+                                        <i class="fas fa-video"></i> {{ app['Interview Status'] }}
+                                    </span>
+                                </div>
+                                {% if app.get('Application Score', 0) > 0 %}
+                                <div class="mb-2">
+                                    <span class="badge badge-info">
+                                        <i class="fas fa-star"></i> Score: {{ app['Application Score'] }}/100
+                                    </span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <h6 style="color: #68d4f2;"><i class="fas fa-route"></i> Application Timeline</h6>
+                                <div class="timeline">
+                                    <div class="timeline-item completed">
+                                        <strong style="color: #e8f1f2;">Application Submitted</strong>
+                                        <p style="color: #b9e3e5; font-size: 0.9em; margin-bottom: 0;">{{ app['Timestamp'] }}</p>
+                                    </div>
+                                    
+                                    {% if app['Status'] in ['Under Review', 'Interview Scheduled', 'Selected', 'Rejected'] %}
+                                    <div class="timeline-item completed">
+                                        <strong style="color: #e8f1f2;">Application Under Review</strong>
+                                        <p style="color: #b9e3e5; font-size: 0.9em; margin-bottom: 0;">Your application is being evaluated by our team</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if app['Interview Status'] == 'Interview Scheduled' %}
+                                    <div class="timeline-item current">
+                                        <strong style="color: #e8f1f2;">Interview Scheduled</strong>
+                                        <p style="color: #b9e3e5; font-size: 0.9em; margin-bottom: 0;">
+                                            <i class="fas fa-envelope"></i> Check your email for interview details
+                                        </p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if app['Status'] == 'Selected' %}
+                                    <div class="timeline-item completed">
+                                        <strong style="color: #e8f1f2;">Congratulations! Selected</strong>
+                                        <p style="color: #b9e3e5; font-size: 0.9em; margin-bottom: 0;">
+                                            <i class="fas fa-trophy"></i> You've been selected for this position!
+                                        </p>
+                                    </div>
+                                    {% elif app['Status'] == 'Rejected' %}
+                                    <div class="timeline-item completed">
+                                        <strong style="color: #e8f1f2;">Application Not Selected</strong>
+                                        <p style="color: #b9e3e5; font-size: 0.9em; margin-bottom: 0;">
+                                            Thank you for your interest. Consider applying for other positions.
+                                        </p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Application Details -->
+                        <div class="application-details">
+                            <h6 style="color: #68d4f2;"><i class="fas fa-file-alt"></i> Application Summary</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p style="color: #e8f1f2; margin-bottom: 5px;"><strong>Why this position:</strong></p>
+                                    <p style="color: #b9e3e5; font-size: 0.9em;">{{ app['Why Primary'][:100] }}{% if app['Why Primary']|length > 100 %}...{% endif %}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p style="color: #e8f1f2; margin-bottom: 5px;"><strong>Key Skills:</strong></p>
+                                    <p style="color: #b9e3e5; font-size: 0.9em;">{{ app['Specific Skills'][:100] }}{% if app['Specific Skills']|length > 100 %}...{% endif %}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if app['Admin Notes'] %}
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="alert alert-info" style="background: rgba(104, 212, 242, 0.1); border-color: #68d4f2;">
+                                    <h6 style="color: #68d4f2;"><i class="fas fa-sticky-note"></i> Feedback from Team</h6>
+                                    <p style="color: #e8f1f2; margin-bottom: 0;">{{ app['Admin Notes'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-applications">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h4 style="color: #68d4f2;">No Applications Found</h4>
+                        <p>You haven't applied for any positions yet.</p>
+                        <a href="{{ url_for('apply_for_position') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Apply for Position
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="info-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> What's Next?</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 style="color: #68d4f2;"><i class="fas fa-clipboard-check"></i> Application Process</h6>
+                                <ul style="color: #b9e3e5;">
+                                    <li><i class="fas fa-hourglass-start"></i> Applications are reviewed within 7-10 business days</li>
+                                    <li><i class="fas fa-users"></i> Top 5-8 candidates per position are shortlisted for interviews</li>
+                                    <li><i class="fas fa-video"></i> Interview invitations are sent via email with Google Meet links</li>
+                                    <li><i class="fas fa-clock"></i> Final results are communicated within 48 hours of interview</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 style="color: #68d4f2;"><i class="fas fa-question-circle"></i> Need Help?</h6>
+                                <ul style="color: #b9e3e5;">
+                                    <li><i class="fas fa-envelope"></i> Email us at <a href="mailto:contact.rudrarvu@gmail.com" style="color: #68d4f2;">contact.rudrarvu@gmail.com</a></li>
+                                    <li><i class="fas fa-sync-alt"></i> Check this page regularly for status updates</li>
+                                    <li><i class="fas fa-calendar-alt"></i> Interview details will be sent to your registered email</li>
+                                    <li><i class="fas fa-trophy"></i> Multiple position applications are allowed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Section -->
+        {% if applications %}
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="info-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-line"></i> Your Application Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <div class="stat-item">
+                                    <h4 style="color: #68d4f2;">{{ applications|length }}</h4>
+                                    <p style="color: #b9e3e5;">Total Applications</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-item">
+                                    {% set pending_apps = applications | selectattr('Status', 'equalto', 'Applied') | list | length %}
+                                    <h4 style="color: #ffc107;">{{ pending_apps }}</h4>
+                                    <p style="color: #b9e3e5;">Pending Review</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-item">
+                                    {% set interview_apps = applications | selectattr('Interview Status', 'equalto', 'Interview Scheduled') | list | length %}
+                                    <h4 style="color: #fd7e14;">{{ interview_apps }}</h4>
+                                    <p style="color: #b9e3e5;">Interviews Scheduled</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-item">
+                                    {% set selected_apps = applications | selectattr('Status', 'equalto', 'Selected') | list | length %}
+                                    <h4 style="color: #28a745;">{{ selected_apps }}</h4>
+                                    <p style="color: #b9e3e5;">Selected</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Position - RUDRA | The Future of Applications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #b8c6db;
+            --rudra-blue: #68d4f2;
+            --rudra-dark: #0a0a0f;
+            --neon-glow: 0 0 20px rgba(104, 212, 242, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-gradient);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 198, 198, 0.3) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--rudra-blue);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(0) scale(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) translateX(100px) scale(1);
+            }
+        }
+
+        /* Header Enhancement */
+        .application-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .application-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .application-header .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .rudra-way-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--primary-gradient);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--neon-glow);
+            animation: badgeGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes badgeGlow {
+            0% { box-shadow: 0 0 20px rgba(104, 212, 242, 0.6); }
+            100% { box-shadow: 0 0 30px rgba(104, 212, 242, 0.9); }
+        }
+
+        /* Enhanced Progress Bar */
+        .progress-container {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .progress-wrapper {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 4px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: var(--accent-gradient);
+            border-radius: 50px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+
+        @keyframes progressShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step-circle.active {
+            background: var(--accent-gradient);
+            border-color: var(--rudra-blue);
+            transform: scale(1.1);
+            box-shadow: var(--neon-glow);
+        }
+
+        .step-circle.completed {
+            background: var(--primary-gradient);
+            border-color: #667eea;
+        }
+
+        .step-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 80px;
+        }
+
+        /* Enhanced Form Steps */
+        .form-step {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Glass Card Design */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .card-header {
+            border: none;
+            background: transparent;
+            padding: 0 0 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .card-header h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header i {
+            color: var(--rudra-blue);
+            font-size: 1.5rem;
+        }
+
+        /* Enhanced Form Controls */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            padding: 15px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--rudra-blue);
+            box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2);
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        label {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            position: relative;
+        }
+
+        label::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--rudra-blue);
+            transition: width 0.3s ease;
+        }
+
+        .form-group:focus-within label::after {
+            width: 100%;
+        }
+
+        /* Position Cards Enhancement */
+        .position-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .position-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .position-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--rudra-blue);
+            box-shadow: 
+                0 20px 40px rgba(104, 212, 242, 0.2),
+                0 0 0 1px rgba(104, 212, 242, 0.3);
+        }
+
+        .position-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .position-card.selected {
+            border-color: var(--rudra-blue);
+            background: rgba(104, 212, 242, 0.15);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--neon-glow);
+        }
+
+        .position-card.selected::before {
+            opacity: 0.2;
+        }
+
+        .position-card.unavailable {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(0.7);
+        }
+
+        .position-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            border-color: #ffc107;
+            background: rgba(255, 193, 7, 0.1);
+        }
+
+        .position-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .position-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .position-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .position-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .selection-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .position-card.selected .selection-indicator {
+            transform: scale(1);
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--rudra-blue);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Recommendation Box */
+        .recommendation-box {
+            background: rgba(104, 212, 242, 0.1);
+            border: 2px solid rgba(104, 212, 242, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 25px;
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Enhanced Buttons */
+        .btn {
+            border-radius: 12px;
+            padding: 12px 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Terms and Conditions */
+        .terms-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .terms-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .terms-header i {
+            color: var(--rudra-blue);
+            font-size: 1.5rem;
+        }
+
+        .terms-header h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .pdf-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .pdf-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--rudra-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-link:hover {
+            background: rgba(104, 212, 242, 0.2);
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: white;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .custom-checkbox:checked {
+            background: var(--accent-gradient);
+            border-color: var(--rudra-blue);
+        }
+
+        .checkbox-label {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        /* Alert Styles */
+        .alert {
+            border-radius: 12px;
+            border: none;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        .alert-info {
+            background: rgba(79, 172, 254, 0.2);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .application-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .progress-steps {
+                display: none;
+            }
+            
+            .glass-card {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .position-card {
+                padding: 15px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-buttons .btn {
+                width: 100%;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--rudra-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+  
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-11">
+                <!-- Enhanced Header -->
+                <div class="application-header">
+                    <h1><i class="fas fa-rocket"></i> Apply for RUDRA Position</h1>
+                    <p class="subtitle">ARE YOU READY!?</p>
+                    <div class="rudra-way-badge">
+                        <i class="fas fa-star"></i> It's Time to Roar!!!
+                    </div>
+                </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Enhanced Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-wrapper">
+                        <div class="progress-bar" id="progressBar" style="width: 20%;"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="progress-step">
+                            <div class="step-circle active" id="step-1">1</div>
+                            <div class="step-label">Personal Info</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle" id="step-2">2</div>
+                            <div class="step-label">Preferences</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle" id="step-3">3</div>
+                            <div class="step-label">Questions</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle" id="step-4">4</div>
+                            <div class="step-label">Assessment</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle" id="step-5">5</div>
+                            <div class="step-label">Submit</div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="applicationForm" method="POST">
+                    <!-- Step 1: Personal Information -->
+                    <div class="form-step active" id="step1">
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-user-circle"></i> Personal Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="year_of_study">Year of Study</label>
+                                            <select class="form-control" name="year_of_study" required>
+                                                <option value="">Select Your Year</option>
+                                                <option value="1st Year">1st Year</option>
+                                                <option value="2nd Year">2nd Year</option>
+                                                <option value="3rd Year">3rd Year</option>
+                                                <option value="4th Year">4th Year</option>
+                                                <option value="Masters">Masters</option>
+                                                <option value="PhD">PhD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="time_commitment">Time Commitment (hours/week)</label>
+                                            <select class="form-control" name="time_commitment" required>
+                                                <option value="">Select Time Commitment</option>
+                                                <option value="2-4 hours">2-4 hours</option>
+                                                <option value="5-8 hours">5-8 hours</option>
+                                                <option value="9-15 hours">9-15 hours</option>
+                                                <option value="15+ hours">15+ hours</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="academic_performance">Academic Performance</label>
+                                    <select class="form-control" name="academic_performance" required>
+                                        <option value="">Select Performance Level</option>
+                                        <option value="Excellent (9.0+ CGPA)">Excellent (9.0+ CGPA)</option>
+                                        <option value="Very Good (8.0-8.9 CGPA)">Very Good (8.0-8.9 CGPA)</option>
+                                        <option value="Good (7.0-7.9 CGPA)">Good (7.0-7.9 CGPA)</option>
+                                        <option value="Average (6.0-6.9 CGPA)">Average (6.0-6.9 CGPA)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="previous_experience">Previous Leadership/Club Experience</label>
+                                    <textarea class="form-control" name="previous_experience" rows="4" 
+                                              placeholder="Share your leadership journey, club memberships, and experiences that shaped you..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="technical_skills">Technical Skills</label>
+                                    <textarea class="form-control" name="technical_skills" rows="4" 
+                                              placeholder="List your technical arsenal - programming languages, tools, frameworks, software you've mastered..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="leadership_experience">Leadership Philosophy</label>
+                                    <textarea class="form-control" name="leadership_experience" rows="4" 
+                                              placeholder="Describe your leadership style, philosophy, and what makes you a unique leader..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Position Preferences -->
+                    <div class="form-step" id="step2">
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-crosshairs"></i> Position Preferences</h4>
+                            </div>
+                            <div class="card-body">
+                                <!-- Enhanced Application Statistics -->
+                                <div class="stats-container">
+                                    <div class="stat-card">
+                                        <span class="stat-number">
+                                            {% set open_positions = positions.values() | selectattr('status', 'equalto', 'Open') | list | length %}
+                                            {{ open_positions }}
+                                        </span>
+                                        <span class="stat-label">Open Positions</span>
+                                    </div>
+                                    <div class="stat-card">
+                                        <span class="stat-number">
+                                            {% set total_applications = 0 %}
+                                            {% for position, details in positions.items() %}
+                                                {% if details.status == 'Open' %}
+                                                    {% set total_applications = total_applications + details.applications %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {{ total_applications }}
+                                        </span>
+                                        <span class="stat-label">Total Applications</span>
+                                    </div>
+                                    <div class="stat-card">
+                                        <span class="stat-number">1</span>
+                                        <span class="stat-label">Position Filled</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Select Your Primary Choice</label>
+                                    <div class="position-selection">
+                                        {% for position, details in positions.items() %}
+                                        <div class="position-card {% if details.status == 'Selected' %}unavailable{% elif details.status == 'Disabled' %}disabled{% endif %}" 
+                                             data-position="{{ position }}" 
+                                             {% if details.status == 'Open' %}onclick="selectPosition(this, 'primary')"{% endif %}>
+                                            <div class="position-icon">
+                                                <i class="fas {{ details.icon }}"></i>
+                                            </div>
+                                            <div class="position-title">{{ position }}</div>
+                                            <div class="position-description">{{ details.description }}</div>
+                                            <div class="position-badges">
+                                                {% if details.status == 'Selected' %}
+                                                    <span class="badge badge-success"><i class="fas fa-check"></i> Selected</span>
+                                                {% elif details.status == 'Disabled' %}
+                                                    <span class="badge badge-warning"><i class="fas fa-lock"></i> Elite Section Required</span>
+                                                {% else %}
+                                                    <span class="badge badge-info">{{ details.applications }} Applications</span>
+                                                    {% if details.applications >= details.max_applications %}
+                                                        <span class="badge badge-danger">Applications Full</span>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                            {% if details.status == 'Disabled' %}
+                                                <div style="color: #ffc107; font-size: 0.85rem; margin-top: 10px;">
+                                                    <i class="fas fa-info-circle"></i> {{ details.disabled_reason }}
+                                                </div>
+                                            {% endif %}
+                                            <div class="selection-indicator">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <input type="hidden" name="primary_choice" id="primary_choice" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Select Your Secondary Choice (Optional)</label>
+                                    <div class="position-selection secondary">
+                                        {% for position, details in positions.items() %}
+                                        {% if details.status == 'Open' %}
+                                        <div class="position-card" data-position="{{ position }}" onclick="selectPosition(this, 'secondary')">
+                                            <div class="position-icon">
+                                                <i class="fas {{ details.icon }}"></i>
+                                            </div>
+                                            <div class="position-title">{{ position }}</div>
+                                            <div class="position-description">{{ details.description }}</div>
+                                            <div class="position-badges">
+                                                <span class="badge badge-secondary">{{ details.applications }} Applications</span>
+                                                {% if details.applications >= details.max_applications %}
+                                                    <span class="badge badge-danger">Applications Full</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="selection-indicator">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <input type="hidden" name="secondary_choice" id="secondary_choice">
+                                </div>
+
+                                <div class="recommendation-box" id="recommendationBox" style="display: none;">
+                                    <h6 style="color: var(--rudra-blue); margin-bottom: 10px;">
+                                        <i class="fas fa-lightbulb"></i> Smart Recommendation
+                                    </h6>
+                                    <p id="recommendationText" style="margin: 0;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Position-Specific Questions -->
+                    <div class="form-step" id="step3">
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-question-circle"></i> Position-Specific Questions</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="why_primary">Why are you interested in your primary choice position?</label>
+                                    <textarea class="form-control" name="why_primary" rows="4" required
+                                              placeholder="Share your passion and motivation for this specific role..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="relevant_experience">What relevant experience do you have for this position?</label>
+                                    <textarea class="form-control" name="relevant_experience" rows="4" required
+                                              placeholder="Highlight specific experiences, projects, or skills that make you perfect for this role..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="specific_skills">What specific skills or knowledge do you bring to this position?</label>
+                                    <textarea class="form-control" name="specific_skills" rows="4" required
+                                              placeholder="Detail the unique skills and knowledge that align with this position..."></textarea>
+                                </div>
+
+                                <!-- Dynamic Position-Specific Questions -->
+                                <div id="dynamicQuestions" style="display: none;">
+                                    <hr style="border-color: rgba(255, 255, 255, 0.2); margin: 30px 0;">
+                                    <h5 style="color: var(--rudra-blue); margin-bottom: 25px;">
+                                        <i class="fas fa-brain"></i> Role-Specific Deep Dive
+                                    </h5>
+                                    
+                                    <div class="form-group">
+                                        <label for="position_q1" id="q1_label">Question 1:</label>
+                                        <textarea class="form-control" name="position_q1" rows="4" id="position_q1"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="position_q2" id="q2_label">Question 2:</label>
+                                        <textarea class="form-control" name="position_q2" rows="4" id="position_q2"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="position_q3" id="q3_label">Question 3:</label>
+                                        <textarea class="form-control" name="position_q3" rows="4" id="position_q3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Scenario-Based Assessment -->
+                    <div class="form-step" id="step4">
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-brain"></i> Scenario-Based Assessment</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="scenario_1">Scenario 1: Team Conflict Resolution</label>
+                                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 15px;">
+                                        You notice two team members having a disagreement that's affecting project progress. How would you handle this situation?
+                                    </p>
+                                    <textarea class="form-control" name="scenario_1" rows="4" required
+                                              placeholder="Describe your strategic approach to resolving this conflict and restoring team harmony..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="scenario_2">Scenario 2: Tight Deadline Management</label>
+                                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 15px;">
+                                        Your team has a major event/project deadline in 48 hours, but you're behind schedule. What's your action plan?
+                                    </p>
+                                    <textarea class="form-control" name="scenario_2" rows="4" required
+                                              placeholder="Outline your comprehensive strategy for meeting the deadline and ensuring quality delivery..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="innovation_project">Innovation Challenge</label>
+                                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 15px;">
+                                        Propose one innovative idea or initiative you'd like to implement in your chosen position to benefit RUDRA.
+                                    </p>
+                                    <textarea class="form-control" name="innovation_project" rows="4" required
+                                              placeholder="Share your groundbreaking idea and explain its potential impact on RUDRA's growth..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="collaboration_example">Collaboration Excellence</label>
+                                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 15px;">
+                                        Describe a time when you successfully collaborated with others on a challenging project or task.
+                                    </p>
+                                    <textarea class="form-control" name="collaboration_example" rows="4" required
+                                              placeholder="Share your collaboration story and the valuable lessons you learned..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="availability">Availability and Commitment</label>
+                                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 15px;">
+                                        Describe your availability for meetings, events, and regular responsibilities. Are there any constraints we should know about?
+                                    </p>
+                                    <textarea class="form-control" name="availability" rows="3" required
+                                              placeholder="Detail your availability and any time constraints that might affect your participation..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Review and Submit -->
+                    <div class="form-step" id="step5">
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-rocket"></i> Review & Launch Your Application</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <h6><i class="fas fa-info-circle"></i> Before You Launch</h6>
+                                    <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                                        <li>Review all your responses carefully</li>
+                                        <li>Ensure all required fields are completed</li>
+                                        <li>Double-check your contact information</li>
+                                        <li>You'll receive a confirmation email after submission</li>
+                                    </ul>
+                                </div>
+                                
+                                <div id="applicationSummary" style="margin-bottom: 30px;">
+                                    <!-- Summary will be populated by JavaScript -->
+                                </div>
+
+                                <!-- Terms and Conditions Section -->
+                                <div class="terms-section">
+                                    <div class="terms-header">
+                                        <i class="fas fa-file-contract"></i>
+                                        <h6>Terms & Conditions</h6>
+                                    </div>
+                                    
+                                    <div class="pdf-links">
+                                        <a href="{{ url_for('static', filename='pdfs/terms_and_conditions.pdf') }}" target="_blank" class="pdf-link">
+                                            <i class="fas fa-file-pdf"></i>
+                                            Terms & Conditions
+                                        </a>
+                                        <a href="{{ url_for('static', filename='pdfs/detailed_roles_responsibilities.pdf') }}" target="_blank" class="pdf-link">
+                                            <i class="fas fa-file-alt"></i>
+                                            Detailed Roles & Responsibilities
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="terms-checkbox">
+                                        <input type="checkbox" class="custom-checkbox" id="termsCheck" required>
+                                        <label for="termsCheck" class="checkbox-label">
+                                            I confirm that I have read and agree to the <strong>Terms & Conditions</strong> and <strong>Detailed Roles & Responsibilities</strong>. All information provided is accurate and I understand the responsibilities of the position I'm applying for.
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success btn-lg" style="padding: 15px 40px; font-size: 1.1rem;">
+                                        <i class="fas fa-rocket"></i> Launch My Application
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Navigation Buttons -->
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)" style="display: none;">
+                            <i class="fas fa-arrow-left"></i> Previous Step
+                        </button>
+                        <div></div> <!-- Spacer -->
+                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">
+                            Continue <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStepNum = 1;
+        const totalSteps = 5;
+
+        // Position-specific questions data
+        const positionQuestions = {
+            "Vice President": {
+                "q1": "How would you leverage your network to bring in external speakers, mentors, and industry professionals for RUDRA events?",
+                "q2": "Describe a time when you had to coordinate multiple teams or departments. What strategies did you use to ensure everyone stayed aligned?",
+                "q3": "What innovative online initiatives (AMAs, podcasts, webinars) would you implement to enhance RUDRA's public reputation?"
+            },
+            "Secretary": {
+                "q1": "Describe your experience with formal documentation, report writing, and university communications. Provide specific examples.",
+                "q2": "How would you ensure that all club activities remain compliant with university policies and regulatory requirements?",
+                "q3": "What systems would you implement to track institutional deadlines, approvals, and maintain comprehensive records?"
+            },
+            "Director of WebOps & Infrastructure": {
+                "q1": "Describe your experience with Flask, HTML, CSS, and JavaScript. Provide examples of projects you've built using these technologies.",
+                "q2": "How would you ensure the RUDRA website is scalable, SEO-optimized, and mobile-responsive while meeting the July-end deadline?",
+                "q3": "What technical infrastructure would you implement for content management, user authentication, and database integration?"
+            },
+            "Treasurer": {
+                "q1": "What creative fund-raising strategies would you implement to make RUDRA financially self-sustainable?",
+                "q2": "How would you identify and approach potential sponsors, partners, or alumni for long-term financial support?",
+                "q3": "Describe a monetizable initiative you would design (workshops, merchandise, etc.) and its implementation strategy."
+            },
+            "Executive Director – Design & Content Creation": {
+                "q1": "How would you develop and maintain brand guidelines to ensure consistent visual identity across all RUDRA platforms?",
+                "q2": "Describe your experience with design tools and your approach to creating engaging social media content and marketing materials.",
+                "q3": "What workflow would you establish for collaborating with different teams while maintaining design quality and brand consistency?"
+            }
+        };
+
+        // Initialize particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+function validateStep(stepNum) {
+            const step = document.getElementById(`step${stepNum}`);
+            const requiredFields = step.querySelectorAll('[required]');
+            let isValid = true;
+            let firstInvalidField = null;
+            
+            for (let field of requiredFields) {
+                let fieldValue = '';
+                
+                // Handle different field types
+                if (field.type === 'checkbox') {
+                    if (!field.checked) {
+                        isValid = false;
+                        if (!firstInvalidField) firstInvalidField = field;
+                    }
+                } else if (field.tagName === 'SELECT') {
+                    fieldValue = field.value;
+                    if (!fieldValue || fieldValue === '') {
+                        isValid = false;
+                        if (!firstInvalidField) firstInvalidField = field;
+                    }
+                } else {
+                    fieldValue = field.value.trim();
+                    if (!fieldValue) {
+                        isValid = false;
+                        if (!firstInvalidField) firstInvalidField = field;
+                    }
+                }
+            }
+            
+            // Additional validation for step 2 (position selection)
+            if (stepNum === 2) {
+                const primaryChoice = document.getElementById('primary_choice').value;
+                if (!primaryChoice) {
+                    showAlert('Please select your primary choice position.', 'warning');
+                    return false;
+                }
+            }
+            
+            // Additional validation for step 5 (terms checkbox)
+            if (stepNum === 5) {
+                const termsCheck = document.getElementById('termsCheck');
+                if (!termsCheck.checked) {
+                    showAlert('Please accept the Terms & Conditions to proceed.', 'warning');
+                    termsCheck.focus();
+                    return false;
+                }
+            }
+            
+            if (!isValid) {
+                if (firstInvalidField) {
+                    firstInvalidField.focus();
+                    
+                    // Add visual feedback
+                    firstInvalidField.style.borderColor = '#ff6b6b';
+                    setTimeout(() => {
+                        firstInvalidField.style.borderColor = '';
+                    }, 3000);
+                }
+                showAlert('Please fill in all required fields before proceeding.', 'warning');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Enhanced form field validation with real-time feedback
+        function setupFieldValidation() {
+            const requiredFields = document.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                field.addEventListener('blur', function() {
+                    validateField(this);
+                });
+                
+                field.addEventListener('input', function() {
+                    if (this.style.borderColor === 'rgb(255, 107, 107)') {
+                        validateField(this);
+                    }
+                });
+            });
+        }
+        
+        function validateField(field) {
+            let isValid = true;
+            
+            if (field.type === 'checkbox') {
+                isValid = field.checked;
+            } else if (field.tagName === 'SELECT') {
+                isValid = field.value && field.value !== '';
+            } else {
+                isValid = field.value.trim() !== '';
+            }
+            
+            if (isValid) {
+                field.style.borderColor = '#28a745';
+                setTimeout(() => {
+                    field.style.borderColor = '';
+                }, 2000);
+            } else {
+                field.style.borderColor = '#ff6b6b';
+            }
+            
+            return isValid;
+        }
+
+        // Enhanced position selection with better validation
+        function selectPosition(element, type) {
+            // Check if position is disabled or unavailable
+            if (element.classList.contains('unavailable') || element.classList.contains('disabled')) {
+                showAlert('This position is not available for selection.', 'warning');
+                return;
+            }
+            
+            const position = element.getAttribute('data-position');
+            const container = element.closest('.position-selection');
+            
+            // Remove previous selection
+            container.querySelectorAll('.position-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+            
+            // Update hidden input
+            document.getElementById(type + '_choice').value = position;
+            
+            // Visual feedback
+            const hiddenInput = document.getElementById(type + '_choice');
+            hiddenInput.style.borderColor = '#28a745';
+            
+            // Show recommendation for primary choice
+            if (type === 'primary') {
+                showRecommendation(position);
+                loadPositionQuestions(position);
+            }
+            
+            // Prevent secondary choice from being same as primary
+            if (type === 'secondary') {
+                const primaryChoice = document.getElementById('primary_choice').value;
+                if (position === primaryChoice) {
+                    showAlert('Secondary choice cannot be the same as primary choice.', 'warning');
+                    element.classList.remove('selected');
+                    document.getElementById(type + '_choice').value = '';
+                    return;
+                }
+            }
+        }
+
+        // Improved step change function
+        function changeStep(direction) {
+            const currentStep = document.getElementById(`step${currentStepNum}`);
+            
+            if (direction === 1) {
+                // Show loading for validation
+                const nextBtn = document.getElementById('nextBtn');
+                const originalText = nextBtn.innerHTML;
+                nextBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Validating...';
+                nextBtn.disabled = true;
+                
+                setTimeout(() => {
+                    if (!validateStep(currentStepNum)) {
+                        nextBtn.innerHTML = originalText;
+                        nextBtn.disabled = false;
+                        return;
+                    }
+                    
+                    if (currentStepNum < totalSteps) {
+                        currentStep.classList.remove('active');
+                        currentStepNum++;
+                        document.getElementById(`step${currentStepNum}`).classList.add('active');
+                        
+                        if (currentStepNum === 5) {
+                            populateReviewSummary();
+                        }
+                        
+                        updateProgressBar();
+                        updateNavigationButtons();
+                        updateStepCircles();
+                        
+                        // Scroll to top of form
+                        document.querySelector('.application-header').scrollIntoView({ 
+                            behavior: 'smooth' 
+                        });
+                    }
+                    
+                    nextBtn.innerHTML = originalText;
+                    nextBtn.disabled = false;
+                }, 500);
+                
+            } else {
+                if (currentStepNum > 1) {
+                    currentStep.classList.remove('active');
+                    currentStepNum--;
+                    document.getElementById(`step${currentStepNum}`).classList.add('active');
+                    
+                    updateProgressBar();
+                    updateNavigationButtons();
+                    updateStepCircles();
+                    
+                    // Scroll to top of form
+                    document.querySelector('.application-header').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                }
+            }
+        }
+
+        // Initialize everything with enhanced validation
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateProgressBar();
+            updateNavigationButtons();
+            updateStepCircles();
+            setupFieldValidation(); // Add this line
+            
+            // Debug: Add console logging for validation
+            console.log('Form validation initialized');
+        });
+
+        function updateProgressBar() {
+            const progress = (currentStepNum / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function updateStepCircles() {
+            for (let i = 1; i <= totalSteps; i++) {
+                const circle = document.getElementById(`step-${i}`);
+                if (circle) {
+                    circle.classList.remove('active', 'completed');
+                    if (i < currentStepNum) {
+                        circle.classList.add('completed');
+                        circle.innerHTML = '<i class="fas fa-check"></i>';
+                    } else if (i === currentStepNum) {
+                        circle.classList.add('active');
+                        circle.innerHTML = i;
+                    } else {
+                        circle.innerHTML = i;
+                    }
+                }
+            }
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.style.display = currentStepNum > 1 ? 'block' : 'none';
+            
+            if (currentStepNum === totalSteps) {
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.style.display = 'block';
+            }
+        }
+
+        function selectPosition(element, type) {
+            const position = element.getAttribute('data-position');
+            const container = element.closest('.position-selection');
+            
+            // Remove previous selection
+            container.querySelectorAll('.position-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+            
+            // Update hidden input
+            document.getElementById(type + '_choice').value = position;
+            
+            // Show recommendation for primary choice
+            if (type === 'primary') {
+                showRecommendation(position);
+                loadPositionQuestions(position);
+            }
+        }
+
+        function showRecommendation(position) {
+            const recommendationBox = document.getElementById('recommendationBox');
+            const recommendationText = document.getElementById('recommendationText');
+            
+            const recommendations = {
+                'Vice President': 'Excellent choice! This role demands strong networking and coordination skills. Your ability to manage external relationships will be crucial for RUDRA\'s growth.',
+                'Secretary': 'Perfect for detail-oriented leaders! This position requires exceptional organizational skills and experience with formal documentation.',
+                'Treasurer': 'Great for business-minded individuals! Focus on your fundraising experience and financial management skills.',
+                'Director of WebOps & Infrastructure': 'Ideal for tech enthusiasts! Make sure to highlight your Flask, HTML, CSS, and JavaScript expertise.',
+                'Executive Director – Design & Content Creation': 'Perfect for creative visionaries! Showcase your design portfolio and brand management experience.',
+                'Director of Events': 'Excellent for natural organizers! Highlight your event planning and logistics management experience.'
+            };
+            
+            if (recommendations[position]) {
+                recommendationText.textContent = recommendations[position];
+                recommendationBox.style.display = 'block';
+            } else {
+                recommendationBox.style.display = 'none';
+            }
+        }
+
+        function loadPositionQuestions(position) {
+            const dynamicQuestions = document.getElementById('dynamicQuestions');
+            const questions = positionQuestions[position];
+            
+            if (questions) {
+                document.getElementById('q1_label').textContent = questions.q1;
+                document.getElementById('q2_label').textContent = questions.q2;
+                document.getElementById('q3_label').textContent = questions.q3;
+                
+                // Make questions required
+                document.getElementById('position_q1').required = true;
+                document.getElementById('position_q2').required = true;
+                document.getElementById('position_q3').required = true;
+                
+                dynamicQuestions.style.display = 'block';
+            } else {
+                dynamicQuestions.style.display = 'none';
+            }
+        }
+
+        function populateReviewSummary() {
+            const summary = document.getElementById('applicationSummary');
+            const primaryChoice = document.getElementById('primary_choice').value;
+            const secondaryChoice = document.getElementById('secondary_choice').value;
+            
+            summary.innerHTML = `
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <h6 style="color: var(--rudra-blue); margin-bottom: 15px;">
+                        <i class="fas fa-user"></i> Personal Information
+                    </h6>
+                    <p><strong>Year of Study:</strong> ${document.querySelector('[name="year_of_study"]').value}</p>
+                    <p><strong>Time Commitment:</strong> ${document.querySelector('[name="time_commitment"]').value}</p>
+                    <p><strong>Academic Performance:</strong> ${document.querySelector('[name="academic_performance"]').value}</p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <h6 style="color: var(--rudra-blue); margin-bottom: 15px;">
+                        <i class="fas fa-crosshairs"></i> Position Preferences
+                    </h6>
+                    <p><strong>Primary Choice:</strong> ${primaryChoice}</p>
+                    <p><strong>Secondary Choice:</strong> ${secondaryChoice || 'None selected'}</p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px;">
+                    <h6 style="color: var(--rudra-blue); margin-bottom: 15px;">
+                        <i class="fas fa-lightbulb"></i> Application Highlights
+                    </h6>
+                    <p><strong>Motivation:</strong> ${document.querySelector('[name="why_primary"]').value.substring(0, 150)}...</p>
+                    <p><strong>Key Experience:</strong> ${document.querySelector('[name="relevant_experience"]').value.substring(0, 150)}...</p>
+                </div>
+            `;
+        }
+
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} alert-dismissible fade show`;
+            alert.style.animation = 'slideInDown 0.5s ease-out';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            `;
+            
+            document.querySelector('.container').insertBefore(alert, document.querySelector('.row'));
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // Show loading overlay on form submission
+        document.getElementById('applicationForm').addEventListener('submit', function() {
+            document.getElementById('loadingOverlay').classList.add('active');
+        });
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateProgressBar();
+            updateNavigationButtons();
+            updateStepCircles();
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

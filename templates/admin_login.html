@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - RUDRA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rudrastyle.css') }}">
+    <style>
+        .admin-login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(1, 1, 2, 0.95), rgba(29, 0, 135, 0.8));
+        }
+        .admin-login-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #68d4f2;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            min-width: 400px;
+        }
+        .admin-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .admin-logo i {
+            font-size: 3rem;
+            color: #68d4f2;
+            margin-bottom: 10px;
+        }
+        .admin-title {
+            color: #68d4f2;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #68d4f2;
+            color: #e8f1f2;
+            border-radius: 8px;
+            padding: 12px 15px;
+        }
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #3aaaff;
+            color: #e8f1f2;
+            box-shadow: 0 0 0 0.2rem rgba(104, 212, 242, 0.25);
+        }
+        .form-control::placeholder {
+            color: #b9e3e5;
+        }
+        .btn-admin {
+            background: linear-gradient(135deg, #68d4f2, #3aaaff);
+            border: none;
+            color: #1c1c1e;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(104, 212, 242, 0.4);
+            color: #1c1c1e;
+        }
+        .security-note {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #ffc107;
+            font-size: 0.9em;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #68d4f2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .back-link a:hover {
+            color: #3aaaff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body style="background-color: #010102;">
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <div class="admin-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h3 class="admin-title">RUDRA Admin Portal</h3>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="security-note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Security Notice:</strong> This is a secure admin portal. Only authorized personnel with valid credentials can access the application management system.
+            </div>
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="username" style="color: #e8f1f2;">
+                        <i class="fas fa-user"></i> Admin Username
+                    </label>
+                    <input type="text" class="form-control" id="username" name="username" 
+                           placeholder="Enter your admin username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" style="color: #e8f1f2;">
+                        <i class="fas fa-lock"></i> Admin Password
+                    </label>
+                    <input type="password" class="form-control" id="password" name="password" 
+                           placeholder="Enter your admin password" required>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-admin btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login to Admin Panel
+                    </button>
+                </div>
+            </form>
+
+            <div class="back-link">
+                <a href="{{ url_for('home') }}">
+                    <i class="fas fa-arrow-left"></i> Back to RUDRA Home
+                </a>
+            </div>
+
+            <div class="text-center mt-3">
+                <small style="color: #b9e3e5;">
+                    <i class="fas fa-shield-alt"></i> Secure admin authentication via Google Sheets
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
