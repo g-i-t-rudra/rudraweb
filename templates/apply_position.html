@@ -318,25 +318,41 @@
         }
 
         .form-control {
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.15);
+            /* Controls the background and text color of all input, select, textarea fields */
+            background: rgba(255, 255, 255, 0.13);
+            border: 2px solid rgba(255, 255, 255, 0.18);
             border-radius: 12px;
-            color: #222;
+            color: #1be7ff !important; /* Bright cyan for high contrast */
             padding: 15px 20px;
             font-size: 1rem;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            font-weight: 600;
         }
 
         .form-control:focus {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.18);
             border-color: var(--rudra-blue);
             box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2);
             outline: none;
+            color: #1be7ff !important;
         }
 
         .form-control::placeholder {
-            color: #444;
+            color: #b8c6db; /* Lighter placeholder for contrast on dark bg */
+        /* Ensures select dropdown and selected option text is visible */
+        select.form-control, select.form-control option {
+            color: #1be7ff !important;
+            background: rgba(30, 30, 40, 0.98) !important;
+        }
+
+        /* Ensures label text is bright and readable */
+        label {
+            color: #fff !important;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+        }
         }
 
         label {
