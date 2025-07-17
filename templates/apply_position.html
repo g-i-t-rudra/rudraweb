@@ -318,10 +318,10 @@
         }
 
         .form-control {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
-            color: var(--text-primary);
+            color: #222;
             padding: 15px 20px;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -329,14 +329,14 @@
         }
 
         .form-control:focus {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             border-color: var(--rudra-blue);
             box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2);
             outline: none;
         }
 
         .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: #444;
         }
 
         label {
@@ -345,6 +345,17 @@
             margin-bottom: 8px;
             display: block;
             position: relative;
+            color: #222 !important;
+            background: rgba(255,255,255,0.08) !important;
+            font-weight: 500;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.15);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 30px;
+            color: #222;
+            background: #fff;
         }
 
         label::after {
