@@ -319,10 +319,10 @@
 
         .form-control {
             /* Controls the background and text color of all input, select, textarea fields */
-            background: rgba(255, 255, 255, 0.13);
+            background: rgba(255, 255, 255, 1);
             border: 2px solid rgba(255, 255, 255, 0.18);
             border-radius: 12px;
-            color: #1be7ff !important; /* Bright cyan for high contrast */
+            color: #000000 !important; 
             padding: 15px 20px;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -335,16 +335,11 @@
             border-color: var(--rudra-blue);
             box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2);
             outline: none;
-            color: #1be7ff !important;
+            color: #581bff !important;
         }
 
         .form-control::placeholder {
-            color: #b8c6db; /* Lighter placeholder for contrast on dark bg */
-        /* Ensures select dropdown and selected option text is visible */
-        select.form-control, select.form-control option {
-            color: #1be7ff !important;
-            background: rgba(30, 30, 40, 0.98) !important;
-        }
+            color: #444
 
         /* Ensures label text is bright and readable */
         label {
