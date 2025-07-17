@@ -322,7 +322,7 @@
             background: rgba(30, 30, 40, 0.85);
             border: 2px solid var(--rudra-blue);
             border-radius: 12px;
-            color: #fff !important;
+            color: #ffffff;
             padding: 15px 20px;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -335,7 +335,7 @@
             border-color: var(--rudra-blue);
             box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2);
             outline: none;
-            color: #1be7ff !important;
+            color: #1be7ff;
         }
 
         .form-control::placeholder {
@@ -343,11 +343,19 @@
             opacity: 1;
         }
 
-        /* Ensures select dropdown and selected option text is visible */
+        /* Better approach for select dropdown styling */
         select.form-control {
-            color: #fff !important;
-            background: rgba(30, 30, 40, 0.98) !important;
+            color: #ffffff;
+            background-color: rgba(30, 30, 40, 0.98);
             font-weight: 700;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        select.form-control:focus {
+            color: #1be7ff;
+            background-color: rgba(30, 30, 40, 0.98);
         }
 
         /* Ensures label text is bright and readable */
