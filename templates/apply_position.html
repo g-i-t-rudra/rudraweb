@@ -319,43 +319,145 @@
 
         .form-control {
             /* Modern glassy dark background, bold white text for all input, select, textarea fields */
-            background: rgba(30, 30, 40, 0.85);
-            border: 2px solid var(--rudra-blue);
-            border-radius: 12px;
-            color: #ffffff;
-            padding: 15px 20px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            font-weight: 700;
+            background: rgba(30, 30, 40, 0.85) !important;
+            border: 2px solid var(--rudra-blue) !important;
+            border-radius: 12px !important;
+            color: #ffffff !important;
+            padding: 15px 20px !important;
+            font-size: 1rem !important;
+            transition: all 0.3s ease !important;
+            backdrop-filter: blur(10px) !important;
+            font-weight: 700 !important;
         }
 
         .form-control:focus {
-            background: rgba(30, 30, 40, 0.98);
-            border-color: var(--rudra-blue);
-            box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2);
-            outline: none;
-            color: #1be7ff;
+            background: rgba(30, 30, 40, 0.98) !important;
+            border-color: var(--rudra-blue) !important;
+            box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2) !important;
+            outline: none !important;
+            color: #1be7ff !important;
         }
 
         .form-control::placeholder {
-            color: #b8c6db; /* Lighter placeholder for contrast on dark bg */
-            opacity: 1;
+            color: #b8c6db !important; /* Lighter placeholder for contrast on dark bg */
+            opacity: 1 !important;
+        }
+
+        /* Add dropdown arrow for select elements */
+        .form-group select.form-control {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2368d4f2' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+            background-position: right 12px center !important;
+            background-repeat: no-repeat !important;
+            background-size: 16px 12px !important;
+            padding-right: 40px !important;
         }
 
         /* Better approach for select dropdown styling */
         select.form-control {
-            color: #ffffff;
-            background-color: rgba(30, 30, 40, 0.98);
-            font-weight: 700;
+            color: #ffffff !important;
+            background-color: rgba(30, 30, 40, 0.98) !important;
+            font-weight: 700 !important;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
         }
 
         select.form-control:focus {
-            color: #1be7ff;
-            background-color: rgba(30, 30, 40, 0.98);
+            color: #1be7ff !important;
+            background-color: rgba(30, 30, 40, 0.98) !important;
+        }
+
+        /* Force styling for select options - Windows compatibility */
+        select.form-control option {
+            color: #ffffff !important;
+            background-color: rgba(30, 30, 40, 0.98) !important;
+            font-weight: 700 !important;
+        }
+
+        select.form-control option:checked {
+            color: #1be7ff !important;
+            background-color: rgba(30, 30, 40, 0.98) !important;
+        }
+
+        /* Alternative styling for better Windows compatibility */
+        select.form-control {
+            text-shadow: none !important;
+            text-indent: 0.01px !important;
+            text-overflow: '' !important;
+        }
+
+        /* Browser-specific fixes for select visibility */
+        select.form-control::-ms-expand {
+            display: none;
+        }
+
+        /* Force color inheritance for all browsers */
+        select.form-control, 
+        select.form-control:focus,
+        select.form-control:active,
+        select.form-control:hover {
+            color: #ffffff !important;
+            background: rgba(30, 30, 40, 0.98) !important;
+        }
+
+        /* WebKit specific fixes */
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            select.form-control {
+                background: rgba(30, 30, 40, 0.98) !important;
+                color: #ffffff !important;
+            }
+        }
+
+        /* Firefox specific fixes */
+        @-moz-document url-prefix() {
+            select.form-control {
+                background: rgba(30, 30, 40, 0.98) !important;
+                color: #ffffff !important;
+            }
+        }
+
+        /* Last resort - if native select doesn't work, we'll use a custom dropdown */
+        .custom-select-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .custom-select {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .custom-select-trigger {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 15px 40px 15px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.5;
+            background: rgba(30, 30, 40, 0.85);
+            border: 2px solid var(--rudra-blue);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .custom-select-trigger:after {
+            position: absolute;
+            display: block;
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid var(--rudra-blue);
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%);
+            pointer-events: none;
         }
 
         /* Ensures label text is bright and readable */
