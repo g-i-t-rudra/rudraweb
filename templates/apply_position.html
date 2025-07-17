@@ -416,20 +416,13 @@
             }
         }
 
-        /* Last resort - if native select doesn't work, we'll use a custom dropdown */
-        .custom-select-wrapper {
+        /* Custom Dropdown Styling - Better solution than native select */
+        .custom-dropdown {
             position: relative;
-            display: inline-block;
             width: 100%;
         }
 
-        .custom-select {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .custom-select-trigger {
+        .custom-dropdown-trigger {
             position: relative;
             display: block;
             width: 100%;
@@ -443,21 +436,133 @@
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-align: left;
         }
 
-        .custom-select-trigger:after {
-            position: absolute;
-            display: block;
+        .custom-dropdown-trigger:hover {
+            background: rgba(30, 30, 40, 0.95);
+        }
+
+        .custom-dropdown-trigger.active {
+            background: rgba(30, 30, 40, 0.98);
+            border-color: var(--rudra-blue);
+            box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2);
+            color: #1be7ff;
+        }
+
+        .custom-dropdown-trigger.valid {
+            border-color: #28a745 !important;
+        }
+
+        .custom-dropdown-trigger.invalid {
+            border-color: #ff6b6b !important;
+        }
+
+        .custom-dropdown-trigger::after {
             content: '';
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
             width: 0;
             height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
             border-top: 8px solid var(--rudra-blue);
-            top: 50%;
-            right: 16px;
-            transform: translateY(-50%);
-            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+
+        .custom-dropdown-trigger.active::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .custom-dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(30, 30, 40, 0.98);
+            border: 2px solid var(--rudra-blue);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            backdrop-filter: blur(10px);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .custom-dropdown-options.show {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .custom-dropdown-option {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-dropdown-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-dropdown-option:hover {
+            background: rgba(104, 212, 242, 0.2);
+            color: #1be7ff;
+        }
+
+        .custom-dropdown-option.selected {
+            background: rgba(104, 212, 242, 0.3);
+            color: #1be7ff;
+        }
+
+        .custom-dropdown-option.placeholder {
+            color: #b8c6db;
+            font-style: italic;
+        }
+
+        /* Hide native selects - we'll replace them with custom dropdowns */
+        .native-select {
+            display: none;
+        }
+
+        /* Keep the old styles for non-dropdown elements */
+        .form-control:not(.custom-dropdown-trigger) {
+            background: rgba(30, 30, 40, 0.85) !important;
+            border: 2px solid var(--rudra-blue) !important;
+            border-radius: 12px !important;
+            color: #ffffff !important;
+            padding: 15px 20px !important;
+            font-size: 1rem !important;
+            transition: all 0.3s ease !important;
+            backdrop-filter: blur(10px) !important;
+            font-weight: 700 !important;
+        }
+
+        .form-control:not(.custom-dropdown-trigger):focus {
+            background: rgba(30, 30, 40, 0.98) !important;
+            border-color: var(--rudra-blue) !important;
+            box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2) !important;
+            outline: none !important;
+            color: #1be7ff !important;
+        }
+
+        .form-control:not(.custom-dropdown-trigger).valid {
+            border-color: #28a745 !important;
+        }
+
+        .form-control:not(.custom-dropdown-trigger).invalid {
+            border-color: #ff6b6b !important;
         }
 
         /* Ensures label text is bright and readable */
@@ -994,7 +1099,19 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="year_of_study">Year of Study</label>
-                                            <select class="form-control" name="year_of_study" required>
+                                            <div class="custom-dropdown">
+                                                <div class="custom-dropdown-trigger" data-target="year_of_study">Select Your Year</div>
+                                                <div class="custom-dropdown-options">
+                                                    <div class="custom-dropdown-option placeholder" data-value="">Select Your Year</div>
+                                                    <div class="custom-dropdown-option" data-value="1st Year">1st Year</div>
+                                                    <div class="custom-dropdown-option" data-value="2nd Year">2nd Year</div>
+                                                    <div class="custom-dropdown-option" data-value="3rd Year">3rd Year</div>
+                                                    <div class="custom-dropdown-option" data-value="4th Year">4th Year</div>
+                                                    <div class="custom-dropdown-option" data-value="Masters">Masters</div>
+                                                    <div class="custom-dropdown-option" data-value="PhD">PhD</div>
+                                                </div>
+                                            </div>
+                                            <select class="form-control native-select" name="year_of_study" required>
                                                 <option value="">Select Your Year</option>
                                                 <option value="1st Year">1st Year</option>
                                                 <option value="2nd Year">2nd Year</option>
@@ -1008,7 +1125,17 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="time_commitment">Time Commitment (hours/week)</label>
-                                            <select class="form-control" name="time_commitment" required>
+                                            <div class="custom-dropdown">
+                                                <div class="custom-dropdown-trigger" data-target="time_commitment">Select Time Commitment</div>
+                                                <div class="custom-dropdown-options">
+                                                    <div class="custom-dropdown-option placeholder" data-value="">Select Time Commitment</div>
+                                                    <div class="custom-dropdown-option" data-value="2-4 hours">2-4 hours</div>
+                                                    <div class="custom-dropdown-option" data-value="5-8 hours">5-8 hours</div>
+                                                    <div class="custom-dropdown-option" data-value="9-15 hours">9-15 hours</div>
+                                                    <div class="custom-dropdown-option" data-value="15+ hours">15+ hours</div>
+                                                </div>
+                                            </div>
+                                            <select class="form-control native-select" name="time_commitment" required>
                                                 <option value="">Select Time Commitment</option>
                                                 <option value="2-4 hours">2-4 hours</option>
                                                 <option value="5-8 hours">5-8 hours</option>
@@ -1021,7 +1148,17 @@
                                 
                                 <div class="form-group">
                                     <label for="academic_performance">Academic Performance</label>
-                                    <select class="form-control" name="academic_performance" required>
+                                    <div class="custom-dropdown">
+                                        <div class="custom-dropdown-trigger" data-target="academic_performance">Select Performance Level</div>
+                                        <div class="custom-dropdown-options">
+                                            <div class="custom-dropdown-option placeholder" data-value="">Select Performance Level</div>
+                                            <div class="custom-dropdown-option" data-value="Excellent (9.0+ CGPA)">Excellent (9.0+ CGPA)</div>
+                                            <div class="custom-dropdown-option" data-value="Very Good (8.0-8.9 CGPA)">Very Good (8.0-8.9 CGPA)</div>
+                                            <div class="custom-dropdown-option" data-value="Good (7.0-7.9 CGPA)">Good (7.0-7.9 CGPA)</div>
+                                            <div class="custom-dropdown-option" data-value="Average (6.0-6.9 CGPA)">Average (6.0-6.9 CGPA)</div>
+                                        </div>
+                                    </div>
+                                    <select class="form-control native-select" name="academic_performance" required>
                                         <option value="">Select Performance Level</option>
                                         <option value="Excellent (9.0+ CGPA)">Excellent (9.0+ CGPA)</option>
                                         <option value="Very Good (8.0-8.9 CGPA)">Very Good (8.0-8.9 CGPA)</option>
@@ -1341,6 +1478,126 @@
         let currentStepNum = 1;
         const totalSteps = 5;
 
+        // Custom Dropdown Functionality
+        function initializeCustomDropdowns() {
+            const dropdowns = document.querySelectorAll('.custom-dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                const trigger = dropdown.querySelector('.custom-dropdown-trigger');
+                const options = dropdown.querySelector('.custom-dropdown-options');
+                const optionItems = dropdown.querySelectorAll('.custom-dropdown-option');
+                const targetName = trigger.getAttribute('data-target');
+                const hiddenSelect = document.querySelector(`select[name="${targetName}"]`);
+                
+                // Toggle dropdown on trigger click
+                trigger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close all other dropdowns
+                    document.querySelectorAll('.custom-dropdown-options').forEach(otherOptions => {
+                        if (otherOptions !== options) {
+                            otherOptions.classList.remove('show');
+                            otherOptions.parentElement.querySelector('.custom-dropdown-trigger').classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    options.classList.toggle('show');
+                    trigger.classList.toggle('active');
+                });
+                
+                // Handle option selection
+                optionItems.forEach(option => {
+                    option.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const value = this.getAttribute('data-value');
+                        const text = this.textContent;
+                        
+                        // Update trigger text
+                        trigger.textContent = text;
+                        
+                        // Update hidden select
+                        if (hiddenSelect) {
+                            hiddenSelect.value = value;
+                            
+                            // Trigger change event for validation
+                            const changeEvent = new Event('change', { bubbles: true });
+                            hiddenSelect.dispatchEvent(changeEvent);
+                        }
+                        
+                        // Update selected state
+                        optionItems.forEach(item => item.classList.remove('selected'));
+                        this.classList.add('selected');
+                        
+                        // Close dropdown
+                        options.classList.remove('show');
+                        trigger.classList.remove('active');
+                        
+                        // Validate the field
+                        validateCustomDropdown(trigger, value);
+                    });
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.custom-dropdown')) {
+                    document.querySelectorAll('.custom-dropdown-options').forEach(options => {
+                        options.classList.remove('show');
+                        options.parentElement.querySelector('.custom-dropdown-trigger').classList.remove('active');
+                    });
+                }
+            });
+        }
+        
+        // Validate custom dropdown
+        function validateCustomDropdown(trigger, value) {
+            if (value && value !== '') {
+                trigger.classList.remove('invalid');
+                trigger.classList.add('valid');
+                setTimeout(() => {
+                    trigger.classList.remove('valid');
+                }, 2000);
+            } else {
+                trigger.classList.remove('valid');
+                trigger.classList.add('invalid');
+            }
+        }
+        
+        // Update validateField function to handle custom dropdowns
+        function validateField(field) {
+            let isValid = true;
+            
+            if (field.classList.contains('custom-dropdown-trigger')) {
+                const targetName = field.getAttribute('data-target');
+                const hiddenSelect = document.querySelector(`select[name="${targetName}"]`);
+                isValid = hiddenSelect && hiddenSelect.value && hiddenSelect.value !== '';
+                validateCustomDropdown(field, hiddenSelect ? hiddenSelect.value : '');
+            } else if (field.type === 'checkbox') {
+                isValid = field.checked;
+            } else if (field.tagName === 'SELECT') {
+                isValid = field.value && field.value !== '';
+            } else {
+                isValid = field.value.trim() !== '';
+            }
+            
+            if (isValid && !field.classList.contains('custom-dropdown-trigger')) {
+                field.classList.remove('invalid');
+                field.classList.add('valid');
+                setTimeout(() => {
+                    field.classList.remove('valid');
+                }, 2000);
+            } else if (!isValid && !field.classList.contains('custom-dropdown-trigger')) {
+                field.classList.remove('valid');
+                field.classList.add('invalid');
+            }
+            
+            return isValid;
+        }
+
         // Position-specific questions data
         const positionQuestions = {
             "Vice President": {
@@ -1384,12 +1641,14 @@
                 particlesContainer.appendChild(particle);
             }
         }
-function validateStep(stepNum) {
+        function validateStep(stepNum) {
             const step = document.getElementById(`step${stepNum}`);
             const requiredFields = step.querySelectorAll('[required]');
+            const customDropdowns = step.querySelectorAll('.custom-dropdown-trigger');
             let isValid = true;
             let firstInvalidField = null;
             
+            // Validate required fields
             for (let field of requiredFields) {
                 let fieldValue = '';
                 
@@ -1414,6 +1673,21 @@ function validateStep(stepNum) {
                 }
             }
             
+            // Validate custom dropdowns
+            customDropdowns.forEach(dropdown => {
+                const targetName = dropdown.getAttribute('data-target');
+                const hiddenSelect = document.querySelector(`select[name="${targetName}"]`);
+                if (hiddenSelect && hiddenSelect.hasAttribute('required')) {
+                    if (!hiddenSelect.value || hiddenSelect.value === '') {
+                        isValid = false;
+                        if (!firstInvalidField) firstInvalidField = dropdown;
+                        dropdown.classList.add('invalid');
+                    } else {
+                        dropdown.classList.remove('invalid');
+                    }
+                }
+            });
+            
             // Additional validation for step 2 (position selection)
             if (stepNum === 2) {
                 const primaryChoice = document.getElementById('primary_choice').value;
@@ -1426,7 +1700,7 @@ function validateStep(stepNum) {
             // Additional validation for step 5 (terms checkbox)
             if (stepNum === 5) {
                 const termsCheck = document.getElementById('termsCheck');
-                if (!termsCheck.checked) {
+                if (termsCheck && !termsCheck.checked) {
                     showAlert('Please accept the Terms & Conditions to proceed.', 'warning');
                     termsCheck.focus();
                     return false;
@@ -1438,10 +1712,14 @@ function validateStep(stepNum) {
                     firstInvalidField.focus();
                     
                     // Add visual feedback
-                    firstInvalidField.style.borderColor = '#ff6b6b';
-                    setTimeout(() => {
-                        firstInvalidField.style.borderColor = '';
-                    }, 3000);
+                    if (firstInvalidField.classList.contains('custom-dropdown-trigger')) {
+                        firstInvalidField.classList.add('invalid');
+                    } else {
+                        firstInvalidField.classList.add('invalid');
+                        setTimeout(() => {
+                            firstInvalidField.classList.remove('invalid');
+                        }, 3000);
+                    }
                 }
                 showAlert('Please fill in all required fields before proceeding.', 'warning');
                 return false;
@@ -1595,14 +1873,13 @@ function validateStep(stepNum) {
 
         // Initialize everything with enhanced validation
         document.addEventListener('DOMContentLoaded', function() {
+            initializeCustomDropdowns();
+            setupFieldValidation();
             createParticles();
             updateProgressBar();
             updateNavigationButtons();
             updateStepCircles();
-            setupFieldValidation(); // Add this line
-            
-            // Debug: Add console logging for validation
-            console.log('Form validation initialized');
+            console.log('Form validation and custom dropdowns initialized');
         });
 
         function updateProgressBar() {
@@ -1758,13 +2035,64 @@ function validateStep(stepNum) {
             document.getElementById('loadingOverlay').classList.add('active');
         });
 
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
+        // Missing utility functions
+        function showStep(stepNum) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show current step
+            document.getElementById(`step${stepNum}`).classList.add('active');
+            
+            // Update progress and navigation
             updateProgressBar();
-            updateNavigationButtons();
             updateStepCircles();
-        });
+            updateNavigationButtons();
+        }
+
+        function changeStep(direction) {
+            if (direction === 1) {
+                if (validateStep(currentStepNum)) {
+                    currentStepNum++;
+                    showStep(currentStepNum);
+                }
+            } else {
+                currentStepNum--;
+                showStep(currentStepNum);
+            }
+        }
+
+        function selectPosition(element, type) {
+            // Check if position is disabled or unavailable
+            if (element.classList.contains('unavailable') || element.classList.contains('disabled')) {
+                showAlert('This position is not available for selection.', 'warning');
+                return;
+            }
+            
+            const position = element.getAttribute('data-position');
+            const container = element.closest('.position-selection');
+            
+            // Remove previous selection
+            container.querySelectorAll('.position-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+            
+            // Update hidden input
+            document.getElementById(type + '_choice').value = position;
+        }
+
+        function showRecommendation(position) {
+            console.log('Showing recommendation for:', position);
+        }
+
+        function loadPositionQuestions(position) {
+            console.log('Loading questions for:', position);
+        }
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
