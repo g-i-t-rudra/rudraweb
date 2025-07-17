@@ -318,28 +318,37 @@
         }
 
         .form-control {
-            /* Controls the background and text color of all input, select, textarea fields */
-            background: rgba(255, 255, 255, 1);
-            border: 2px solid rgba(255, 255, 255, 0.18);
+            /* Modern glassy dark background, bold white text for all input, select, textarea fields */
+            background: rgba(30, 30, 40, 0.85);
+            border: 2px solid var(--rudra-blue);
             border-radius: 12px;
-            color: #000000 !important; 
+            color: #fff !important;
             padding: 15px 20px;
             font-size: 1rem;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .form-control:focus {
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(30, 30, 40, 0.98);
             border-color: var(--rudra-blue);
             box-shadow: 0 0 0 3px rgba(104, 212, 242, 0.2);
             outline: none;
-            color: #581bff !important;
+            color: #1be7ff !important;
         }
 
         .form-control::placeholder {
-            color: #444
+            color: #b8c6db; /* Lighter placeholder for contrast on dark bg */
+            opacity: 1;
+        }
+
+        /* Ensures select dropdown and selected option text is visible */
+        select.form-control, select.form-control option {
+            color: #fff !important;
+            background: rgba(30, 30, 40, 0.98) !important;
+            font-weight: 700;
+        }
 
         /* Ensures label text is bright and readable */
         label {
@@ -348,26 +357,8 @@
             letter-spacing: 0.01em;
             text-shadow: 0 1px 4px rgba(0,0,0,0.25);
         }
-        }
 
-        label {
-            color: var(--text-primary);
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: block;
-            position: relative;
-            color: #222 !important;
-            background: rgba(255,255,255,0.08) !important;
-            font-weight: 500;
-            border-radius: 12px;
-            border: 2px solid rgba(255,255,255,0.15);
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            padding-right: 30px;
-            color: #222;
-            background: #fff;
-        }
+        /* Remove duplicate/overriding label styles for clarity */
 
         label::after {
             content: '';
