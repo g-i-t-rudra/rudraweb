@@ -1,0 +1,38 @@
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Node.js (if using React, etc.)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if using Flask/Django/etc.)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+ENV/
+*.sqlite3
+
+# VS Code/IDE/editor stuff
+.vscode/
+.idea/
+*.swp
+
+# Build & dist folders (optional)
+dist/
+build/
+coverage/
+*.log
+
+# Git itself
+.git/
+*.orig
+
+# Others (customize if needed)
+.env.local
+.env.*.local
+.cache/

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Quiz - Master Quantum Computing Concepts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Quantum Background Animation -->
+    <div class="quantum-bg" id="quantumBg"></div>
+    
+    <div class="container">
+        <div class="header fade-in">
+            <h1>BhramaQ</h1>
+            <p>Master foundational quantum computing concepts through interactive quizzes. Learn qubits, Bloch spheres, and Dirac notation while earning delicious chocolate rewards!</p>
+        </div>
+        
+        <div class="card fade-in">
+            <h2 style="text-align: center; color: #00ffff; margin-bottom: 20px;">Welcome to Quantum Computing</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 30px 0;">
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">⚛️</div>
+                    <h3 style="color: #00ffff; margin-bottom: 10px;">Qubit Fundamentals</h3>
+                    <p style="color: #b0b0b0; line-height: 1.6;">Learn the basic building blocks of quantum computing - qubits, superposition, and quantum states.</p>
+                </div>
+                
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🌐</div>
+                    <h3 style="color: #ff00ff; margin-bottom: 10px;">Bloch Sphere Visualization</h3>
+                    <p style="color: #b0b0b0; line-height: 1.6;">Understand how quantum states are represented geometrically in 3D space.</p>
+                </div>
+                
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📐</div>
+                    <h3 style="color: #ffff00; margin-bottom: 10px;">Dirac Notation</h3>
+                    <p style="color: #b0b0b0; line-height: 1.6;">Master the elegant bra-ket notation for representing quantum states and operations.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="{{ url_for('level') }}" class="btn">Start Your Quantum Journey</a>
+            </div>
+        </div>
+        
+        <div class="card fade-in">
+            <h3 style="color: #ffff00; margin-bottom: 20px; text-align: center;">🍫 Chocolate Reward System</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.2);">
+                    <h4 style="color: #ffd700; margin-bottom: 10px;">🎯 5 Questions Per Level</h4>
+                    <ul style="color: #b0b0b0; line-height: 1.6; text-align: left;">
+                        <li>Each level has exactly 5 questions</li>
+                        <li>Focus on specific quantum concepts</li>
+                        <li>Progressive difficulty</li>
+                        <li>Immediate feedback</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.2);">
+                    <h4 style="color: #ffd700; margin-bottom: 10px;">🍫 Chocolate Rewards</h4>
+                    <ul style="color: #b0b0b0; line-height: 1.6; text-align: left;">
+                        <li>1 chocolate for passing each level</li>
+                        <li>5 correct answers to pass</li>
+                        <li>chocolates on passing each level</li>
+                        <li>Motivates learning</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.2);">
+                    <h4 style="color: #ffd700; margin-bottom: 10px;">📊 Modern Analytics</h4>
+                    <ul style="color: #b0b0b0; line-height: 1.6; text-align: left;">
+                        <li>Foundational for quantum ML</li>
+                        <li>Relevant to data science</li>
+                        <li>Future technology skills</li>
+                        <li>Advanced computing concepts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card fade-in">
+            <h3 style="color: #00ffff; margin-bottom: 20px; text-align: center;">Learning Path</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 255, 0.05)); padding: 20px; border-radius: 10px; border: 1px solid rgba(0, 255, 255, 0.2);">
+                    <h4 style="color: #00ffff; margin-bottom: 10px;">Level 1: Qubit Basics</h4>
+                    <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 15px;">Start with the fundamental unit of quantum information. Learn what qubits are, how they differ from classical bits, and their basic properties.</p>
+                    <div style="color: #00ffff; font-size: 0.9rem;">⭐ Beginner Friendly</div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 0, 255, 0.2);">
+                    <h4 style="color: #ff00ff; margin-bottom: 10px;">Level 2: Bloch Sphere</h4>
+                    <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 15px;">Visualize quantum states using the Bloch sphere. Understand how qubits are represented geometrically in 3D space with angles and coordinates.</p>
+                    <div style="color: #ff00ff; font-size: 0.9rem;">⭐⭐ Intermediate</div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(255, 255, 0, 0.1), rgba(255, 255, 0, 0.05)); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 0, 0.2);">
+                    <h4 style="color: #ffff00; margin-bottom: 10px;">Level 3: Dirac Notation</h4>
+                    <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 15px;">Master the elegant bra-ket notation for representing quantum states and operations. Essential for advanced quantum computing.</p>
+                    <div style="color: #ffff00; font-size: 0.9rem;">⭐⭐⭐ Advanced</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Create quantum particle animation
+        function createQuantumParticles() {
+            const quantumBg = document.getElementById('quantumBg');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'quantum-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                quantumBg.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createQuantumParticles();
+            
+            // Add fade-in animation to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = (index * 0.2) + 's';
+            });
+        });
+    </script>
+</body>
+</html> 

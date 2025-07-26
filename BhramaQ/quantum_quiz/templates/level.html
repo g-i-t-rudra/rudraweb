@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Level - Quantum Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Quantum Background Animation -->
+    <div class="quantum-bg" id="quantumBg"></div>
+    
+    <div class="container">
+        <div class="header fade-in">
+            <h1>Choose Your Quantum Level</h1>
+            <p>Master quantum computing concepts through three progressive levels. Start with 5 questions, earn extra questions if needed, and get 1 chocolate per level when you pass!</p>
+        </div>
+        
+        <div class="level-grid">
+            <div class="level-card fade-in" onclick="window.location.href='{{ url_for('quiz', level_id=1) }}'">
+                <h3>Level 1: Qubit Basics</h3>
+                <p>Learn the fundamental building blocks of quantum computing. Understand what qubits are, how they differ from classical bits, and their basic properties.</p>
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #00ffff;">
+                    <strong>Topics:</strong> Qubit definition, Superposition, Quantum states, Basic operations
+                </div>
+                <div style="margin-top: 10px; font-size: 0.8rem; color: #b0b0b0;">
+                    ⭐ Beginner Friendly • 5 Questions + Extra
+                </div>
+                <div style="margin-top: 8px; font-size: 0.8rem; color: #ffff00;">
+                    🍫 Earn 1 chocolate for passing!
+                </div>
+            </div>
+            
+            <div class="level-card fade-in" onclick="window.location.href='{{ url_for('quiz', level_id=2) }}'">
+                <h3>Level 2: Bloch Sphere Representation</h3>
+                <p>Explore the geometric representation of qubits using the Bloch sphere. Visualize quantum states and understand how qubits are represented in 3D space.</p>
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #ff00ff;">
+                    <strong>Topics:</strong> Bloch sphere, Quantum state visualization, Angles and coordinates, Pure states
+                </div>
+                <div style="margin-top: 10px; font-size: 0.8rem; color: #b0b0b0;">
+                    ⭐⭐ Intermediate Level • 5 Questions + Extra
+                </div>
+                <div style="margin-top: 8px; font-size: 0.8rem; color: #ffff00;">
+                    🍫 Earn 1 chocolate for passing!
+                </div>
+            </div>
+            
+            <div class="level-card fade-in" onclick="window.location.href='{{ url_for('quiz', level_id=3) }}'">
+                <h3>Level 3: Dirac (Bra-Ket) Notation</h3>
+                <p>Master the elegant Dirac notation for representing quantum states and operations. Learn bra-ket notation and its applications in quantum computing.</p>
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #ffff00;">
+                    <strong>Topics:</strong> Bra-ket notation, Quantum state vectors, Inner products, Outer products
+                </div>
+                <div style="margin-top: 10px; font-size: 0.8rem; color: #b0b0b0;">
+                    ⭐⭐⭐ Advanced Level • 5 Questions + Extra
+                </div>
+                <div style="margin-top: 8px; font-size: 0.8rem; color: #ffff00;">
+                    🍫 Earn 1 chocolate for passing!
+                </div>
+            </div>
+        </div>
+        
+        <div class="card fade-in">
+            <h3 style="text-align: center; color: #00ffff; margin-bottom: 20px;">How It Works</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">
+                <div>
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🎯</div>
+                    <h4 style="color: #00ffff; margin-bottom: 5px;">Select Level</h4>
+                    <p style="color: #b0b0b0; font-size: 0.9rem;">Choose from three quantum computing concepts</p>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; margin-bottom: 10px;">❓</div>
+                    <h4 style="color: #ff00ff; margin-bottom: 5px;">Answer Questions</h4>
+                    <p style="color: #b0b0b0; font-size: 0.9rem;">Start with 5 questions, get extra if needed</p>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🍫</div>
+                    <h4 style="color: #ffff00; margin-bottom: 5px;">Earn Chocolate</h4>
+                    <p style="color: #b0b0b0; font-size: 0.9rem;">Get 1 chocolate per level when you pass (4+ correct)</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card fade-in">
+            <h3 style="text-align: center; color: #ffff00; margin-bottom: 20px;">🍫 Chocolate Reward System</h3>
+            <div style="text-align: center; color: #b0b0b0; line-height: 1.6;">
+                <p><strong>Live Scoring:</strong> +1 point for correct answers, 0 for incorrect answers.</p>
+                <p><strong>Passing Threshold:</strong> You need at least 4 out of 5 correct answers to pass each level.</p>
+                <p><strong>Chocolate Rewards:</strong> Earn 1 chocolate per level when you pass (not per question).</p>
+                <p><strong>Extra Questions:</strong> If you haven't reached 5 points after 5 questions, you'll get up to 3 extra questions.</p>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+    
+    <script>
+        // Create quantum particle animation
+        function createQuantumParticles() {
+            const quantumBg = document.getElementById('quantumBg');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'quantum-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                quantumBg.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createQuantumParticles();
+            
+            // Add fade-in animation to level cards
+            const cards = document.querySelectorAll('.level-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = (index * 0.3) + 's';
+            });
+        });
+    </script>
+</body>
+</html> 
