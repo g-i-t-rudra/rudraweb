@@ -1,0 +1,509 @@
+{
+  "level_1": [
+        {
+          "question": "What is a qubit?",
+          "options": ["A classical bit", "A data structure", "A quantum bit that can be 0, 1, or both", "An optical illusion"],
+          "correct_answer": "A quantum bit that can be 0, 1, or both"
+        },
+        {
+          "question": "What is the fundamental difference between a qubit and a classical bit?",
+          "options": ["Qubits can hold multiple values at once", "Qubits are larger", "Classical bits use light", "Qubits are slower"],
+          "correct_answer": "Qubits can hold multiple values at once"
+        },
+        {
+          "question": "What is superposition in quantum computing?",
+          "options": ["The ability to hold only one value", "The position of the bit in memory", "The ability to be in multiple states simultaneously", "None of the above"],
+          "correct_answer": "The ability to be in multiple states simultaneously"
+        },
+        {
+          "question": "How many classical bits are needed to represent a single qubit's state exactly?",
+          "options": ["1", "2", "Infinite", "None"],
+          "correct_answer": "Infinite"
+        },
+        {
+          "question": "Which of the following represents a valid qubit state?",
+          "options": ["Only 0", "Only 1", "A linear combination of 0 and 1", "Negative one"],
+          "correct_answer": "A linear combination of 0 and 1"
+        },
+        {
+          "question": "What is the measurement outcome of a qubit in superposition?",
+          "options": ["Both 0 and 1 at once", "Only 0", "Either 0 or 1 probabilistically", "None of the above"],
+          "correct_answer": "Either 0 or 1 probabilistically"
+        },
+        {
+          "question": "Which of the following gates is unique to quantum computing?",
+          "options": ["AND gate", "OR gate", "XOR gate", "Hadamard gate"],
+          "correct_answer": "Hadamard gate"
+        },
+        {
+          "question": "What does a quantum gate do?",
+          "options": ["Transfers data to memory", "Flips classical bits", "Manipulates qubit states", "Sends data to CPU"],
+          "correct_answer": "Manipulates qubit states"
+        },
+        {
+          "question": "What is the maximum number of distinguishable states for 1 qubit?",
+          "options": ["1", "2", "Infinite", "Depends on measurement"],
+          "correct_answer": "2"
+        },
+        {
+          "question": "What are the standard basis states for a qubit?",
+          "options": ["|A⟩ and |B⟩", "|0⟩ and |1⟩", "True and False", "Open and Close"],
+          "correct_answer": "|0⟩ and |1⟩"
+        },
+        {
+          "question": "How do qubits gain power over classical bits?",
+          "options": ["Using quantum memory", "Through entanglement and superposition", "By being faster", "Through compression"],
+          "correct_answer": "Through entanglement and superposition"
+        },
+        {
+          "question": "Which of these is a quantum gate?",
+          "options": ["XOR", "AND", "Z", "NAND"],
+          "correct_answer": "Z"
+        },
+        {
+          "question": "What is quantum decoherence?",
+          "options": ["Making the system faster", "Stabilizing quantum states", "Loss of quantum properties", "Cooling down the system"],
+          "correct_answer": "Loss of quantum properties"
+        },
+        {
+          "question": "What is the effect of applying the X gate to |0⟩?",
+          "options": ["Changes it to |1⟩", "Leaves it unchanged", "Destroys the qubit", "Converts it to classical"],
+          "correct_answer": "Changes it to |1⟩"
+        },
+        {
+          "question": "What is quantum entanglement?",
+          "options": ["Quantum teleportation", "Quantum noise", "Linking qubits such that their states are dependent", "Error correction"],
+          "correct_answer": "Linking qubits such that their states are dependent"
+        },
+        {
+          "question": "Which is a key challenge in quantum computing?",
+          "options": ["Speed", "Storage", "Noise and error correction", "Programming"],
+          "correct_answer": "Noise and error correction"
+        },
+        {
+          "question": "What is the physical realization of qubits in IBM’s quantum computers?",
+          "options": ["Electrons in metal", "Quantum dots", "Superconducting circuits", "Photons in fiber"],
+          "correct_answer": "Superconducting circuits"
+        },
+        {
+          "question": "What is the output of measuring a qubit in state |+⟩?",
+          "options": ["Always 1", "Always 0", "50% chance of 0 or 1", "None"],
+          "correct_answer": "50% chance of 0 or 1"
+        },
+        {
+          "question": "What is the Hadamard gate used for?",
+          "options": ["Flipping a bit", "Creating entanglement", "Creating superposition", "Resetting the circuit"],
+          "correct_answer": "Creating superposition"
+        },
+        {
+          "question": "What’s a quantum register?",
+          "options": ["A classical storage", "A single qubit", "A group of qubits used for computation", "A heat sink"],
+          "correct_answer": "A group of qubits used for computation"
+        },
+        {
+          "question": "What does the Y gate do to |0⟩?",
+          "options": ["Leaves it unchanged", "Flips it to |1⟩", "Flips and applies phase shift", "Deletes the qubit"],
+          "correct_answer": "Flips and applies phase shift"
+        },
+        {
+          "question": "Which quantum concept allows parallelism?",
+          "options": ["Teleportation", "Superposition", "Measurement", "Unitarity"],
+          "correct_answer": "Superposition"
+        },
+        {
+          "question": "What’s the outcome of measuring an entangled pair?",
+          "options": ["Two random values", "Two unrelated results", "Correlated results", "Error"],
+          "correct_answer": "Correlated results"
+        },
+        {
+          "question": "Can a qubit be copied?",
+          "options": ["Yes", "No", "Only when measured", "Depends on hardware"],
+          "correct_answer": "No"
+        },
+        {
+          "question": "What property ensures quantum evolution is reversible?",
+          "options": ["Irreversibility", "Unitarity", "Superposition", "Measurement"],
+          "correct_answer": "Unitarity"
+        }      
+  ],
+  "level_2": [
+    {
+      "question": "What does the Bloch Sphere represent?",
+      "options": ["Quantum gates", "The state of a qubit", "Quantum circuits", "Classical bits"],
+      "correct_answer": "The state of a qubit"
+    },
+    {
+      "question": "What is the north pole of the Bloch Sphere typically associated with?",
+      "options": ["|0⟩", "|1⟩", "|+⟩", "|-⟩"],
+      "correct_answer": "|0⟩"
+    },
+    {
+      "question": "Which axis on the Bloch Sphere does the Pauli-X gate rotate around?",
+      "options": ["X-axis", "Y-axis", "Z-axis", "No axis"],
+      "correct_answer": "X-axis"
+    },
+    {
+      "question": "Which state lies at the equator of the Bloch Sphere?",
+      "options": ["|0⟩", "|1⟩", "|+⟩", "|-⟩"],
+      "correct_answer": "|+⟩"
+    },
+    {
+      "question": "What is the angle from the Z-axis on the Bloch Sphere called?",
+      "options": ["Azimuthal angle", "Polar angle", "Rotation angle", "Euler angle"],
+      "correct_answer": "Polar angle"
+    },
+    {
+      "question": "Which gate rotates a qubit around the Z-axis?",
+      "options": ["X gate", "Y gate", "Z gate", "Hadamard gate"],
+      "correct_answer": "Z gate"
+    },
+    {
+      "question": "The state |1⟩ lies where on the Bloch Sphere?",
+      "options": ["Equator", "North pole", "South pole", "Center"],
+      "correct_answer": "South pole"
+    },
+    {
+      "question": "What shape is the Bloch Sphere?",
+      "options": ["Cube", "Plane", "Sphere", "Cylinder"],
+      "correct_answer": "Sphere"
+    },
+    {
+      "question": "What does the surface of the Bloch Sphere represent?",
+      "options": ["Mixed states", "Classical bits", "Pure states", "Entangled states"],
+      "correct_answer": "Pure states"
+    },
+    {
+      "question": "Which mathematical form is used to define a qubit on the Bloch Sphere?",
+      "options": ["Trigonometric form", "Euler angles", "Spherical coordinates", "Matrix form"],
+      "correct_answer": "Spherical coordinates"
+    },
+    {
+      "question": "A qubit in state (|0⟩ + |1⟩)/√2 lies where on the Bloch Sphere?",
+      "options": ["North pole", "South pole", "Equator", "Origin"],
+      "correct_answer": "Equator"
+    },
+    {
+      "question": "Which gate reflects a qubit about the X-axis on the Bloch Sphere?",
+      "options": ["X gate", "Y gate", "Z gate", "T gate"],
+      "correct_answer": "X gate"
+    },
+    {
+      "question": "What does a 180° rotation around the Y-axis transform |0⟩ into?",
+      "options": ["|0⟩", "|1⟩", "|+⟩", "|-⟩"],
+      "correct_answer": "|1⟩"
+    },
+    {
+      "question": "Which component does the equator represent on the Bloch Sphere?",
+      "options": ["Real", "Imaginary", "Superposition", "Classical"],
+      "correct_answer": "Superposition"
+    },
+    {
+      "question": "How many degrees of freedom does a qubit have on the Bloch Sphere?",
+      "options": ["1", "2", "3", "4"],
+      "correct_answer": "2"
+    },
+    {
+      "question": "Which angle on the Bloch Sphere defines phase?",
+      "options": ["Theta", "Phi", "Psi", "Alpha"],
+      "correct_answer": "Phi"
+    },
+    {
+      "question": "What does the Hadamard gate do on the Bloch Sphere?",
+      "options": ["Rotate around Z-axis", "Flip across X-axis", "Rotate from pole to equator", "Swap |0⟩ and |1⟩"],
+      "correct_answer": "Rotate from pole to equator"
+    },
+    {
+      "question": "What type of gate causes rotation around the Y-axis?",
+      "options": ["RX gate", "RY gate", "RZ gate", "CZ gate"],
+      "correct_answer": "RY gate"
+    },
+    {
+      "question": "What is the significance of π radians rotation on Bloch Sphere?",
+      "options": ["Full circle", "Quarter turn", "Half turn", "No effect"],
+      "correct_answer": "Half turn"
+    },
+    {
+      "question": "Which state lies at 180° from |0⟩ on the Bloch Sphere?",
+      "options": ["|0⟩", "|1⟩", "|+⟩", "|-⟩"],
+      "correct_answer": "|1⟩"
+    },
+    {
+      "question": "In what direction does an RX(π/2) gate move a qubit from |0⟩?",
+      "options": ["Toward |+⟩", "Toward |1⟩", "Toward |-⟩", "Toward |0⟩"],
+      "correct_answer": "Toward |+⟩"
+    },
+    {
+      "question": "Which axis defines the global phase in a qubit's Bloch Sphere state?",
+      "options": ["X-axis", "Y-axis", "Z-axis", "It is not shown on the sphere"],
+      "correct_answer": "It is not shown on the sphere"
+    },
+    {
+      "question": "The vector pointing on the Bloch Sphere defines what about the qubit?",
+      "options": ["Its error", "Its probability", "Its complete state", "Its dimension"],
+      "correct_answer": "Its complete state"
+    },
+    {
+      "question": "Which transformation takes |0⟩ to |+⟩ on the Bloch Sphere?",
+      "options": ["X gate", "Y gate", "Hadamard gate", "S gate"],
+      "correct_answer": "Hadamard gate"
+    },
+    {
+      "question": "A rotation of π around the X-axis transforms |0⟩ into?",
+      "options": ["|+⟩", "|1⟩", "|-⟩", "|0⟩"],
+      "correct_answer": "|1⟩"
+    }
+  ],  
+  "level_3": [
+    {
+      "question": "What does the symbol |ψ⟩ represent in quantum mechanics?",
+      "options": [
+        "A probability",
+        "A quantum state",
+        "A classical bit",
+        "A measurement device"
+      ],
+      "correct_answer": "A quantum state"
+    },
+    {
+      "question": "Which part of Dirac notation is called a 'bra'?",
+      "options": [
+        "|ψ⟩",
+        "⟨ψ|",
+        "|ψ|",
+        "⟨ψ⟩"
+      ],
+      "correct_answer": "⟨ψ|"
+    },
+    {
+      "question": "What does ⟨ψ|ψ⟩ = 1 usually mean?",
+      "options": [
+        "The state is normalized",
+        "The state is zero",
+        "The state is imaginary",
+        "The system is classical"
+      ],
+      "correct_answer": "The state is normalized"
+    },
+    {
+      "question": "Which of these best describes the |0⟩ and |1⟩ states?",
+      "options": [
+        "Probability functions",
+        "Quantum operators",
+        "Basic building blocks (basis states)",
+        "Random variables"
+      ],
+      "correct_answer": "Basic building blocks (basis states)"
+    },
+    {
+      "question": "If |+⟩ = (|0⟩ + |1⟩)/√2, what does this represent?",
+      "options": [
+        "A zero state",
+        "A classical bit",
+        "A superposition",
+        "A measurement"
+      ],
+      "correct_answer": "A superposition"
+    },
+    {
+      "question": "What is the main purpose of bra-ket notation?",
+      "options": [
+        "To describe classical physics",
+        "To describe quantum states and inner products",
+        "To calculate time",
+        "To write code"
+      ],
+      "correct_answer": "To describe quantum states and inner products"
+    },
+    {
+      "question": "What does the inner product ⟨φ|ψ⟩ tell us?",
+      "options": [
+        "The number of qubits",
+        "How similar two states are",
+        "The energy level",
+        "The measurement result"
+      ],
+      "correct_answer": "How similar two states are"
+    },
+    {
+      "question": "What do we call the expression |ψ⟩⟨ψ|?",
+      "options": [
+        "Tensor product",
+        "Outer product",
+        "Inner product",
+        "Matrix inverse"
+      ],
+      "correct_answer": "Outer product"
+    },
+    {
+      "question": "Which of the following is a valid ket?",
+      "options": [
+        "⟨0|",
+        "|0⟩",
+        "|ψ|",
+        "ψ⟩"
+      ],
+      "correct_answer": "|0⟩"
+    },
+    {
+      "question": "Why is Dirac notation useful in quantum computing?",
+      "options": [
+        "It’s easier to draw circuits",
+        "It’s a popular programming language",
+        "It helps represent quantum states and operations cleanly",
+        "It’s used for classical logic"
+      ],
+      "correct_answer": "It helps represent quantum states and operations cleanly"
+    },
+    {
+      "question": "If ⟨ψ|ϕ⟩ = 0, what does this mean about the two states?",
+      "options": [
+        "They are identical",
+        "They are orthogonal",
+        "They are in superposition",
+        "They are entangled"
+      ],
+      "correct_answer": "They are orthogonal"
+    },
+    {
+      "question": "What is the dimensionality of a ket |ψ⟩ in a 2-qubit system?",
+      "options": [
+        "2",
+        "4",
+        "8",
+        "16"
+      ],
+      "correct_answer": "4"
+    },
+    {
+      "question": "In Dirac notation, what does ⟨ψ|A|ψ⟩ represent?",
+      "options": [
+        "The inner product",
+        "The expected value of operator A",
+        "The norm of ψ",
+        "The state of system A"
+      ],
+      "correct_answer": "The expected value of operator A"
+    },
+    {
+      "question": "Which of the following is a correct inner product?",
+      "options": [
+        "|ψ⟩|ϕ⟩",
+        "⟨ψ|ϕ⟩",
+        "ψ⟩ϕ|",
+        "⟨ψ⟩⟨ϕ|"
+      ],
+      "correct_answer": "⟨ψ|ϕ⟩"
+    },
+    {
+      "question": "Which of these represents a *bra* vector?",
+      "options": [
+        "|ψ⟩",
+        "ψ|",
+        "⟨ψ|",
+        "⟨ψ⟩"
+      ],
+      "correct_answer": "⟨ψ|"
+    },
+    {
+      "question": "Which mathematical operation is most like a bra-ket ⟨ψ|ϕ⟩?",
+      "options": [
+        "Addition",
+        "Subtraction",
+        "Dot product",
+        "Cross product"
+      ],
+      "correct_answer": "Dot product"
+    },
+    {
+      "question": "What kind of quantity is ⟨ψ|ψ⟩ always?",
+      "options": [
+        "Complex",
+        "Negative",
+        "Real and positive",
+        "Zero"
+      ],
+      "correct_answer": "Real and positive"
+    },
+    {
+      "question": "Which of the following can represent a qubit state?",
+      "options": [
+        "|Apple⟩",
+        "|Up⟩",
+        "|0⟩ + |1⟩",
+        "Only |0⟩"
+      ],
+      "correct_answer": "|0⟩ + |1⟩"
+    },
+    {
+      "question": "What is required for a state |ψ⟩ to be considered valid (physical)?",
+      "options": [
+        "Its inner product must be zero",
+        "It must be orthogonal",
+        "It must be normalized (⟨ψ|ψ⟩ = 1)",
+        "It must be imaginary"
+      ],
+      "correct_answer": "It must be normalized (⟨ψ|ψ⟩ = 1)"
+    },
+    {
+      "question": "If ⟨0|1⟩ = 0, what can we say?",
+      "options": [
+        "They are the same state",
+        "They are orthogonal",
+        "They are complex conjugates",
+        "They are entangled"
+      ],
+      "correct_answer": "They are orthogonal"
+    },
+    {
+      "question": "Which best describes ⟨ψ|ϕ⟩ in terms of probability?",
+      "options": [
+        "A state transition probability amplitude",
+        "A classical score",
+        "A measurement result",
+        "The state’s entropy"
+      ],
+      "correct_answer": "A state transition probability amplitude"
+    },
+    {
+      "question": "Which operation turns a ket |ψ⟩ into a bra?",
+      "options": [
+        "Hermitian conjugation (dagger)",
+        "Multiplication",
+        "Addition",
+        "Tensor product"
+      ],
+      "correct_answer": "Hermitian conjugation (dagger)"
+    },
+    {
+      "question": "What is the result of |0⟩⟨0| acting on |1⟩?",
+      "options": [
+        "It returns |0⟩",
+        "It returns 1",
+        "It returns 0",
+        "It returns |1⟩"
+      ],
+      "correct_answer": "It returns 0"
+    },
+    {
+      "question": "Which of these is NOT a valid property of Dirac notation?",
+      "options": [
+        "⟨ψ|ϕ⟩ is a complex number",
+        "|ψ⟩⟨ϕ| is an operator",
+        "|ψ⟩ + |ϕ⟩ is always zero",
+        "⟨ψ|ψ⟩ gives the probability amplitude squared"
+      ],
+      "correct_answer": "|ψ⟩ + |ϕ⟩ is always zero"
+    },
+    {
+      "question": "In quantum computing, what does |ψ⟩ usually represent?",
+      "options": [
+        "The input to a classical algorithm",
+        "A logic gate",
+        "The quantum state of the system",
+        "The name of a measurement"
+      ],
+      "correct_answer": "The quantum state of the system"
+    }
+  ]
+  
+}

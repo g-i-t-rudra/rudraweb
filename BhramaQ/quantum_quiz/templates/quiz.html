@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Quiz - Level {{ level_id }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Quantum Background Animation -->
+    <div class="quantum-bg" id="quantumBg"></div>
+    
+    <div class="container">
+        <div class="quiz-container">
+            <div class="question-header">
+                <div class="question-number">
+                    Question <span id="questionNumber">{{ question_number }}</span> of <span id="totalQuestions">{{ total_questions }}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: {{ (question_number / total_questions) * 100 }}%"></div>
+                </div>
+            </div>
+            
+            <!-- Simple Attempted/Score Display -->
+            <div style="text-align:center; margin-bottom: 20px; color: #00ffff; font-size: 1.1rem;">
+                Questions Attempted: <span id="attemptedCount">{{ question_number }}</span>/<span id="totalQuestions2">{{ total_questions }}</span>
+                &nbsp;|&nbsp;
+                Score: <span id="currentScore">{{ current_score }}</span>
+            </div>
+            
+            <div class="card">
+                <div class="question-text" id="questionText">
+                    {{ question.question }}
+                </div>
+                
+                <div class="options-container" id="optionsContainer">
+                    {% for option in question.options %}
+                    <div class="option" data-answer="{{ option }}" onclick="selectOption(this)">
+                        {{ option }}
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" id="submitBtn" onclick="submitAnswer()" disabled>
+                        Submit Answer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedAnswer = null;
+        let isAnswered = false;
+        let currentScore = {{ current_score }};
+        let attemptedCount = {{ question_number }};
+        let totalQuestions = {{ total_questions }};
+        
+        // Create quantum particle animation
+        function createQuantumParticles() {
+            const quantumBg = document.getElementById('quantumBg');
+            const particleCount = 10;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'quantum-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                quantumBg.appendChild(particle);
+            }
+        }
+        
+        function selectOption(element) {
+            if (isAnswered) return;
+            
+            // Remove previous selection
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Select new option
+            element.classList.add('selected');
+            selectedAnswer = element.dataset.answer;
+            document.getElementById('submitBtn').disabled = false;
+        }
+        
+        function submitAnswer() {
+            if (!selectedAnswer || isAnswered) return;
+            
+            isAnswered = true;
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').innerHTML = '<span class="loading"></span> Submitting...';
+            
+            fetch('/submit_answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    answer: selectedAnswer
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.completed) {
+                    // Quiz completed, redirect to results
+                    window.location.href = '/completed';
+                } else {
+                    // Show next question
+                    updateQuestion(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').innerHTML = 'Submit Answer';
+                isAnswered = false;
+            });
+        }
+        
+        function updateQuestion(data) {
+            // Update question text
+            document.getElementById('questionText').textContent = data.question.question;
+            
+            // Update options
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            data.question.options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.dataset.answer = option;
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectOption(optionElement);
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update progress
+            const progressFill = document.getElementById('progressFill');
+            const progressPercentage = (data.question_number / data.total_questions) * 100;
+            progressFill.style.width = progressPercentage + '%';
+            
+            // Update question number and attempted count
+            document.getElementById('questionNumber').textContent = data.question_number;
+            document.getElementById('attemptedCount').textContent = data.question_number;
+            document.getElementById('totalQuestions').textContent = data.total_questions;
+            document.getElementById('totalQuestions2').textContent = data.total_questions;
+            
+            // Update score
+            currentScore = data.current_score;
+            document.getElementById('currentScore').textContent = currentScore;
+            
+            // Reset state
+            selectedAnswer = null;
+            isAnswered = false;
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').innerHTML = 'Submit Answer';
+            
+            // Add fade-in animation
+            document.querySelector('.card').classList.add('fade-in');
+        }
+        
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createQuantumParticles();
+        });
+    </script>
+</body>
+</html> 

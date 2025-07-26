@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Completed - Quantum Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .quantum-badge {
+            display: inline-block;
+            padding: 18px 40px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+            background-size: 400% 400%;
+            border-radius: 40px;
+            box-shadow: 0 0 40px #00ffff99, 0 0 80px #ff00ff44;
+            margin: 30px 0 20px 0;
+            animation: badgeGlow 3s ease-in-out infinite alternate, badgeGradient 8s linear infinite;
+            letter-spacing: 2px;
+        }
+        .all-levels-completed-message {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            text-align: center;
+            margin: 40px 0 20px 0;
+            animation: badgeGradient 8s linear infinite;
+            text-shadow: 0 0 40px #00ffff99, 0 0 80px #ff00ff44;
+        }
+        .collect-reward {
+            font-size: 2rem;
+            color: #ffd700;
+            text-align: center;
+            margin: 20px 0 40px 0;
+            font-weight: bold;
+            animation: pulse 1.5s infinite alternate;
+        }
+        @keyframes badgeGlow {
+            0% { box-shadow: 0 0 40px #00ffff99, 0 0 80px #ff00ff44; }
+            100% { box-shadow: 0 0 80px #ffff0099, 0 0 120px #00ffff44; }
+        }
+        @keyframes badgeGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        @keyframes pulse {
+            0% { color: #ffd700; text-shadow: 0 0 10px #ffd700, 0 0 40px #ff00ff44; }
+            100% { color: #fff700; text-shadow: 0 0 40px #ffd700, 0 0 80px #00ffff44; }
+        }
+        .confetti {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Quantum Background Animation -->
+    <div class="quantum-bg" id="quantumBg"></div>
+    <canvas class="confetti" id="confettiCanvas"></canvas>
+    
+    <div class="container">
+        <div class="results-container fade-in">
+            <h1 style="margin-bottom: 30px;">Quiz Completed!</h1>
+            
+            <div class="score-display">
+                {{ score }}/{{ total }}
+            </div>
+            
+            <div class="percentage">
+                {{ percentage }}%
+            </div>
+            
+            {% if passed %}
+                <div class="feedback excellent">
+                    🎉 Congratulations! You passed and earned 1 chocolate! You have a solid understanding of quantum computing concepts.
+                </div>
+            {% else %}
+                <div class="feedback needs-improvement">
+                    📚 Keep studying! You need at least 4/5 correct to pass. Review the concepts and try again to earn your chocolate.
+                </div>
+            {% endif %}
+            
+            {% if passed and not all_levels_completed %}
+                <div class="card" style="margin-top: 30px; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1)); border: 2px solid #ffd700;">
+                    <h3 style="text-align: center; color: #ffd700; margin-bottom: 20px;">🍫 Chocolate Reward Earned!</h3>
+                    <div style="text-align: center; font-size: 3rem; margin: 20px 0;">🍫</div>
+                    <p style="text-align: center; color: #b0b0b0; font-size: 1.1rem;">You earned <strong style="color: #ffd700;">1 chocolate</strong> for passing this level!</p>
+                </div>
+            {% endif %}
+            
+            {% if not all_levels_completed %}
+            <div class="card" style="margin-top: 40px;">
+                <h3 style="text-align: center; color: #00ffff; margin-bottom: 20px;">Your Performance Breakdown</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 10px;">✅</div>
+                        <h4 style="color: #00ff00; margin-bottom: 5px;">Correct Answers</h4>
+                        <p style="color: #b0b0b0; font-size: 1.5rem; font-weight: bold;">{{ score }}</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 10px;">❌</div>
+                        <h4 style="color: #ff0000; margin-bottom: 5px;">Incorrect Answers</h4>
+                        <p style="color: #b0b0b0; font-size: 1.5rem; font-weight: bold;">{{ total - score }}</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
+                        <h4 style="color: #00ffff; margin-bottom: 5px;">Success Rate</h4>
+                        <p style="color: #b0b0b0; font-size: 1.5rem; font-weight: bold;">{{ percentage }}%</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🎯</div>
+                        <h4 style="color: #ffff00; margin-bottom: 5px;">Passing Status</h4>
+                        <p style="color: #b0b0b0; font-size: 1.5rem; font-weight: bold;">
+                            {% if passed %}
+                                <span style="color: #00ff00;">PASSED</span>
+                            {% else %}
+                                <span style="color: #ff0000;">NEEDS 4/5</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if passed and not all_levels_completed %}
+                <div class="nav-buttons" style="margin-top: 40px;">
+                    {% if level_id == 1 %}
+                        <a href="{{ url_for('quiz', level_id=2) }}" class="btn">Proceed to Level 2 &rarr;</a>
+                    {% elif level_id == 2 %}
+                        <a href="{{ url_for('quiz', level_id=3) }}" class="btn">Proceed to Level 3 &rarr;</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+            
+            {% if all_levels_completed %}
+                <div style="text-align: center; margin-top: 50px;">
+                    <div class="all-levels-completed-message">🎉 You have completed <br>ALL LEVELS! 🎉</div>
+                    <div class="collect-reward">Please collect your reward!!</div>
+                    <div class="quantum-badge">Quantum Master!</div>
+                    <div style="font-size: 1.3rem; color: #00ff99; margin-top: 20px;">You have successfully completed all levels.<br>You're a true quantum whiz! 🚀</div>
+                </div>
+            {% endif %}
+            
+            <div class="card" style="margin-top: 30px;">
+                <h3 style="text-align: center; color: #00ffff; margin-bottom: 20px;">Scoring System</h3>
+                <div style="text-align: center; color: #b0b0b0; line-height: 1.6;">
+                    <p><strong>Live Scoring:</strong> +1 point for correct answers, 0 for incorrect answers.</p>
+                    <p><strong>Extra Questions:</strong> Up to 3 additional questions if you haven't reached 5 points after the first 5 questions.</p>
+                    <p><strong>Chocolate Reward:</strong> 1 chocolate per level when you pass (4+ correct answers).</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <h3 style="text-align: center; color: #00ffff; margin-bottom: 20px;">Why This Matters</h3>
+                <div style="text-align: center; color: #b0b0b0; line-height: 1.6;">
+                    <p><strong>Modern Analytics:</strong> These quantum computing concepts are foundational for understanding quantum algorithms and quantum machine learning.</p>
+                    <p><strong>Data Science:</strong> Quantum concepts are increasingly relevant in big data processing and advanced analytics.</p>
+                    <p><strong>Future Technology:</strong> Understanding qubits, Bloch spheres, and Dirac notation prepares you for the quantum computing revolution.</p>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <a href="{{ url_for('quiz', level_id=level_id) }}" class="btn">Try Again</a>
+                <a href="{{ url_for('level') }}" class="btn btn-secondary">Choose Different Level</a>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Quantum confetti for all levels completed
+        function launchConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const confettiColors = ['#00ffff', '#ff00ff', '#ffff00', '#00ff99', '#fff'];
+            let confetti = [];
+            
+            for (let i = 0; i < 120; i++) {
+                confetti.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * -canvas.height,
+                    r: Math.random() * 8 + 4,
+                    d: Math.random() * 40 + 10,
+                    color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+                    tilt: Math.random() * 10 - 10,
+                    tiltAngleIncremental: (Math.random() * 0.07) + .05,
+                    tiltAngle: 0
+                });
+            }
+            
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                confetti.forEach(c => {
+                    ctx.beginPath();
+                    ctx.lineWidth = c.r;
+                    ctx.strokeStyle = c.color;
+                    ctx.moveTo(c.x + c.tilt + (c.r / 3), c.y);
+                    ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.d / 5);
+                    ctx.stroke();
+                });
+                update();
+            }
+            
+            function update() {
+                confetti.forEach(c => {
+                    c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+                    c.x += Math.sin(0.01 * c.d);
+                    c.tiltAngle += c.tiltAngleIncremental;
+                    c.tilt = Math.sin(c.tiltAngle) * 15;
+                    if (c.y > canvas.height) {
+                        c.x = Math.random() * canvas.width;
+                        c.y = -10;
+                    }
+                });
+            }
+            
+            function animate() {
+                draw();
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+        
+        // Create quantum particle animation
+        function createQuantumParticles() {
+            const quantumBg = document.getElementById('quantumBg');
+            const particleCount = 12;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'quantum-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                quantumBg.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createQuantumParticles();
+            
+            // Launch confetti if all levels completed
+            {% if all_levels_completed %}
+            setTimeout(launchConfetti, 500);
+            {% endif %}
+        });
+    </script>
+</body>
+</html> 
